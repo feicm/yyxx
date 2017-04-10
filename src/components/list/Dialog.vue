@@ -37,6 +37,7 @@
 <script>
 import API from '../../api/API'
 const api = new API();
+console.dir(API)
 export default{
 	beforeMount(){
 		let that = this;

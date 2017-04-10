@@ -1,8 +1,8 @@
 {
-  "name": "scroll",
-  "description": "vue-component",
+  "name": "LE",
+  "description": "Learning English",
   "version": "1.0.0",
-  "author": "zhiwei_zhai",
+  "author": "feicm",
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot",
