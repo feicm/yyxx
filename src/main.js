@@ -4,16 +4,20 @@ import VueRouter from 'vue-router'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 
-import List from './components/list/List.vue'
-import Detail from './components/detail/Detail.vue'
+import Home from './components/home/Main.vue'
+import User from './components/user/Main.vue'
+import Recharge from './components/recharge/Main.vue'
+import Feedback from './components/feedback/Main.vue'
+import Attestation from './components/attestation/Main.vue'
 Vue.use(VueRouter);
 Vue.use(MintUI)
 
 
 const routes = [
-	
-	{ path: '/', component: List },
-	{ path: '/detail/:id', component: Detail }
+	{ path: '/', component: Home },
+	{ path: '/user/info', component: User },
+	{ path: '/user/recharge', component: Recharge },
+	{ path: '/user/attestation', component: Attestation }
 ]
 
 const router = new VueRouter({

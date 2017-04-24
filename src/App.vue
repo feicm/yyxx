@@ -1,5 +1,5 @@
 <template>
-    <div id="app2">
+    <div id="app">
         <router-view></router-view>
     </div>
 </template>
@@ -16,9 +16,6 @@ export default {
 }
 </script>
 
-<style>
-#app {
-    
-}
+<style scoped lang="scss">
 
 </style>
