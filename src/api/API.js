@@ -4,18 +4,100 @@ import qs from 'qs'
 
 // axios(config);
 class API {
-	getList (param) {
-		config.data.Method="get";
-		config.data.CustData.Data = param;
-		return axios.post('/Router',{},config);
+	getUserInfoByOpenid(param){
+    config.data.Method="get";
+    config.data = param;
+    return axios.get('/userInfo/getUserByOpenid',config);
 	}
-	getCurrency (param) {
-		console.log(config);
-		var commonData = Object.create(config);
-		
-		config.data.Method="get";
-		config.data.CustData.Data = param;
-		return axios.post('/Router',{},config);
-	}
+  getUserInfoByUserid(param){
+    config.data.Method="get";
+    config.data = param;
+    return axios.get('/userInfo/getUserByUserId',config);
+  }
+  userIdentity(param){
+    config.data = param;
+    return axios.post('/userInfo/authUserInfo',config);
+  }
+  getRechargeGoods(param){
+    config.data.Method="get";
+    config.data= param;
+    return axios.get('/v0.1/goods',config);
+  }
+  getOrderInfo(param){
+    config.data.Method="get";
+    config.data = param;
+    return axios.get('/v0.1/order/{order_id}',config);
+  }
+  createOrder(param){
+    config.data = param;
+    return axios.post('/v0.1/order',{},config);
+  }
+  createClassGroup(param){
+    config.data= param;
+    return axios.post('/classInfo/saveClassInfo',config);
+  }
+  joinClassGroup(param){
+    config.data = param;
+    return axios.post('/classInfo/saveUserClass',config);
+  }
+  exitClassGroup(param){
+    config.data.Method="get";
+    config.data= param;
+    return axios.get('/classInfo/exitClass',config);
+  }
+  getClassGroupList(param){
+    config.data.Method="get";
+    config.data= param;
+    return axios.get('/classInfo/getClassesByUserId',config);
+  }
+  getClassGroupInfo(param){
+    config.data.Method="get";
+    config.data= param;
+    return axios.get('/classInfo/getClassMsgByClassId',config);
+  }
+  getGrade(param){
+    config.data.Method="get";
+    config.data= param;
+    return axios.get('/gradeInfo/getGradeInfos',config);
+  }
+  getTextbookVersion(param){
+    config.data.Method="get";
+    config.data= param;
+    return axios.get('/v0.1/textbook/{grade_code}/{serial_code}',config);
+  }
+  getTaskList(param){
+    config.data= param;
+    return axios.post('/v0.1/task',config);
+  }
+  getNewestTaskList(param){
+    config.data= param;
+    return axios.post('/v0.1/task/{class_id}',config);
+  }
+  getTaskHistory(param){
+    config.data.Method="get";
+    config.data= param;
+    return axios.get('/v0.1/classgroup/task/{class_id}/{user_id}',config);
+  }
+  getNotice(param){
+    config.data.Method="get";
+    config.data= param;
+    return axios.get('/notifyInfo/getNotifyInfo',config);
+  }
+  saveNotice(param){
+    config.data= param;
+    return axios.post('/notifyInfo/saveNotifyInfo',config);
+  }
+  editNotice(param){
+    config.data= param;
+    return axios.post('/notifyInfo/updateNotifyInfo',config);
+  }
+  uploadImg(param){
+    config.data= param;
+    return axios.post('/utils/uploadImg',config);
+  }
+  postAgreement(param){
+    config.data= param;
+    return axios.post('/agreementInfo/saveAgreementInfo',config);
+  }
 }
 export default API;

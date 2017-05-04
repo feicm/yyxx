@@ -7,10 +7,10 @@
             </a>
             <p class="name"><span>助学英语</span></p>
         </header>
-        <mt-field placeholder="输入真实姓名" type="text" v-model="name">
+        <mt-field placeholder="输入真实姓名" type="text" v-model="user_name">
             <img src="../../assets/images/view/attestation_import_username.png">
         </mt-field>
-        <mt-field placeholder="输入手机号码" type="phone" v-model="phone">
+        <mt-field placeholder="输入手机号码" type="tel" v-model="mobile">
             <img src="../../assets/images/view/attestation_import_tel_number.png">
         </mt-field>
         <div class="select-list">
@@ -50,7 +50,7 @@
 
 <script>
   import Vue from 'vue'
-  import {Cell, Field} from 'mint-ui';
+  import {Cell, Field,Toast} from 'mint-ui';
   import Topbar from '../topbar/Main.vue';
   import _ from 'lodash';
 
@@ -63,29 +63,43 @@
     },
     data () {
       return {
-        name: '',
-        phone: '',
+        user_name: '',
+        mobile: '',
         role: {
           student: {
             text: '学生',
             select: true,
-            id: 0,
+            id: 1,
           },
           patriarch: {
             text: '家长',
             select: false,
-            id: 1,
+            id: 2,
           },
           teacher: {
             text: '老师',
             select: false,
-            id: 2,
+            id: 3,
           },
         }
       }
     },
-    watch: {},
-    computed: {},
+    watch: {
+      mobile(){
+        console.log(23423)
+        if(!(/^1[34578]\d{9}$/.test(this.mobile))){
+          Toast({
+            position: 'top',
+            message: '请填写正确的手机号码！'
+          });
+          return '';
+        }
+        return this.mobile
+      }
+    },
+    computed: {
+
+    },
     components: {
       Topbar
     },
