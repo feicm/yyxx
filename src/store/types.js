@@ -1,0 +1,2 @@
+export const GET_INFO_BY_USERID = 'GET_INFO_BY_USERID';
+export const GET_INFO_BY_OPENID = 'GET_INFO_BY_OPENID';

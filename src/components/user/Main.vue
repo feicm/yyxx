@@ -3,18 +3,18 @@
         <Topbar></Topbar>
         <header class="header">
             <a class="portrait">
-                <img v-if="userInfo.headimgurl" :src="userInfo.headimgurl">
-                <img v-else="userInfo.headimgurl"
+                <img v-if="wx_userInfo.headimgurl" :src="wx_userInfo.headimgurl">
+                <img v-else="wx_userInfo.headimgurl"
                      src="../../assets/images/default/general_user_head_portrait_student_default.png">
             </a>
-            <p class="username"><span>{{userInfo.nickname}}</span></p>
-            <p class="userid"><span>账号：{{userInfo.userId}}</span></p>
+            <p class="username"><span>{{wx_userInfo.nickname||userInfo.nick_name}}</span></p>
+            <p class="userid"><span>账号：{{userInfo.user_id}}</span></p>
         </header>
         <div class="info">
             <div class="left item">
-                <span v-if="userInfo.roleId==1">学生</span>
-                <span v-if="userInfo.roleId==2">家长</span>
-                <span v-if="userInfo.roleId==3">老师</span><br>
+                <span v-if="userInfo.role_id==1">学生</span>
+                <span v-if="userInfo.role_id==2">家长</span>
+                <span v-if="userInfo.role_id==3">老师</span><br>
                 <b>身份</b>
             </div>
             <div class="right item">
@@ -94,58 +94,39 @@
 
   export default {
     beforeMount(){
-
       if (Store.get('__YYXXAPP_OPENID__')) {
-        api.getUserInfoByUserid({userId: Store.get('__User__')['userId']})
-          .then(_.bind(function (res) {
-            let data = res.data;
-            this.userInfo = Store.get('__User__');
-            this.userInfo.userId = data.user_id;
-            this.userInfo.headimgurl = data.headimgurl;
-            this.userInfo.nickname = data.nick_name;
-            this.userInfo.roleId = data.role_id;
-            this.userInfo.balance = data.balance;
-          }, this))
-          .catch(function (err) {
-            console.log(err);
-          });
-        return
+        const userId = Store.get('__YYXXAPP_USERID__');
+        if (this.$store.state.userInfo) {
+          this.initUserInfo();
+          return;
+        }
+        this.$store.dispatch('getInfoByUserId', {userId: userId}).then(this.initUserInfo);
+        return;
       }
       //todo 第一次打开取openid
-      Store.set('__YYXXAPP_OPENID__', 'okOB6w9oW_sytNIG3l2lY6iZ1Vf0')
-      api.getUserInfoByOpenid({openid: Store.get('__YYXXAPP_OPENID__')})
-        .then(_.bind(function (res) {
-          console.dir(res)
-          this.userInfo = res.data;
-          Store.set('__User__', this.userInfo)
-        }, this))
-        .catch(function (err) {
-          console.log(err);
-        });
+      Store.set('__YYXXAPP_OPENID__', 'okOB6w9oW_sytNIG3l2lY6iZ1Vf0');
+      this.$store.dispatch('getInfoByOpenId', {openid: Store.get('__YYXXAPP_OPENID__')}).then(_.bind(function () {
+        this.wx_userInfo = this.$store.state.wx_userInfo.data;
+        const userId = this.wx_userInfo.userId;
+        Store.set('__YYXXAPP_USERID__', userId);
+        this.$store.dispatch('getInfoByUserId', {userId: userId}).then(this.initUserInfo);
+      }, this));
     },
     data () {
       return {
         userInfo: {
-          "userId": "",
-          "openid": "",
-          "subscribe": 1,
-          "nickname": "",
-          "headimgurl": "",
-          "subscribeTime": "",
-          "userName": "",
-          "gender": 1,
-          "state": "1",
-          "phone": "",
-          "createTime": "",
-          "signature": null,
-          "loginName": null,
-          "passWord": null,
-          "balance": 0,
-          "roleId": "1",
-          "roleName": "",
-          "isAuth": 0,
-          "parentName": null
-        }
+          'nick_name': '', //昵称
+          'headimgurl': '',
+          'user_id': '',
+          'mobile': '',
+          'user_name': '', //真实姓名
+          'role_id': '',
+          'balance': '', //余额
+          'sex': null, // 0或空未知，1男 2女
+          'signature': '',
+          'open_id': Store.get('__YYXXAPP_OPENID__')
+        },
+        wx_userInfo:{}
       }
     },
     watch: {},
@@ -160,6 +141,10 @@
           position: 'bottom',
           message: '请先完成身份认证！'
         });
+      },
+      initUserInfo(){
+        const {userInfo}=this.$store.state;
+        this.userInfo = userInfo.data;
       }
     }
   }

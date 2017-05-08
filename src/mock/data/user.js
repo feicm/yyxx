@@ -9,7 +9,8 @@ const userInfo = {
   "balance": "100", //余额
   "sex": Mock.Random.integer(1, 2), // 0或空未知，1男 2女
   "signature": "签名",
-  "open_id": ""
+  "open_id": "",
+  "isAuth":0
 };
 const user_wx = {
   "userId": "37202589871243264",
@@ -29,7 +30,7 @@ const user_wx = {
   "balance": null,
   "roleId": "1",
   "roleName": "学生",
-  "isAuth":0,
+  "isAuth":1,
   "parentName": null
 }
 export {userInfo,user_wx};

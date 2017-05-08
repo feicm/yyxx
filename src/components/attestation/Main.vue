@@ -7,10 +7,16 @@
             </a>
             <p class="name"><span>助学英语</span></p>
         </header>
-        <mt-field placeholder="输入真实姓名" type="text" v-model="user_name">
+        <mt-field v-if="readonly" readonly placeholder="输入真实姓名" type="text" v-model="user_name">
             <img src="../../assets/images/view/attestation_import_username.png">
         </mt-field>
-        <mt-field placeholder="输入手机号码" type="tel" v-model="mobile">
+        <mt-field v-else placeholder="输入真实姓名" type="text" v-model="user_name">
+            <img src="../../assets/images/view/attestation_import_username.png">
+        </mt-field>
+        <mt-field v-if="readonly" readonly placeholder="输入手机号码" type="tel" v-model="mobile">
+            <img src="../../assets/images/view/attestation_import_tel_number.png">
+        </mt-field>
+        <mt-field v-else placeholder="输入手机号码" state="mobileState==='error'?'error':'success'" ref="mobile" type="tel" v-model="mobile">
             <img src="../../assets/images/view/attestation_import_tel_number.png">
         </mt-field>
         <div class="select-list">
@@ -43,16 +49,18 @@
         </div>
         <div class="submit">
             <p class="tips">注意：认证信息不能修改</p>
-            <mt-button @click.native="submit" size="large" type="primary" disabled>提交</mt-button>
+            <mt-button @click.native="submit" size="large" type="primary">提交</mt-button>
         </div>
     </div>
 </template>
 
 <script>
   import Vue from 'vue'
-  import {Cell, Field,Toast} from 'mint-ui';
+  import {Cell, Field, Toast} from 'mint-ui';
   import Topbar from '../topbar/Main.vue';
   import _ from 'lodash';
+  import API from '../../api/API'
+  const api = new API()
 
   Vue.component(Cell.name, Cell);
   Vue.component(Field.name, Field);
@@ -65,41 +73,49 @@
       return {
         user_name: '',
         mobile: '',
+        role_id: 0,
+        readonly:false,
+        mobileState:'error',
         role: {
           student: {
             text: '学生',
             select: true,
-            id: 1,
+            id: 0,
           },
           patriarch: {
             text: '家长',
             select: false,
-            id: 2,
+            id: 1,
           },
           teacher: {
             text: '老师',
             select: false,
-            id: 3,
+            id: 2,
           },
         }
       }
     },
     watch: {
-      mobile(){
-        console.log(23423)
-        if(!(/^1[34578]\d{9}$/.test(this.mobile))){
-          Toast({
-            position: 'top',
-            message: '请填写正确的手机号码！'
-          });
-          return '';
+      'role.student.select'(){
+        this.role_id = 0;
+      },
+      'role.patriarch.select'(){
+        this.role_id = 1;
+      },
+      'role.teacher.select'(){
+        this.role_id = 2;
+      },
+      user_name(){
+
+      },
+      mobile(val,oldval){
+        if (val.length===11 && !(/^1[34578]\d{9}$/.test(this.mobile))) {
+          console.log(val);
+          this.mobileState='error'
         }
-        return this.mobile
       }
     },
-    computed: {
-
-    },
+    computed: {},
     components: {
       Topbar
     },
@@ -109,6 +125,23 @@
           item.select = false
         })
         this.role[roleName].select = !this.role[roleName].select
+      },
+      submit(){
+        const param = {
+          user_name: this.user_name,
+          mobile: this.mobile,
+          role_id: this.role_id
+        };
+        api.userIdentity(param).then(_.bind(function () {
+          Toast({
+            message: '认证成功！',
+            duration: 1000
+          });
+          this.readonly=true;
+          setTimeout(function () {
+            history.go(-1)
+          },1200)
+        },this))
       }
     }
   }

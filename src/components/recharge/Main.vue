@@ -37,13 +37,14 @@
   import Topbar from '../topbar/Main.vue';
   import API from '../../api/API'
   import Store from 'store'
+  import _ from 'lodash'
   const api = new API();
   import { Toast } from 'mint-ui';
 
 
   export default {
     beforeMount(){
-      this.userId=Store.get('__User__')['user_id']
+      this.userId=Store.get('__YYXXAPP_USERID__');
       api.getRechargeGoods({})
         .then(_.bind(function (res) {
           this.price_rate = res.data.price_rate;

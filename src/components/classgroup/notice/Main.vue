@@ -7,7 +7,7 @@
                    h2="快来编辑公告！">
             </Empty>
             <div class="submit">
-                <mt-button @click.native="submit" size="large" type="primary">编辑公告{{count}}</mt-button>
+                <mt-button @click.native="submit" size="large" type="primary">编辑公告</mt-button>
             </div>
         </div>
         <Editor v-else></Editor>
@@ -40,6 +40,7 @@
     },
     methods: {
       submit(){
+        this.isEmpty=false;
       }
     }
   }
