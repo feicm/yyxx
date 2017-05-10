@@ -12,6 +12,7 @@ import ClassGroupDetail from '../components/classgroup/detail/Main.vue'
 import ClassGroupNotice from '../components/classgroup/notice/Main.vue'
 import ClassGroupTaskList from '../components/classgroup/task/Main.vue'
 import ClassGroupTaskListHistory from '../components/classgroup/task/history/Main.vue'
+import Default from '../components/default/Main.vue'
 
 Vue.use(Router);
 
@@ -28,6 +29,7 @@ export default new Router({
     { path: '/user/classgroup/notice/:id', component: ClassGroupNotice },
     { path: '/user/classgroup/task/:id', component: ClassGroupTaskList },
     { path: '/user/classgroup/task/history/:id', component: ClassGroupTaskListHistory },
-    { path: '/user/classgroup/detail/:id', component: ClassGroupDetail }
+    { path: '/user/classgroup/detail/:id', component: ClassGroupDetail },
+    { path: '/default', component: Default }
   ]
 });

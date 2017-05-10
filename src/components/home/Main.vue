@@ -31,6 +31,9 @@
             <router-link :to="'/user/feedback'">
                 <mt-button size="large" plain>意见反馈</mt-button>
             </router-link>
+            <router-link :to="'/default'">
+                <mt-button size="large" plain>空页面</mt-button>
+            </router-link>
         </div>
     </div>
 </template>

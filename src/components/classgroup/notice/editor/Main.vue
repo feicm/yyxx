@@ -43,6 +43,7 @@
 
 <script>
   import Vue from 'vue'
+  import {mapGetters} from 'vuex'
   import {Field, Radio, Toast} from 'mint-ui';
   import Store from 'store'
   import _ from 'lodash'
@@ -70,10 +71,11 @@
           isEdited: true,
           title: '',
           content: '',
-          imgs: []
+          imgs: [],
+
         };
-      } else if(!_.isEmpty(this.info)){
-        const {notifyId, notifyTitle, notifyContent, img1, img2, img3}=this.info;
+      } else {
+        const {notifyId, notifyTitle, notifyContent, img1, img2, img3}=this.$store.getters.noticeInfo;
         return {
           notify_id: notifyId,
           class_id: class_id,
@@ -88,9 +90,19 @@
       }
     },
     props: ['info','isNew'],
-    created(){
+    watch:{
+      noticeInfo(val){
+        const {notifyId, notifyTitle, notifyContent, img1, img2, img3}=val;
+        this.notify_id=notifyId;
+        this.title=notifyTitle;
+        this.content=notifyContent;
+        this.imgs=_.compact([img1, img2, img3]);
 
+      }
     },
+    computed: mapGetters({
+      noticeInfo: 'noticeInfo'
+    }),
     components: {},
     methods: {
       save(){

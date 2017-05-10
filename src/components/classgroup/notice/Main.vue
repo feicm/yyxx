@@ -14,6 +14,7 @@
                 <mt-button @click="add" size="large" type="primary">编辑公告</mt-button>
             </div>
         </div>
+
         <Editor v-else :info="noticeInfo" :isNew="isNew"></Editor>
     </div>
 </template>
@@ -30,24 +31,27 @@
 
   export default {
     beforeMount(){
+      if(!_.isEmpty(this.$store.getters.noticeInfo)){
+        this.isLoading=false;
+        return;
+      }
       Indicator.open({spinnerType: 'fading-circle'});
       this.$store.dispatch('getNotifyInfo', {class_id: this.$route.params.id}).then(()=>{
         Indicator.close();
-        if(!_.isEmpty(this.noticeInfo)){
-          this.isEmpty=false;
-        }
       }).catch(()=>{
         this.isEmpty=true;
+        this.isLoading=false;
       })
     },
     data () {
       const {user_id, role_id, user_name, isAuth}=this.$store.getters.userInfo;
       return {
         user_id: user_id,
-        role_id: 3,
+        role_id: role_id,
         user_name: user_name,
         isAuth: isAuth,
-        isEmpty: true,
+        isLoading:true,
+        isEmpty: false,
         isNew: false,
       }
     },
@@ -55,7 +59,10 @@
       noticeInfo(val){
         if(!_.isEmpty(val)){
           this.isEmpty=false;
+        }else {
+          this.isEmpty=true
         }
+        this.isLoading=false;
       }
     },
     computed: mapGetters({

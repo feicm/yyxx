@@ -87,7 +87,6 @@
 
   export default {
     beforeMount(){
-      console.log(this.gradeInfo)
       if (_.isEmpty(this.gradeInfo)) {
         this.$store.dispatch('getGradeInfos');
       }else {
