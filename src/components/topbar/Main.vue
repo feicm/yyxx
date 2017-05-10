@@ -9,7 +9,7 @@
                     <img slot="icon" src="../../assets/images/general_top_icon_logo.png">
                 </mt-button>
             </router-link>
-            <router-link to="/" slot="right">
+            <router-link to="/user/info" slot="right">
                 <mt-button>
                     <img slot="icon" src="../../assets/images/default/general_top_head_portrait_default.png">
                 </mt-button>
