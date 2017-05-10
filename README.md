@@ -1,4 +1,4 @@
-# vue-mobile-application
+# zxyy
 
 > vue-component
 
@@ -14,4 +14,4 @@ npm run dev
 # build for production with minification
 npm run build
 ```
-use vue2.0,vue-router2.0,axios,mint-ui2.0
+
