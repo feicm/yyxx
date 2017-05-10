@@ -11,10 +11,10 @@
                    h2="">
             </Empty>
             <div v-if="role_id === 3" class="submit">
-                <mt-button @click.native="submit" size="large" type="primary">编辑公告</mt-button>
+                <mt-button @click="add" size="large" type="primary">编辑公告</mt-button>
             </div>
         </div>
-        <Editor v-else :info="noticeInfo"></Editor>
+        <Editor v-else :info="noticeInfo" :isNew="isNew"></Editor>
     </div>
 </template>
 
@@ -47,7 +47,8 @@
         role_id: 3,
         user_name: user_name,
         isAuth: isAuth,
-        isEmpty: true
+        isEmpty: true,
+        isNew: false,
       }
     },
     watch: {
@@ -66,8 +67,9 @@
       Editor
     },
     methods: {
-      submit(){
+      add(){
         this.isEmpty = false;
+        this.isNew = true;
       }
     }
   }

@@ -34,8 +34,9 @@
             </mt-button>
             <mt-button v-if="isEdited && !isPreview" @click.native="preview" size="large" type="primary" plain>预览公告
             </mt-button>
-            <mt-button v-if="isEdited" @click.native="submit" size="large" type="primary">确认提交</mt-button>
-            <mt-button v-else @click="edit" size="large" type="primary">编辑</mt-button>
+            <mt-button v-if="isEdited && isNew" @click="save" size="large" type="primary">确认提交</mt-button>
+            <mt-button v-if="isEdited && !isNew" @click="update" size="large" type="primary">提交修改</mt-button>
+            <mt-button v-if="isPreview && !isEdited" @click="edit" size="large" type="primary">修改</mt-button>
         </div>
     </div>
 </template>
@@ -46,6 +47,8 @@
   import Store from 'store'
   import _ from 'lodash'
   import axios from 'axios'
+  import API from '../../../../api/API'
+  const api = new API()
 
   Vue.component(Radio.name, Radio);
   Vue.component(Field.name, Field);
@@ -55,24 +58,78 @@
 
     },
     data () {
-      const {notifyTitle, notifyContent, img1, img2, img3}=this.info;
-      const {role_id,user_id}=this.$store.getters.userInfo;
-      return {
-        user_id: (user_id || Store.get('__YYXXAPP_USERID__')),
-        role_id: (role_id || Store.get('__YYXXAPP_roleId__')) - 0,
-        isPreview: true,
-        isEdited: false,
-        title: notifyTitle,
-        content: notifyContent,
-        imgs: _.compact([img1, img2, img3])
-      };
+      const {role_id, user_id}=this.$store.getters.userInfo;
+      const {class_id}=this.$store.getters.classGroupInfo;
+      if (this.isNew) {
+        return {
+          notify_id: '',
+          class_id: class_id,
+          user_id: (user_id || Store.get('__YYXXAPP_USERID__')),
+          role_id: (role_id || Store.get('__YYXXAPP_roleId__')) - 0,
+          isPreview: false,
+          isEdited: true,
+          title: '',
+          content: '',
+          imgs: []
+        };
+      } else if(!_.isEmpty(this.info)){
+        const {notifyId, notifyTitle, notifyContent, img1, img2, img3}=this.info;
+        return {
+          notify_id: notifyId,
+          class_id: class_id,
+          user_id: (user_id || Store.get('__YYXXAPP_USERID__')),
+          role_id: (role_id || Store.get('__YYXXAPP_roleId__')) - 0,
+          isPreview: true,
+          isEdited: false,
+          title: notifyTitle,
+          content: notifyContent,
+          imgs: _.compact([img1, img2, img3])
+        };
+      }
     },
-    props: ['info'],
+    props: ['info','isNew'],
     created(){
 
     },
     components: {},
     methods: {
+      save(){
+        const param = {
+          user_id: this.user_id,
+          class_id: this.class_id,
+          notify_content: this.content,
+          notify_title: this.title,
+        };
+        api.saveNotice(param).then(() => {
+          Toast({
+            message: '提交成功',
+            iconClass: 'mintui mintui-success',
+            duration: 1000
+          });
+          setTimeout(_.bind(function () {
+            this.$router.go(-1)
+          }, this), 1200)
+        })
+      },
+      update(){
+        const param = {
+          user_id: this.user_id,
+          class_id: this.class_id,
+          notify_content: this.content,
+          notify_title: this.title,
+          notify_id:this.notify_id
+        };
+        api.editNotice(param).then(() => {
+          Toast({
+            message: '提交成功',
+            iconClass: 'mintui mintui-success',
+            duration: 1000
+          });
+          setTimeout(_.bind(function () {
+            this.$router.go(-1)
+          }, this), 1200)
+        })
+      },
       edit(){
         this.isEdited = true;
         this.isPreview = false;
@@ -103,8 +160,8 @@
           var fd = new FormData();
           var blob = this.dataURItoBlob(reader.result);
           fd.append('file', blob);
-          axios.post('/utils/uploadImg?userId='+this.user_id,fd)
-        },this)
+          axios.post('/utils/uploadImg?userId=' + this.user_id, fd)
+        }, this)
 
       },
       dataURItoBlob(dataURI) {
@@ -132,7 +189,7 @@
             padding-left: 115px;
             margin-top: -30px;
             position: relative;
-            z-index: 11111;
+            z-index: 11;
             ul.box {
                 overflow: hidden;
                 li {

@@ -117,6 +117,13 @@ export default {
         }, 1000);
       });
     });
+    mock.onPost('/notifyInfo/saveNotifyInfo').reply(config => {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, noticeInfo]);
+        }, 1000);
+      });
+    });
     mock.onPost(/\/utils\/uploadImg\?userId=(\w+)/).reply(config => {
       return new Promise((resolve, reject) => {
         setTimeout(() => {

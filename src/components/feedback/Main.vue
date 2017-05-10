@@ -66,9 +66,9 @@
               iconClass: 'mintui mintui-success',
               duration: 1000
             });
-            setTimeout(function () {
-              history.go(-1)
-            }, 1200)
+            setTimeout(_.bind(function () {
+              this.$router.go(-1)
+            },this), 1200)
           },this))
           .catch(function (err) {
             console.log(err);
