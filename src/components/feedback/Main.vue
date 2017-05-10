@@ -1,6 +1,6 @@
 <template>
     <div id='feedback'>
-        <Topbar></Topbar>
+        <Topbar :isback="true" :title="'意见反馈'"></Topbar>
         <mt-radio
                 class="page-part"
                 title="吐槽一下"
@@ -26,7 +26,7 @@
 
   export default {
     beforeMount(){
-        this.userId=Store.get('__User__')['user_id']
+        this.userId=this.$store.getters.userInfo.user_id;
     },
     data () {
       return {
@@ -61,11 +61,14 @@
       submit(){
         api.postAgreement({user_id: this.userId,agreement_title:this.value,agreement_content:this.agreement_content})
           .then(_.bind(function (res) {
-            console.log(res)
             Toast({
               message: '提交成功',
-              iconClass: 'mintui mintui-success'
+              iconClass: 'mintui mintui-success',
+              duration: 1000
             });
+            setTimeout(function () {
+              history.go(-1)
+            }, 1200)
           },this))
           .catch(function (err) {
             console.log(err);

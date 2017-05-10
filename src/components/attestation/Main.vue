@@ -1,29 +1,31 @@
 <template>
     <div id='attestation'>
-        <Topbar></Topbar>
+        <Topbar v-if="userInfo.isAuth" :isback="true" :title="'认证信息'"></Topbar>
+        <Topbar v-else :isback="true" :title="'身份认证'"></Topbar>
         <header class="header">
             <a class="portrait">
                 <img src="../../assets/images/general_top_icon_approve_logo.png">
             </a>
             <p class="name"><span>助学英语</span></p>
         </header>
-        <mt-field v-if="readonly" readonly placeholder="输入真实姓名" type="text" v-model="user_name">
+        <mt-field v-if="userInfo.isAuth" readonly placeholder="输入真实姓名" type="text" v-model="userInfo.user_name">
             <img src="../../assets/images/view/attestation_import_username.png">
         </mt-field>
-        <mt-field v-else placeholder="输入真实姓名" type="text" v-model="user_name">
+        <mt-field v-else placeholder="输入真实姓名" type="text" :state="userNameState" v-model="user_name">
             <img src="../../assets/images/view/attestation_import_username.png">
         </mt-field>
-        <mt-field v-if="readonly" readonly placeholder="输入手机号码" type="tel" v-model="mobile">
+        <mt-field v-if="userInfo.isAuth" readonly placeholder="输入手机号码" type="tel" v-model="userInfo.mobile">
             <img src="../../assets/images/view/attestation_import_tel_number.png">
         </mt-field>
-        <mt-field v-else placeholder="输入手机号码" state="mobileState==='error'?'error':'success'" ref="mobile" type="tel" v-model="mobile">
+        <mt-field v-else placeholder="输入手机号码" :state="mobileState" ref="mobile" type="tel"
+                  v-model="mobile">
             <img src="../../assets/images/view/attestation_import_tel_number.png">
         </mt-field>
         <div class="select-list">
             <ul>
                 <li class="item">
                     <a @click.stop="selectRole('student')">
-                        <img v-if="role.student.select"
+                        <img v-if="role.student.select || userInfo.role_id-0===1"
                              src="../../assets/images/view/attestation_import_identity_student_pressed.png">
                         <img v-else src="../../assets/images/view/attestation_import_identity_student_normal.png">
                         <b class="name">学生</b>
@@ -31,7 +33,7 @@
                 </li>
                 <li class="item">
                     <a @click.stop="selectRole('patriarch')">
-                        <img v-if="role.patriarch.select"
+                        <img v-if="role.patriarch.select || userInfo.role_id-0===2"
                              src="../../assets/images/view/attestation_import_identity_patriarch_pressed.png">
                         <img v-else src="../../assets/images/view/attestation_import_identity_patriarch_normal.png">
                         <b class="name">家长</b>
@@ -39,7 +41,7 @@
                 </li>
                 <li class="item">
                     <a @click.stop="selectRole('teacher')">
-                        <img v-if="role.teacher.select"
+                        <img v-if="role.teacher.select || userInfo.role_id-0===3"
                              src="../../assets/images/view/attestation_import_identity_teacher_pressed.png">
                         <img v-else src="../../assets/images/view/attestation_import_identity_teacher_normal.png">
                         <b class="name">老师</b>
@@ -49,16 +51,20 @@
         </div>
         <div class="submit">
             <p class="tips">注意：认证信息不能修改</p>
-            <mt-button @click.native="submit" size="large" type="primary">提交</mt-button>
+            <mt-button v-if='actived' @click.native="submit" size="large" type="primary">提交</mt-button>
+            <mt-button v-else-if="userInfo.isAuth" size="large" type="primary" disabled>已认证</mt-button>
+            <mt-button v-else size="large" type="primary" disabled>提交</mt-button>
         </div>
     </div>
 </template>
 
 <script>
   import Vue from 'vue'
-  import {Cell, Field, Toast} from 'mint-ui';
+  import {mapGetters} from 'vuex'
+  import {Cell, Field, Toast, MessageBox} from 'mint-ui';
   import Topbar from '../topbar/Main.vue';
   import _ from 'lodash';
+  import Store from 'store';
   import API from '../../api/API'
   const api = new API()
 
@@ -67,19 +73,35 @@
 
   export default {
     beforeMount(){
-
+      if(!_.isEmpty(this.$store.getters.userInfo)){
+        return;
+      }
+      if (Store.get('__YYXXAPP_OPENID__')) {
+        const userId = Store.get('__YYXXAPP_USERID__');
+        this.$store.dispatch('getInfoByUserId', {userId: userId});
+        return;
+      }
+      //todo 第一次打开取openid
+      Indicator.open({spinnerType: 'fading-circle'});
+      Store.set('__YYXXAPP_OPENID__', 'okOB6w9oW_sytNIG3l2lY6iZ1Vf0');
+      this.$store.dispatch('getInfoByOpenId', {openid: Store.get('__YYXXAPP_OPENID__')}).then(_.bind(function () {
+        const userId = this.$store.state.user.wx_user_info.userId;
+        Store.set('__YYXXAPP_USERID__', userId);
+        this.$store.dispatch('getInfoByUserId', {userId: userId});
+      }, this));
     },
     data () {
       return {
         user_name: '',
         mobile: '',
-        role_id: 0,
-        readonly:false,
-        mobileState:'error',
+        role_id: null,
+        userNameState: '',
+        mobileState: '',
+        actived: false,
         role: {
           student: {
             text: '学生',
-            select: true,
+            select: false,
             id: 0,
           },
           patriarch: {
@@ -105,22 +127,47 @@
       'role.teacher.select'(){
         this.role_id = 2;
       },
-      user_name(){
-
-      },
-      mobile(val,oldval){
-        if (val.length===11 && !(/^1[34578]\d{9}$/.test(this.mobile))) {
-          console.log(val);
-          this.mobileState='error'
+      user_name(val){
+        if (_.trim(val)) {
+          this.userNameState = 'success'
+        } else {
+          this.userNameState = 'error'
         }
+      },
+      mobile(val, oldval){
+        if (val.length === 11) {
+          if (!(/^1[34578]\d{9}$/.test(this.mobile))) {
+            this.mobileState = 'error'
+          } else {
+            this.mobileState = 'success'
+          }
+        } else if (val.length > 11) {
+          this.mobileState = 'error'
+        } else {
+          this.mobileState = ''
+        }
+      },
+      userNameState(){
+        this.actived = this.checkInput()
+      },
+      mobileState(){
+        this.actived = this.checkInput()
       }
     },
-    computed: {},
+    computed: mapGetters({
+      userInfo: 'userInfo'
+    }),
     components: {
       Topbar
     },
     methods: {
+      checkInput(){
+        return this.userNameState === 'success' && this.mobileState === 'success';
+      },
       selectRole(roleName){
+        if(this.userInfo.isAuth){
+          return;
+        }
         _.each(this.role, function (item) {
           item.select = false
         })
@@ -132,16 +179,21 @@
           mobile: this.mobile,
           role_id: this.role_id
         };
-        api.userIdentity(param).then(_.bind(function () {
-          Toast({
-            message: '认证成功！',
-            duration: 1000
-          });
-          this.readonly=true;
-          setTimeout(function () {
-            history.go(-1)
-          },1200)
-        },this))
+        MessageBox.confirm('认证信息不能修，确认提交?').then(_.bind(function () {
+          api.userIdentity(param).then(_.bind(function () {
+            Toast({
+              message: '认证成功！',
+              duration: 1000
+            });
+            Store.set('__YYXXAPP_isAuth__', 1);
+            Store.set('__YYXXAPP_roleId__', this.role_id);
+            this.$store.commit('CHANGE_AUTH_STATE');
+            this.readonly = true;
+            setTimeout(_.bind(function () {
+              this.$router.go(-1)
+            }, this), 1200)
+          }, this))
+        }, this));
       }
     }
   }

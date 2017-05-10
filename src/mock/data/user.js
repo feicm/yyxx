@@ -5,12 +5,12 @@ const userInfo = {
   "user_id": "23",
   "mobile": "15985779153",
   "user_name": "123", //真实姓名
-  "role_id": "1",
+  "role_id": "3",
   "balance": "100", //余额
   "sex": Mock.Random.integer(1, 2), // 0或空未知，1男 2女
   "signature": "签名",
   "open_id": "",
-  "isAuth":0
+  "isAuth":1
 };
 const user_wx = {
   "userId": "37202589871243264",

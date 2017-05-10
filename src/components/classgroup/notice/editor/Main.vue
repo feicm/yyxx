@@ -29,10 +29,13 @@
                 </ul>
             </div>
         </div>
-        <div class="submit">
-            <mt-button v-if="isPreview" @click.native="back" size="large" type="primary" plain>返回修改</mt-button>
-            <mt-button v-else @click.native="preview" size="large" type="primary" plain>预览公告</mt-button>
-            <mt-button @click.native="submit" size="large" type="primary">确认提交</mt-button>
+        <div class="submit" v-if="role_id===3">
+            <mt-button v-if="isPreview && isEdited" @click.native="back" size="large" type="primary" plain>返回修改
+            </mt-button>
+            <mt-button v-if="isEdited && !isPreview" @click.native="preview" size="large" type="primary" plain>预览公告
+            </mt-button>
+            <mt-button v-if="isEdited" @click.native="submit" size="large" type="primary">确认提交</mt-button>
+            <mt-button v-else @click="edit" size="large" type="primary">编辑</mt-button>
         </div>
     </div>
 </template>
@@ -40,6 +43,10 @@
 <script>
   import Vue from 'vue'
   import {Field, Radio, Toast} from 'mint-ui';
+  import Store from 'store'
+  import _ from 'lodash'
+  import axios from 'axios'
+
   Vue.component(Radio.name, Radio);
   Vue.component(Field.name, Field);
 
@@ -48,23 +55,33 @@
 
     },
     data () {
+      const {notifyTitle, notifyContent, img1, img2, img3}=this.info;
+      const {role_id,user_id}=this.$store.getters.userInfo;
       return {
-        isPreview: false,
-        title: '碧桃放辣椒时代雷锋精神了福利时间啊浪费 副撒了',
-        content: '内容拉萨附近老师都放假啦睡觉发拉萨附近阿里司法解释了发拉萨福建省副撒了',
-        imgs: [],
+        user_id: (user_id || Store.get('__YYXXAPP_USERID__')),
+        role_id: (role_id || Store.get('__YYXXAPP_roleId__')) - 0,
+        isPreview: true,
+        isEdited: false,
+        title: notifyTitle,
+        content: notifyContent,
+        imgs: _.compact([img1, img2, img3])
       };
     },
+    props: ['info'],
     created(){
 
     },
     components: {},
     methods: {
+      edit(){
+        this.isEdited = true;
+        this.isPreview = false;
+      },
       back(){
-        this.isPreview=false;
+        this.isPreview = false;
       },
       preview(){
-        this.isPreview=true;
+        this.isPreview = true;
       },
       delete_img(item){
         this.imgs.splice(item, 1);
@@ -81,10 +98,24 @@
         }
         reader.readAsDataURL(img1);
         var that = this;
-        reader.onloadend = function () {
+        reader.onloadend = _.bind(function () {
           that.imgs.push(reader.result)
-        }
+          var fd = new FormData();
+          var blob = this.dataURItoBlob(reader.result);
+          fd.append('file', blob);
+          axios.post('/utils/uploadImg?userId='+this.user_id,fd)
+        },this)
 
+      },
+      dataURItoBlob(dataURI) {
+        var byteString = atob(dataURI.split(',')[1]);
+        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+        var ab = new ArrayBuffer(byteString.length);
+        var ia = new Uint8Array(ab);
+        for (var i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
+        }
+        return new Blob([ab], {type: mimeString});
       }
     }
   }
@@ -152,25 +183,25 @@
                 }
             }
         }
-        .preview{
+        .preview {
             background-color: #fff;
             padding: px2em(20px);
-            .title{
+            .title {
                 @include font-dpr(18px);
                 border-bottom: px2em(1px) solid #ddd;
                 line-height: 1.5;
                 padding-bottom: px2em(5px);
             }
-            .content{
-                padding:px2em(20px) 0;
+            .content {
+                padding: px2em(20px) 0;
                 line-height: 1.8;
                 text-indent: 2em;
-                color:#666;
+                color: #666;
                 @include font-dpr(16px)
             }
-            .imgs{
+            .imgs {
                 text-align: center;
-                img{
+                img {
                     max-width: 100%;
                     max-height: 100%;
                 }

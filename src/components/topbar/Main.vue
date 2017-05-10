@@ -1,6 +1,9 @@
 <template>
     <div id='topbar'>
-        <mt-header fixed title="助学英语">
+        <mt-header v-if="isback" fixed :title="title">
+            <mt-button @click="$router.go(-1)" slot="left" icon="back"></mt-button>
+        </mt-header>
+        <mt-header v-else fixed title="vue demo">
             <router-link to="/" slot="left">
                 <mt-button>
                     <img slot="icon" src="../../assets/images/general_top_icon_logo.png">
@@ -28,6 +31,7 @@
     data () {
       return {}
     },
+    props:['isback','title'],
     watch: {},
     computed: {},
     components: {},

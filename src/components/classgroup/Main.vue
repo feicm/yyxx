@@ -7,7 +7,7 @@
                    h2="请先创建或者加入班群哟！">
             </Empty>
         </div>
-        <List v-else></List>
+        <List v-else :list="classGroupList"></List>
         <mt-tabbar v-model="selected" fixed>
 
             <mt-tab-item id="create">
@@ -26,10 +26,13 @@
 
 <script>
   import Vue from 'vue'
-  import {Tabbar, TabItem} from 'mint-ui'
+  import {mapGetters} from 'vuex'
+  import {Tabbar, TabItem, Indicator} from 'mint-ui'
   import Topbar from '../topbar/Main.vue'
   import List from './list/Main.vue'
   import Empty from '../empty/Main.vue'
+  import Store from 'store'
+  import _ from 'lodash'
 
   Vue.component(Tabbar.name, Tabbar);
   Vue.component(TabItem.name, TabItem);
@@ -37,19 +40,42 @@
 
   export default {
     beforeMount(){
-
+      if(!this.$store.getters.classGroupList.length){
+        Indicator.open({spinnerType: 'fading-circle'});
+      }
+      if (Store.get('__YYXXAPP_OPENID__')) {
+        const userId = Store.get('__YYXXAPP_USERID__');
+        this.$store.dispatch('getClassesByUserId', {user_id: userId}).then(() => {
+          Indicator.close()
+        });
+        return;
+      }
+      //todo 第一次打开取openid
+      Store.set('__YYXXAPP_OPENID__', 'okOB6w9oW_sytNIG3l2lY6iZ1Vf0');
+      this.$store.dispatch('getInfoByOpenId', {openid: Store.get('__YYXXAPP_OPENID__')}).then(_.bind(function () {
+        const userId = this.$store.state.user.wx_user_info.userId;
+        Store.set('__YYXXAPP_USERID__', userId);
+        this.$store.dispatch('getClassesByUserId', {userId: userId}).then(() => {
+          Indicator.close()
+        });
+      }, this));
     },
     data () {
       return {
-        selected:false,
-        isEmpty: false
+        selected: false,
+        isEmpty: !this.$store.getters.classGroupList.length
       }
     },
-    watch: {},
-    computed: {},
+    watch: {
+      classGroupList(val){
+        this.isEmpty=!val.length;
+        Indicator.close()
+      }
+    },
+    computed: mapGetters({
+      classGroupList: 'classGroupList'
+    }),
     components: {
-      Tabbar,
-      TabItem,
       Topbar,
       List,
       Empty

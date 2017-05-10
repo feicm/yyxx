@@ -1,90 +1,24 @@
 <template>
     <div id='cgList'>
         <ul>
-            <li class="item">
-                <router-link to="/user/classgroup/detail/1">
+            <li class="item" v-for="item in list">
+                <router-link :to="'/user/classgroup/detail/'+item.class_id">
                     <h1 class="top">
-                        <p class="title">高三年二班</p>
-                        <p class="id">ID:23425252525</p>
+                        <p class="title">{{item.grade}}{{item.class}}</p>
+                        <p class="id">ID:{{item.class_id}}</p>
                     </h1>
                     <section>
                         <div class="row">
                             <img src="../../../assets/images/view/class_group_list_icon_school.png"/>
-                            <p>红梅中学</p>
+                            <p>{{item.school_name}}</p>
                         </div>
                         <div class="row">
                             <img src="../../../assets/images/view/class_group_list_icon_teacher.png"/>
-                            <p>隔壁老王</p>
+                            <p>{{item.teacher_name}}</p>
                         </div>
                         <div class="row">
                             <img src="../../../assets/images/view/class_group_list_icon_school_year.png"/>
-                            <p>学年：2014.7- 2015.9</p>
-                        </div>
-                    </section>
-                </router-link>
-            </li>
-            <li class="item">
-                <router-link to="/user/classgroup/detail/2">
-                    <h1 class="top">
-                        <p class="title">高三年二班</p>
-                        <p class="id">ID:23425252525</p>
-                    </h1>
-                    <section>
-                        <div class="row">
-                            <img src="../../../assets/images/view/class_group_list_icon_school.png"/>
-                            <p>红梅中学</p>
-                        </div>
-                        <div class="row">
-                            <img src="../../../assets/images/view/class_group_list_icon_teacher.png"/>
-                            <p>隔壁老王</p>
-                        </div>
-                        <div class="row">
-                            <img src="../../../assets/images/view/class_group_list_icon_school_year.png"/>
-                            <p>学年：2014.7- 2015.9</p>
-                        </div>
-                    </section>
-                </router-link>
-            </li>
-            <li class="item">
-                <router-link to="/user/classgroup/detail/3">
-                    <h1 class="top">
-                        <p class="title">高三年二班</p>
-                        <p class="id">ID:23425252525</p>
-                    </h1>
-                    <section>
-                        <div class="row">
-                            <img src="../../../assets/images/view/class_group_list_icon_school.png"/>
-                            <p>红梅中学</p>
-                        </div>
-                        <div class="row">
-                            <img src="../../../assets/images/view/class_group_list_icon_teacher.png"/>
-                            <p>隔壁老王</p>
-                        </div>
-                        <div class="row">
-                            <img src="../../../assets/images/view/class_group_list_icon_school_year.png"/>
-                            <p>学年：2014.7- 2015.9</p>
-                        </div>
-                    </section>
-                </router-link>
-            </li>
-            <li class="item">
-                <router-link to="/user/classgroup/detail/4">
-                    <h1 class="top">
-                        <p class="title">高三年二班</p>
-                        <p class="id">ID:23425252525</p>
-                    </h1>
-                    <section>
-                        <div class="row">
-                            <img src="../../../assets/images/view/class_group_list_icon_school.png"/>
-                            <p>红梅中学</p>
-                        </div>
-                        <div class="row">
-                            <img src="../../../assets/images/view/class_group_list_icon_teacher.png"/>
-                            <p>隔壁老王</p>
-                        </div>
-                        <div class="row">
-                            <img src="../../../assets/images/view/class_group_list_icon_school_year.png"/>
-                            <p>学年：2014.7- 2015.9</p>
+                            <p>学年：{{item.start_date}}- {{item.end_date}}</p>
                         </div>
                     </section>
                 </router-link>
@@ -99,6 +33,7 @@
     beforeMount(){
 
     },
+    props:['list'],
     data () {
       return {}
     },

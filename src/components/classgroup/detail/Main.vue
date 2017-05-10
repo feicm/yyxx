@@ -1,46 +1,48 @@
 <template>
     <div id='cgDetail'>
-        <Topbar></Topbar>
+        <Topbar :isback="true" :title="classGroupInfo.grade+classGroupInfo.class+''"></Topbar>
         <ul class="card-list">
-            <li class="card">
+            <li class="card" v-if="classGroupInfo">
                 <h1 class="top">
-                    <p class="title">高三年二班</p>
-                    <p class="id">ID:23425252525</p>
+                    <p class="title">{{classGroupInfo.grade}}{{classGroupInfo.class}}</p>
+                    <p class="id">ID:{{classGroupInfo.class_id}}</p>
                 </h1>
                 <section>
                     <div class="row">
                         <img class="icon" src="../../../assets/images/view/class_group_list_icon_school.png"/>
-                        <p>红梅中学</p>
+                        <p>{{classGroupInfo.school_name}}</p>
                     </div>
                     <div class="row">
                         <img class="icon" src="../../../assets/images/view/class_group_list_icon_teacher.png"/>
-                        <p>隔壁老王</p>
+                        <p>{{classGroupInfo.teacher_name}}</p>
                     </div>
                     <div class="row">
                         <img class="icon" src="../../../assets/images/view/class_group_list_icon_school_year.png"/>
-                        <p>学年：2014.7- 2015.9</p>
+                        <p>学年：{{classGroupInfo.start_date}}- {{classGroupInfo.end_date}}</p>
                     </div>
                     <div class="row">
                         <img class="icon" src="../../../assets/images/view/class_group_list_icon_creator.png"/>
-                        <p>老李 <b class="s">创建</b></p>
+                        <p>{{classGroupInfo.create_user_name}} <b class="s">创建</b></p>
                     </div>
                 </section>
                 <div class="bottom">
                     <div class="l item">
                         布置任务
                     </div>
-                    <div class="r item">
+                    <div class="r item" @click="exitGroup">
                         退出该班群
                     </div>
                 </div>
             </li>
-            <li class="card">
+            <li class="card" v-for="student in students">
                 <div class="left">
                     <div class="w">
                         <a class="portrait">
-                            <img src="../../../assets/images/default/general_user_head_portrait_student_default.png">
+                            <img v-if="student.headimgurl" :src="student.headimgurl">
+                            <img v-else
+                                 src="../../../assets/images/default/general_user_head_portrait_student_default.png">
                         </a>
-                        <p class="username"><span>张三</span></p>
+                        <p class="username"><span>{{student.student_name}}</span></p>
                         <p class="des"><span>学生姓名</span></p>
                     </div>
                 </div>
@@ -58,84 +60,6 @@
                                  src="../../../assets/images/view/class_group_list_icon_historical_task.png"/>
                             <p>历史记录</p>
                         </router-link>
-                    </div>
-                </section>
-            </li>
-            <li class="card">
-                <div class="left">
-                    <div class="w">
-                        <a class="portrait">
-                            <img src="../../../assets/images/default/general_user_head_portrait_student_default.png">
-                        </a>
-                        <p class="username"><span>张三</span></p>
-                        <p class="des"><span>学生姓名</span></p>
-                    </div>
-                </div>
-                <section class="box">
-                    <div class="row">
-                        <img class="icon" src="../../../assets/images/view/class_group_list_icon_new_task.png"/>
-                        <p>最新任务完成情况</p>
-                        <div class="status">
-                            <img src="../../../assets/images/view/class_group_list_icon_test_not_test.png">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <router-link to="/user/classgroup/task/history/1">
-                            <img class="icon"
-                                 src="../../../assets/images/view/class_group_list_icon_historical_task.png"/>
-                            <p>历史记录</p>
-                        </router-link>
-                    </div>
-                </section>
-            </li>
-            <li class="card">
-                <div class="left">
-                    <div class="w">
-                        <a class="portrait">
-                            <img src="../../../assets/images/default/general_user_head_portrait_student_default.png">
-                        </a>
-                        <p class="username"><span>张三</span></p>
-                        <p class="des"><span>学生姓名</span></p>
-                    </div>
-                </div>
-                <section class="box">
-                    <div class="row">
-                        <img class="icon" src="../../../assets/images/view/class_group_list_icon_new_task.png"/>
-                        <p>最新任务完成情况</p>
-                        <div class="status">
-                            <img src="../../../assets/images/view/class_group_list_icon_test_completed.png">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <router-link to="/user/classgroup/task/history/1">
-                            <img class="icon"
-                                 src="../../../assets/images/view/class_group_list_icon_historical_task.png"/>
-                            <p>历史记录</p>
-                        </router-link>
-                    </div>
-                </section>
-            </li>
-            <li class="card">
-                <div class="left">
-                    <div class="w">
-                        <a class="portrait">
-                            <img src="../../../assets/images/default/general_user_head_portrait_student_default.png">
-                        </a>
-                        <p class="username"><span>张三</span></p>
-                        <p class="des"><span>学生姓名</span></p>
-                    </div>
-                </div>
-                <section class="box">
-                    <div class="row">
-                        <img class="icon" src="../../../assets/images/view/class_group_list_icon_new_task.png"/>
-                        <p>最新任务完成情况</p>
-                        <div class="status">
-                            <img src="../../../assets/images/view/class_group_list_icon_test_unfinished.png">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <img class="icon" src="../../../assets/images/view/class_group_list_icon_historical_task.png"/>
-                        <p>历史记录</p>
                     </div>
                 </section>
             </li>
@@ -143,7 +67,7 @@
         <mt-tabbar v-model="selected" fixed>
 
             <mt-tab-item id="create">
-                <router-link :to="'/user/classgroup/notice/1'">
+                <router-link :to="'/user/classgroup/notice/'+class_id">
                     公告栏
                 </router-link>
             </mt-tab-item>
@@ -159,8 +83,11 @@
 <script>
 
   import Vue from 'vue'
-  import {Tabbar, TabItem} from 'mint-ui'
+  import {mapGetters} from 'vuex'
+  import {Tabbar, TabItem, Indicator, MessageBox} from 'mint-ui'
   import Topbar from '../../topbar/Main.vue'
+  import Store from 'store'
+  import _ from 'lodash'
 
 
   Vue.component(Tabbar.name, Tabbar);
@@ -169,22 +96,50 @@
 
   export default {
     beforeMount(){
-
+      Indicator.open({spinnerType: 'fading-circle'});
+      const param = {
+        class_id: this.class_id,
+        user_id: this.user_id
+      };
+      this.$store.dispatch('getClassMsgByClassId', param).then(function () {
+        Indicator.close()
+      });
     },
     data () {
       return {
+        class_id: this.$route.params.id,
+        user_id: Store.get('__YYXXAPP_USERID__'),
         selected: false,
         isEmpty: false
       }
     },
-    watch: {},
-    computed: {},
+    watch: {
+      classGroupInfo(){
+        Indicator.close()
+      }
+    },
+    computed: mapGetters({
+      classGroupInfo: 'classGroupInfo',
+      students: 'students'
+    }),
     components: {
       Tabbar,
       TabItem,
       Topbar,
     },
-    methods: {}
+    methods: {
+      exitGroup(){
+        const param = {
+          class_id: this.class_id,
+          user_id: this.user_id
+        };
+        MessageBox.confirm('确定要退出班群?').then(_.bind(function () {
+          this.$store.dispatch('exitClass', param).then(function () {
+            history.go(-1)
+          })
+        }, this));
+      }
+    }
   }
 
 
