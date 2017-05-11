@@ -124,7 +124,7 @@
             text-align: center;
             height: px2em(600px);
             background-image: url('../../assets/images/view/recharge_background.png');
-            background-size: contain;
+            background-size: cover;
             .portrait {
                 display: inline-block;
                 margin-top: px2em(7px);
@@ -183,6 +183,8 @@
             }
             ul {
                 display: flex;
+                display:-webkit-flex;
+                flex-direction: row;
                 flex-direction: row;
                 flex-wrap: wrap;
                 justify-content: flex-start;
@@ -191,8 +193,7 @@
                 padding: px2em(15px) 0 px2em(25px);
                 background-color: #fff;
                 li {
-                    flex: 0 1 auto;
-                    width: px2em(250px);
+                    flex: 1;
                     text-align: center;
                     a {
                         display: inline-block;

@@ -184,7 +184,7 @@
             background-color: #fff;
             display: flex;
             flex-direction: row;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
             justify-content: center;
             align-content: center;
             align-items: center;
