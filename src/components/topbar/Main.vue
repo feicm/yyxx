@@ -46,11 +46,11 @@
     @import '../../assets/css/function.scss';
 
     #topbar {
-        background-color: $color-topbar;
+        background-color: $color-blue;
         .mint-header {
             height: px2em(96px);
             @include font-dpr(12px);
-            background-color: $color-topbar;
+            background-color: $color-blue;
             .mint-header-title{
                 @include font-dpr(18px);
             }
