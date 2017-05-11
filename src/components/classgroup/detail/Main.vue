@@ -163,7 +163,7 @@
                 box-shadow: 0 px2em(5px) px2em(6px) rgba(0, 0, 0, .05);
                 .left {
                     float: left;
-                    width: px2em(180px);
+                    width: px2em(160px);
                     .w {
                         margin: px2em(12px) 0;
                         border-right: px2em(2px) dashed #ddd;
@@ -177,19 +177,18 @@
                             @include font-dpr(10px);
                         }
                         img {
-                            width: px2em(80px);
-                            height: px2em(80px);
+                            width: px2em(60px);
+                            height: px2em(60px);
                         }
                     }
                 }
                 .box {
-                    margin-left: px2em(180px);
+                    margin-left: px2em(160px);
                     .status {
                         position: absolute;
                         right: px2em(20px);
                         top: px2em(20px);
-                        width: px2em(120px);
-                        height: px2em(50px);
+                        width: px2em(100px);
                         img {
                             max-width: 100%;
                             max-height: 100%;
@@ -199,14 +198,14 @@
                 .row {
                     img.icon {
                         position: absolute;
-                        margin: px2em(25px) px2em(15px) px2em(16px) px2em(30px);
+                        margin: px2em(20px) px2em(10px) px2em(16px) px2em(20px);
                         width: px2em(40px);
                         height: px2em(40px);
                     }
                     p {
-                        margin-left: px2em(80px);
-                        height: px2em(73px);
-                        line-height: px2em(73px);
+                        margin-left: px2em(60px);
+                        height: px2em(65px);
+                        line-height: px2em(65px);
                         border-bottom: px2em(1px) solid #ddd;
                         color: #666;
                         @include font-dpr(15px);
@@ -228,7 +227,7 @@
                     display: flex;
                     flex-direction: row;
                     flex-wrap: wrap;
-                    justify-content: flex-start;
+                    justify-content: space-between;
                     align-items: center;
                     align-content: stretch;
                     height: px2em(88px);
@@ -253,8 +252,7 @@
                         background-color: #fff;
                     }
                     .id {
-                        position: absolute;
-                        right: px2em(20px);
+                        margin-right: px2em(20px);
                         color: #999;
                         @include font-dpr(14px);
                     }

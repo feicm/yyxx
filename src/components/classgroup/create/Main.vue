@@ -46,25 +46,29 @@
             <mt-header fixed title="年级">
                 <mt-button @click.native="back" slot="left" icon="back"></mt-button>
             </mt-header>
-            <mt-radio
-                    align="right"
-                    v-model="radioGrade.value"
-                    :options="radioGrade.options"
-                    @change="changeGrade"
-            >
-            </mt-radio>
+            <div class="radio-w">
+                <mt-radio
+                        align="right"
+                        v-model="radioGrade.value"
+                        :options="radioGrade.options"
+                        @change="changeGrade"
+                >
+                </mt-radio>
+            </div>
         </mt-popup>
         <mt-popup v-model="popupEdition" position="right" class="mint-popup-3" :modal="false">
             <mt-header fixed title="教材版本">
                 <mt-button @click.native="back" slot="left" icon="back"></mt-button>
             </mt-header>
-            <mt-radio
-                    align="right"
-                    v-model="radioEdition.value"
-                    :options="radioEdition.options"
-                    @change="changeEdition"
-            >
-            </mt-radio>
+            <div class="radio-w">
+                <mt-radio
+                        align="right"
+                        v-model="radioEdition.value"
+                        :options="radioEdition.options"
+                        @change="changeEdition"
+                >
+                </mt-radio>
+            </div>
         </mt-popup>
     </div>
 </template>
@@ -89,9 +93,9 @@
     beforeMount(){
       if (_.isEmpty(this.gradeInfo)) {
         this.$store.dispatch('getGradeInfos');
-      }else {
-        this.radioGrade.options=this.gradeInfo;
-        this.radioEdition.options=this.textBook;
+      } else {
+        this.radioGrade.options = this.gradeInfo;
+        this.radioEdition.options = this.textBook;
       }
     },
     data () {
@@ -330,16 +334,21 @@
             height: 100%;
             background-color: #fff;
             .mint-header {
-                background-color: $color-topbar;
+                background-color: $color-blue;
                 height: px2em(96px);
                 @include font-dpr(12px);
-                background-color: $color-topbar;
                 .mint-header-title {
                     @include font-dpr(18px);
                 }
             }
-            .mint-radiolist {
-                margin-top: px2em(95px);
+            .radio-w {
+                height: 100%;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+                .mint-radiolist{
+                    padding-top:px2em(95px);
+                    margin-bottom:px2em(95px);
+                }
             }
         }
     }
