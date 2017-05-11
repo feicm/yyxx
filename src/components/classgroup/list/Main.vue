@@ -62,7 +62,7 @@
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
-                justify-content: flex-start;
+                justify-content: space-between;
                 align-items: center;
                 align-content: stretch;
                 height: px2em(88px);
@@ -87,9 +87,8 @@
                     background-color: #fff;
                 }
                 .id {
-                    position: absolute;
-                    right: px2em(20px);
                     color: #999;
+                    margin-right: px2em(20px);
                     @include font-dpr(14px);
                 }
             }

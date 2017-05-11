@@ -19,7 +19,7 @@
             </div>
             <div class="right item">
                 <p class="top"><b>{{userInfo.balance}}</b>&nbsp;金币</p>
-                <p class="bottom"><img src="../../assets/images/view/user_center_icon_gold.png">余额</p>
+                <p class="bottom"><img src="../../assets/images/view/user_center_icon_gold.png"><b>余额</b></p>
             </div>
         </div>
         <div class="setting-list">
@@ -148,7 +148,7 @@
             text-align: center;
             height: px2em(300px);
             background-image: url('../../assets/images/view/user_center_background.png');
-            background-size: contain;
+            background-size: cover;
             .portrait {
                 display: inline-block;
                 margin-top: px2em(8px);
@@ -189,6 +189,7 @@
             align-content: center;
             align-items: center;
             .item {
+                width:50%;
                 height: px2em(52px);
                 flex: 1;
                 text-align: center;
@@ -201,7 +202,7 @@
                     color: #fff;
                     padding: px2em(4px) px2em(18px);
                     border-radius: 3px;
-                    top: -(px2em(20px));
+                    top: -(px2em(10px));
                     font-weight: normal;
                 }
                 b {
@@ -225,20 +226,24 @@
                 }
                 .bottom {
                     top: -(px2em(22px));
-                    @include font-dpr(14px);
+                    b{
+                        font-weight:normal;
+                        @include font-dpr(14px);
+                    }
                     color: #999;
                     img {
                         float: left;
-                        width: px2em(32px);
-                        height: px2em(32px);
+                        width: px2em(30px);
+                        height: px2em(30px);
                         margin-left: 32%;
                         margin-right: -36%;
+                        margin-top:px2em(3px);
                     }
                 }
             }
         }
         .setting-list {
-            margin-top: px2em(44px);
+            margin: px2em(44px) 0;
             .mint-cell {
                 height: px2em(88px);
                 img {
@@ -248,9 +253,6 @@
             }
             .mint-cell-allow-right::after {
                 border-color: $color-blue;
-            }
-            a {
-                text-decoration-line: none;
             }
         }
     }

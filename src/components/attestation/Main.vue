@@ -280,12 +280,12 @@
             }
         }
         .submit {
-            margin: px2em(40px) px2em(35px);
+            padding: px2em(40px) px2em(35px) px2em(60px);
             .tips {
                 text-align: center;
                 color: #999;
                 @include font-dpr(17px);
-                margin-bottom: px2em(94px);
+                margin-bottom: px2em(54px);
             }
         }
     }

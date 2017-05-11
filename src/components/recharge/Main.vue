@@ -183,21 +183,19 @@
             }
             ul {
                 display: flex;
-                display:-webkit-flex;
-                flex-direction: row;
                 flex-direction: row;
                 flex-wrap: wrap;
-                justify-content: flex-start;
-                align-items: flex-start;
-                align-content: stretch;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
                 padding: px2em(15px) 0 px2em(25px);
                 background-color: #fff;
                 li {
-                    flex: 1;
                     text-align: center;
+                    width: 33%;
                     a {
                         display: inline-block;
-                        width: px2em(220px);
+                        width: 90%;
                         border: px2em(2px) solid #cbcbcb;
                         text-align: center;
                         text-decoration-line: none;
