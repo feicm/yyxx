@@ -1,10 +1,12 @@
 <template>
     <div id='default'>
         <Topbar></Topbar>
-        <Empty name="emptyClassGroup"
-               h1="功能开发中"
-               h2="敬请期待哦！">
-        </Empty>
+        <div class="empty">
+            <Empty name="emptyClassGroup"
+                   h1="功能开发中"
+                   h2="敬请期待哦！">
+            </Empty>
+        </div>
     </div>
 </template>
 
@@ -18,21 +20,15 @@
 
     },
     data () {
-      return {
-
-      }
+      return {}
     },
-    watch: {
-
-    },
+    watch: {},
 
     components: {
       Topbar,
       Empty
     },
-    methods: {
-
-    }
+    methods: {}
   }
 
 
@@ -47,7 +43,7 @@
         background-color: #fff;
         .empty {
             padding-top: px2em(108px);
-            height: 1vh;
+            height: 80vh;
             background-color: #fff;
         }
     }

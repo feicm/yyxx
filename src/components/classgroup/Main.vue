@@ -1,7 +1,7 @@
 <template>
     <div id='classGroup'>
         <Topbar></Topbar>
-        <div v-if="isEmpty" class="empty">
+        <div v-if="isEmpty && !isLoading" class="empty">
             <Empty name="emptyClassGroup"
                    h1="您还没有加入任何班群"
                    h2="请先创建或者加入班群哟！">
@@ -47,6 +47,7 @@
         const userId = Store.get('__YYXXAPP_USERID__');
         this.$store.dispatch('getClassesByUserId', {user_id: userId}).then(() => {
           Indicator.close()
+          this.isLoading=false
         });
         return;
       }
@@ -57,11 +58,13 @@
         Store.set('__YYXXAPP_USERID__', userId);
         this.$store.dispatch('getClassesByUserId', {userId: userId}).then(() => {
           Indicator.close()
+          this.isLoading=false
         });
       }, this));
     },
     data () {
       return {
+        isLoading:true,
         selected: false,
         isEmpty: !this.$store.getters.classGroupList.length
       }
@@ -69,6 +72,7 @@
     watch: {
       classGroupList(val){
         this.isEmpty=!val.length;
+        this.isLoading=false
         Indicator.close()
       }
     },
@@ -113,7 +117,7 @@
         }
         .empty {
             padding-top: px2em(108px);
-            height: 1vh;
+            height: 70vh;
             background-color: #fff;
         }
     }
