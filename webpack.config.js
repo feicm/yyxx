@@ -47,7 +47,9 @@ const webpackConfig = {
     noInfo: true,
     host: "0.0.0.0",
     port: 3000,
-    disableHostCheck: true
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    }
   },
   devtool: '#eval-source-map'
 }
