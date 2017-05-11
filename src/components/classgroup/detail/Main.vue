@@ -134,9 +134,9 @@
           user_id: this.user_id
         };
         MessageBox.confirm('确定要退出班群?').then(_.bind(function () {
-          this.$store.dispatch('exitClass', param).then(function () {
-            history.go(-1)
-          })
+          this.$store.dispatch('exitClass', param).then(_.bind(function () {
+            this.$router.go(-1)
+          },this))
         }, this));
       }
     }
