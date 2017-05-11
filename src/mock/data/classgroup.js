@@ -106,7 +106,7 @@ for (let i = 0; i < 10; i++) {
     "task_status": "", //最新任务完成情
   }));
 }
-/*for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 10; i++) {
   classGroupList.push(Mock.mock({
     "class_id": Mock.Random.integer(1, 100000),
     "school_name": "平潭一中",
@@ -121,7 +121,7 @@ for (let i = 0; i < 10; i++) {
     "createTime": "2017-04-08T16:31:21.833+0800",
     "textbook": "教材版本"
   }));
-}*/
+}
 export {
   classGroupList,
   classGroupInfo,

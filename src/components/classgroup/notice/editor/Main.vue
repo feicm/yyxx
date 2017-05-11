@@ -197,6 +197,7 @@
     @import '../../../../assets/css/function.scss';
 
     #editor {
+        background-color: #fff;
         .upload {
             padding-left: 115px;
             margin-top: -30px;
@@ -277,7 +278,8 @@
             }
         }
         .submit {
-            margin: px2em(40px) px2em(35px);
+            background-color: #fff;
+            padding-bottom:px2em(40px);
             .mint-button {
                 margin-bottom: px2em(20px);
             }

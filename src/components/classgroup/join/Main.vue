@@ -134,6 +134,7 @@
 
     #cgJoin {
         padding-top: px2em(95px);
+        background-color: #fff;
         .img {
             text-align: center;
             img {
@@ -143,7 +144,7 @@
             }
         }
         .submit {
-            margin: px2em(40px) px2em(35px);
+            padding: px2em(40px) px2em(35px);
         }
     }
 </style>
