@@ -257,13 +257,20 @@
             padding-bottom: px2em(48px);
             ul {
                 display: flex;
+                display: -webkit-flex;
                 flex-direction: row;
+                -webkit-flex-direction: row;
                 flex-wrap: wrap;
+                -webkit-flex-wrap: wrap;
                 justify-content: center;
+                -webkit-justify-content: center;
                 align-items: flex-start;
+                -webkit-align-items: flex-start;
                 align-content: stretch;
+                -webkit-align-content: stretch;
                 li {
                     flex: 1;
+                    -webkit-flex: 1;
                     text-align: center;
                     a {
                         display: inline-block;

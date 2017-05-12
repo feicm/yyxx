@@ -100,11 +100,17 @@
             background-color: rgb(250, 250, 250);
             height: px2em(80px);
             display: flex;
+            display: -webkit-flex;
             flex-direction: row;
+            -webkit-flex-direction: row;
             flex-wrap: wrap;
+            -webkit-flex-wrap: wrap;
             justify-content: center;
+            -webkit-justify-content: center;
             align-items: center;
+            -webkit-align-items: center;
             align-content: stretch;
+            -webkit-align-content: stretch;
             a {
                 color: #333;
                 @include font-dpr(18px);

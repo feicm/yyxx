@@ -43,7 +43,7 @@
         background-color: #fff;
         .empty {
             padding-top: px2em(108px);
-            height: 80vh;
+            height: 90vh;
             background-color: #fff;
         }
     }
