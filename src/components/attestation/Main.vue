@@ -58,14 +58,15 @@
     </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
   import Vue from 'vue'
   import {mapGetters} from 'vuex'
-  import {Cell, Field, Toast, MessageBox} from 'mint-ui';
+  import {Cell, Field, Toast, MessageBox,Indicator} from 'mint-ui';
   import Topbar from '../topbar/Main.vue';
   import _ from 'lodash';
   import Store from 'store';
   import API from '../../api/API'
+  import * as types from '../../store/types'
   const api = new API()
 
   Vue.component(Cell.name, Cell);
@@ -76,18 +77,20 @@
       if(!_.isEmpty(this.$store.getters.userInfo)){
         return;
       }
-      if (Store.get('__YYXXAPP_OPENID__')) {
+      Indicator.open({spinnerType: 'fading-circle'});
+      if (Store.get('__YYXXAPP_USERID__')) {
         const userId = Store.get('__YYXXAPP_USERID__');
-        this.$store.dispatch('getInfoByUserId', {userId: userId});
+        this.$store.dispatch('getInfoByUserId', {userId: userId}).then(()=>{
+          Indicator.close()
+        });
         return;
       }
-      //todo 第一次打开取openid
-      Indicator.open({spinnerType: 'fading-circle'});
-      Store.set('__YYXXAPP_OPENID__', 'okOB6w9oW_sytNIG3l2lY6iZ1Vf0');
       this.$store.dispatch('getInfoByOpenId', {openid: Store.get('__YYXXAPP_OPENID__')}).then(_.bind(function () {
         const userId = this.$store.state.user.wx_user_info.userId;
         Store.set('__YYXXAPP_USERID__', userId);
-        this.$store.dispatch('getInfoByUserId', {userId: userId});
+        this.$store.dispatch('getInfoByUserId', {userId: userId}).then(()=>{
+          Indicator.close()
+        });
       }, this));
     },
     data () {
@@ -187,7 +190,7 @@
             });
             Store.set('__YYXXAPP_isAuth__', 1);
             Store.set('__YYXXAPP_roleId__', this.role_id);
-            this.$store.commit('CHANGE_AUTH_STATE');
+            this.$store.commit(types.CHANGE_AUTH_STATE);
             this.readonly = true;
             setTimeout(_.bind(function () {
               this.$router.go(-1)

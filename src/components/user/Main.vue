@@ -93,14 +93,15 @@
 
   export default {
     beforeMount(){
-      if (Store.get('__YYXXAPP_OPENID__')) {
+      if(!_.isEmpty(this.$store.getters.userInfo)){
+        return
+      }
+      Indicator.open({spinnerType: 'fading-circle'});
+      if (Store.get('__YYXXAPP_USERID__')) {
         const userId = Store.get('__YYXXAPP_USERID__');
         this.$store.dispatch('getInfoByUserId', {userId: userId});
         return;
       }
-      //todo 第一次打开取openid
-      Indicator.open({spinnerType: 'fading-circle'});
-      Store.set('__YYXXAPP_OPENID__', 'okOB6w9oW_sytNIG3l2lY6iZ1Vf0');
       this.$store.dispatch('getInfoByOpenId', {openid: Store.get('__YYXXAPP_OPENID__')}).then(_.bind(function () {
         const userId = this.$store.state.user.wx_user_info.userId;
         Store.set('__YYXXAPP_USERID__', userId);
@@ -183,15 +184,17 @@
             height: px2em(120px);
             background-color: #fff;
             display: flex;
+            display: -webkit-flex;
             flex-direction: row;
             flex-wrap: wrap;
             justify-content: center;
             align-content: center;
             align-items: center;
             .item {
-                width:50%;
+                width:45%;
                 height: px2em(52px);
                 flex: 1;
+                -webkit-flex: 1;
                 text-align: center;
             }
             .left {

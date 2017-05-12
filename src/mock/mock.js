@@ -3,7 +3,7 @@ import MockAdapter from 'axios-mock-adapter';
 import {userInfo, user_wx} from './data/user';
 import {recharge, order} from './data/recharge';
 import {agreement} from './data/agreement';
-import {authInfo} from './data/auth';
+import {authInfo,wxAuthInfo} from './data/auth';
 import {classGroupList, classGroupInfo, gradeInfo, textbook,noticeInfo} from './data/classgroup';
 
 
@@ -135,6 +135,13 @@ export default {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve([200, null]);
+        }, 1000);
+      });
+    });
+    mock.onGet('https://api.weixin.qq.com/sns/oauth2/access_token').reply(config => {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, wxAuthInfo]);
         }, 1000);
       });
     });

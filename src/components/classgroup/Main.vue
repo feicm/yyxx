@@ -24,7 +24,7 @@
     </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
   import Vue from 'vue'
   import {mapGetters} from 'vuex'
   import {Tabbar, TabItem, Indicator} from 'mint-ui'
@@ -43,7 +43,7 @@
       if(!this.$store.getters.classGroupList.length){
         Indicator.open({spinnerType: 'fading-circle'});
       }
-      if (Store.get('__YYXXAPP_OPENID__')) {
+      if (Store.get('__YYXXAPP_USERID__')) {
         const userId = Store.get('__YYXXAPP_USERID__');
         this.$store.dispatch('getClassesByUserId', {user_id: userId}).then(() => {
           Indicator.close()
@@ -51,8 +51,6 @@
         });
         return;
       }
-      //todo 第一次打开取openid
-      Store.set('__YYXXAPP_OPENID__', 'okOB6w9oW_sytNIG3l2lY6iZ1Vf0');
       this.$store.dispatch('getInfoByOpenId', {openid: Store.get('__YYXXAPP_OPENID__')}).then(_.bind(function () {
         const userId = this.$store.state.user.wx_user_info.userId;
         Store.set('__YYXXAPP_USERID__', userId);
