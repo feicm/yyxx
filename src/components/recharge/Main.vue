@@ -182,15 +182,22 @@
                 }
             }
             ul {
+                display: -webkit-flex;
                 display: flex;
+                -webkit-flex-direction: row;
                 flex-direction: row;
+                -webkit-flex-wrap: wrap;
                 flex-wrap: wrap;
+                -webkit-justify-content: center;
                 justify-content: center;
+                -webkit-align-items: center;
                 align-items: center;
+                -webkit-align-content: center;
                 align-content: center;
                 padding: px2em(15px) 0 px2em(25px);
                 background-color: #fff;
                 li {
+                    display: inline-block;
                     text-align: center;
                     width: 33%;
                     a {

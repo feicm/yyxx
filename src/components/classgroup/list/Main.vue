@@ -59,11 +59,17 @@
             border-radius: px2em(8px);
             box-shadow: 0 px2em(5px) px2em(6px) rgba(0, 0, 0, .05);
             .top {
+                display: -webkit-flex;
                 display: flex;
+                -webkit-flex-direction: row;
                 flex-direction: row;
+                -webkit-flex-wrap: wrap;
                 flex-wrap: wrap;
+                -webkit-justify-content: space-between;
                 justify-content: space-between;
+                -webkit-align-items: center;
                 align-items: center;
+                -webkit-align-content: stretch;
                 align-content: stretch;
                 height: px2em(88px);
                 border-bottom: px2em(1px) solid #ddd;

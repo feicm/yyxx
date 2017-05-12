@@ -225,11 +225,17 @@
                 padding: 0;
                 .top {
                     display: flex;
+                    display: -webkit-flex;
                     flex-direction: row;
+                    -webkit-flex-direction: row;
                     flex-wrap: wrap;
+                    -webkit-lex-wrap: wrap;
                     justify-content: space-between;
+                    -webkit-justify-content: space-between;
                     align-items: center;
+                    -webkit-align-items: center;
                     align-content: stretch;
+                    -webkit-align-content: stretch;
                     height: px2em(88px);
                     border-bottom: px2em(1px) solid #ddd;
                     .title {
@@ -266,11 +272,17 @@
                 }
                 .bottom {
                     display: flex;
+                    display: -webkit-flex;
                     flex-direction: row;
+                    -webkit-flex-direction: row;
                     flex-wrap: nowrap;
+                    -webkit-flex-wrap: nowrap;
                     justify-content: center;
+                    -webkit-justify-content: center;
                     align-content: center;
+                    -webkit-align-content: center;
                     align-items: center;
+                    -webkit-align-items: center;
                     height: px2em(88px);
                     border-top: px2em(1px) solid #ddd;
                     .item {
@@ -292,11 +304,17 @@
             background-color: rgb(250, 250, 250);
             height: px2em(80px);
             display: flex;
+            display: -webkit-flex;
             flex-direction: row;
+            -webkit-flex-direction: row;
             flex-wrap: wrap;
+            -webkit-flex-wrap: wrap;
             justify-content: center;
+            -webkit-justify-content: center;
             align-items: center;
+            -webkit-align-items: center;
             align-content: stretch;
+            -webkit-align-content: stretch;
             a {
                 color: #333;
                 @include font-dpr(18px);

@@ -104,11 +104,17 @@
             box-shadow: 0 px2em(5px) px2em(6px) rgba(0, 0, 0, .05);
             .top {
                 display: flex;
+                display: -webkit-flex;
                 flex-direction: row;
+                -webkit-flex-direction: row;
                 flex-wrap: wrap;
+                -webkit-flex-wrap: wrap;
                 justify-content: flex-start;
+                -webkit-justify-content: flex-start;
                 align-items: center;
+                -webkit-align-items: center;
                 align-content: stretch;
+                -webkit-align-content: stretch;
                 height: px2em(88px);
                 border-bottom: px2em(1px) solid #ddd;
                 .title {

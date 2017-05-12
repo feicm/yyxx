@@ -20,7 +20,7 @@
                       placeholder="请输入老师姓名"></mt-field>
             <mt-field v-if="role_id!==3" label="座位号" v-model="place_id" :state="placeIdState"
                       placeholder="请输入座位号"></mt-field>
-            <mt-cell v-if="radioEdition.options.length"
+            <mt-cell v-if="radioEdition.options.length && gradeSelected"
                      title="教材版本"
                      is-link
                      :value="radioEdition.selectedName" @click.native="select('Edition')">
@@ -97,6 +97,9 @@
         this.radioGrade.options = this.gradeInfo;
         this.radioEdition.options = this.textBook;
       }
+      if(!this.radioGrade.value){
+        this.gradeSelected=false
+      }
     },
     data () {
       const now = new Date();
@@ -113,6 +116,7 @@
         classState: '',
         teacher_name: (role_id || Store.get('__YYXXAPP_roleId__')) - 0 === 3 ? user_name : '',
         teacherNameState: '',
+        gradeSelected: false,
         role_id: (role_id || Store.get('__YYXXAPP_roleId__')) - 0,
         place_id: (role_id || Store.get('__YYXXAPP_roleId__')) - 0 === 3 ? 0 : '',
         placeIdState: '',
@@ -146,6 +150,7 @@
         this.radioGrade.selectedName = _.nth(this.radioGrade.options, _.findIndex(this.radioGrade.options, o => {
           return o.value === this.radioGrade.value
         }))['label']
+        this.gradeSelected=true;
       },
       'radioEdition.value'(){
         if (!this.radioEdition.value) {

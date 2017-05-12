@@ -190,6 +190,7 @@
             justify-content: center;
             align-content: center;
             align-items: center;
+            border:1px solid;
             .item {
                 width:45%;
                 height: px2em(52px);

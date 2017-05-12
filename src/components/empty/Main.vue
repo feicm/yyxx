@@ -32,10 +32,15 @@
 
     #empty {
         background-color: #fff;
+        display: -webkit-flex;
         display: flex;
+        -webkit-flex-direction: column;
         flex-direction: column;
+        -webkit-flex-wrap: wrap;
         flex-wrap: wrap;
+        -webkit-justify-content: center;
         justify-content: center;
+        -webkit-align-items: center;
         align-items: center;
         padding:px2em(40px);
         img {
