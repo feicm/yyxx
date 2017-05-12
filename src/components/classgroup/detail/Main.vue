@@ -229,7 +229,7 @@
                     flex-direction: row;
                     -webkit-flex-direction: row;
                     flex-wrap: wrap;
-                    -webkit-lex-wrap: wrap;
+                    -webkit-flex-wrap: wrap;
                     justify-content: space-between;
                     -webkit-justify-content: space-between;
                     align-items: center;
@@ -287,6 +287,7 @@
                     border-top: px2em(1px) solid #ddd;
                     .item {
                         flex: 1;
+                        -webkit-flex: 1;
                         text-align: center;
                         @include font-dpr(16px)
                     }

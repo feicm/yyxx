@@ -94,6 +94,7 @@
       }, this));
     },
     data () {
+      const {role_id} = this.$store.getters.userInfo;
       return {
         user_name: '',
         mobile: '',
@@ -104,17 +105,17 @@
         role: {
           student: {
             text: '学生',
-            select: true,
+            select: role_id-0 === 1,
             id: 1,
           },
           patriarch: {
             text: '家长',
-            select: false,
+            select: role_id-0 === 2,
             id: 2,
           },
           teacher: {
             text: '老师',
-            select: false,
+            select: role_id-0 === 3,
             id: 3,
           },
         }
