@@ -8,13 +8,13 @@
             </a>
             <p class="name"><span>助学英语</span></p>
         </header>
-        <mt-field v-if="userInfo.isAuth" readonly placeholder="输入真实姓名" type="text" v-model="userInfo.user_name">
+        <mt-field v-if="userInfo.isAuth" readonly disabled placeholder="输入真实姓名" type="text" v-model="userInfo.user_name">
             <img src="../../assets/images/view/attestation_import_username.png">
         </mt-field>
         <mt-field v-else placeholder="输入真实姓名" type="text" :state="userNameState" v-model="user_name">
             <img src="../../assets/images/view/attestation_import_username.png">
         </mt-field>
-        <mt-field v-if="userInfo.isAuth" readonly placeholder="输入手机号码" type="tel" v-model="userInfo.mobile">
+        <mt-field v-if="userInfo.isAuth" readonly disabled placeholder="输入手机号码" type="tel" v-model="userInfo.mobile">
             <img src="../../assets/images/view/attestation_import_tel_number.png">
         </mt-field>
         <mt-field v-else placeholder="输入手机号码" :state="mobileState" ref="mobile" type="tel"
@@ -104,31 +104,31 @@
         role: {
           student: {
             text: '学生',
-            select: false,
-            id: 0,
+            select: true,
+            id: 1,
           },
           patriarch: {
             text: '家长',
             select: false,
-            id: 1,
+            id: 2,
           },
           teacher: {
             text: '老师',
             select: false,
-            id: 2,
+            id: 3,
           },
         }
       }
     },
     watch: {
       'role.student.select'(){
-        this.role_id = 0;
-      },
-      'role.patriarch.select'(){
         this.role_id = 1;
       },
-      'role.teacher.select'(){
+      'role.patriarch.select'(){
         this.role_id = 2;
+      },
+      'role.teacher.select'(){
+        this.role_id = 3;
       },
       user_name(val){
         if (_.trim(val)) {

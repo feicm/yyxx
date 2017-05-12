@@ -14,7 +14,8 @@
             <div class="left item">
                 <span v-if="userInfo.role_id==1">学生</span>
                 <span v-if="userInfo.role_id==2">家长</span>
-                <span v-if="userInfo.role_id==3">老师</span><br>
+                <span v-if="userInfo.role_id==3">老师</span>
+                <span v-show="!userInfo.role_id" class="no">未认证</span><br>
                 <b>身份</b>
             </div>
             <div class="right item">
@@ -210,6 +211,9 @@
                     border-radius: 3px;
                     top: -(px2em(10px));
                     font-weight: normal;
+                }
+                .no{
+                    background-color: $color-default;
                 }
                 b {
                     position: relative;
