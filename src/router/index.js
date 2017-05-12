@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import RouterDispatch from '../components/routerdispatch/Main.vue'
 import Home from '../components/home/Main.vue'
 import User from '../components/user/Main.vue'
 import Recharge from '../components/recharge/Main.vue'
@@ -18,7 +19,8 @@ Vue.use(Router);
 
 export default new Router({
   routes: [
-    { path: '/', component: Home },
+    { path: '/', component: RouterDispatch },
+    { path: '/home', component: Home },
     { path: '/user/info', component: User },
     { path: '/user/recharge', component: Recharge },
     { path: '/user/attestation', component: Attestation },
