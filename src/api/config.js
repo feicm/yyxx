@@ -2,7 +2,7 @@ import Qs from 'qs'
 export default{
 
   url: '/route',
-  baseURL: 'http://localhost:3000',
+  baseURL: '/',
   method: 'POST',
 
   transformRequest: [function (data) {
