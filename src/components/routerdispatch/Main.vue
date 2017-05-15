@@ -46,7 +46,7 @@
           code: code,
           grant_type: 'authorization_code'
         };
-        axios.get('https://api.weixin.qq.com/sns/oauth2/access_token', param).then((resp) => {
+        axios.get('https://api.weixin.qq.com/sns/oauth2/access_token', {params:param}).then((resp) => {
           const data = resp.data ? resp.data : resp;
           Store.set('__YYXXAPP_OPENID__', data.openid);
           this.$router.replace(path)
