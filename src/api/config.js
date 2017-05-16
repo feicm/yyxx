@@ -1,8 +1,9 @@
 import Qs from 'qs'
+import Store from 'store'
 export default{
 
   url: '/route',
-  baseURL: '/yyxx/',
+  baseURL: 'http://www.yyxx100.com/yyxx/',
   method: 'POST',
 
   transformRequest: [function (data) {
@@ -24,7 +25,7 @@ export default{
 
   params: {
     eid: 8484662,
-    openid: '57c80528e4b07e300ed4ffbb',
+    openid: Store.get('__YYXXAPP_OPENID__') || '',
     pubacckey: '',
     timestamp: '',
     nonce: '',

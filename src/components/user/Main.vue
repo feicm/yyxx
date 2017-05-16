@@ -7,8 +7,8 @@
                 <img v-else
                      src="../../assets/images/default/general_user_head_portrait_student_default.png">
             </a>
-            <p class="username"><span>{{userInfo.nick_name}}</span></p>
-            <p class="userid"><span>账号：{{userInfo.user_id}}</span></p>
+            <p class="username"><span>{{userInfo.nickname}}</span></p>
+            <p class="userid"><span>账号：{{userInfo.userId}}</span></p>
         </header>
         <div class="info">
             <div class="left item">

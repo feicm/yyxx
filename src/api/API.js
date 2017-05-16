@@ -3,23 +3,23 @@ import config from './config'
 
 class API {
 	getUserInfoByOpenid(param){
-    config.data = param;
+    config.params = Object.assign(config.params,param);
     return axios.get('/userInfo/getUserByOpenid',config);
 	}
   getUserInfoByUserid(param){
-    config.data = param;
+    config.params = Object.assign(config.params,param);
     return axios.get('/userInfo/getUserByUserId',config);
   }
   userIdentity(param){
     config.data = param;
-    return axios.post('/userInfo/authUserInfo',config);
+    return axios.post('/userInfo/authUserInfo',{},config);
   }
   getRechargeGoods(param){
-    config.data= param;
+    config.params = Object.assign(config.params,param);
     return axios.get('/v0.1/goods',config);
   }
   getOrderInfo(param){
-    config.data = param;
+    config.params = Object.assign(config.params,param);
     return axios.get('/v0.1/order/{order_id}',config);
   }
   createOrder(param){
@@ -28,60 +28,60 @@ class API {
   }
   createClassGroup(param){
     config.data= param;
-    return axios.post('/classInfo/saveClassInfo',config);
+    return axios.post('/classInfo/saveClassInfo',{},config);
   }
   joinClassGroup(param){
     config.data = param;
-    return axios.post('/classInfo/saveUserClass',config);
+    return axios.post('/classInfo/saveUserClass',{},config);
   }
   exitClassGroup(param){
-    config.data= param;
+    config.params = Object.assign(config.params,param);
     return axios.get('/classInfo/exitClass',config);
   }
   getClassGroupList(param){
-    config.data= param;
+    config.params = Object.assign(config.params,param);
     return axios.get('/classInfo/getClassesByUserId',config);
   }
   getClassGroupInfo(param){
-    config.data= param;
+    config.params = Object.assign(config.params,param);
     return axios.get('/classInfo/getClassMsgByClassId',config);
   }
   getGrade(param){
-    config.data= param;
+    config.params = Object.assign(config.params,param);
     return axios.get('/gradeInfo/getGradeInfos',config);
   }
   getTextbookVersion(param){
-    config.data= param;
+    config.params = Object.assign(config.params,param);
     return axios.get('/gradeInfo/getTextbook',config);
   }
   getTaskList(param){
     config.data= param;
-    return axios.post('/v0.1/task',config);
+    return axios.post('/v0.1/task',{},config);
   }
   getNewestTaskList(param){
     config.data= param;
-    return axios.post('/v0.1/task/{class_id}',config);
+    return axios.post('/v0.1/task/{class_id}',{},config);
   }
   getTaskHistory(param){
-    config.data= param;
+    config.params = Object.assign(config.params,param);
     return axios.get('/v0.1/classgroup/task/{class_id}/{user_id}',config);
   }
   getNotice(param){
-    config.data= param;
+    config.params = Object.assign(config.params,param);
     return axios.get('/notifyInfo/getNotifyInfo',config);
   }
   saveNotice(param){
     config.data= param;
-    return axios.post('/notifyInfo/saveNotifyInfo',config);
+    return axios.post('/notifyInfo/saveNotifyInfo',{},config);
   }
   editNotice(param){
     config.data= param;
-    return axios.post('/notifyInfo/updateNotifyInfo',config);
+    return axios.post('/notifyInfo/updateNotifyInfo',{},config);
   }
 
   postAgreement(param){
     config.data= param;
-    return axios.post('/agreementInfo/saveAgreementInfo',config);
+    return axios.post('/agreementInfo/saveAgreementInfo',{},config);
   }
 }
 export default API;
