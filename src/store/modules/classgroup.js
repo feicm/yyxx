@@ -54,7 +54,7 @@ const mutations = {
     state.class_group_info = {};
   },
   [types.GET_GRADE_INFOS](state, payload){
-    state.grade_info = payload.data;
+    state.grade_info = payload.data.data;
   },
   [types.GET_TEXTBOOK](state, payload){
     state.textbook = payload.data;

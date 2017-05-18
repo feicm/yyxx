@@ -258,7 +258,9 @@
         this.radioEdition.value = '';
         this.radioEdition.selectedName = '请选择教材版本';
         this.actived = false;
-        this.$store.dispatch('getTextbook')
+        this.$store.dispatch('getTextbook',{
+          gradeId:this.radioGrade.value
+        })
       },
       changeEdition(){
         this.popupEdition = false;

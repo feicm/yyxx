@@ -52,7 +52,7 @@ class API {
   }
   getTextbookVersion(param){
     config.params = Object.assign(config.params,param);
-    return axios.get('/gradeInfo/getTextbook',config);
+    return axios.get('/textbookInfo/getTextbooks',config);
   }
   getTaskList(param){
     config.data= param;

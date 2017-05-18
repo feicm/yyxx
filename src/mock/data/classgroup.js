@@ -17,61 +17,65 @@ const classGroupInfo = {
   },
   "students": []
 }
-const gradeInfo = [{
-  "type": "小学",
-  "list": [{
-    "gradeId": "34667279476064256",
-    "gradeName": "一年级",
-    "state": "1",
-    "gradeType": "小学"
+const gradeInfo = {
+  code:'',
+  msg:'success',
+  data:[{
+    "type": "小学",
+    "list": [{
+      "gradeId": "34667279476064256",
+      "gradeName": "一年级",
+      "state": "1",
+      "gradeType": "小学"
+    }, {
+      "gradeId": "34667279480258560",
+      "gradeName": "二年级",
+      "state": "1",
+      "gradeType": "小学"
+    }, {
+      "gradeId": "34667279480258561",
+      "gradeName": "三年级",
+      "state": "1",
+      "gradeType": "小学"
+    }, {
+      "gradeId": "34667279480258562",
+      "gradeName": "四年级",
+      "state": "1",
+      "gradeType": "小学"
+    }, {
+      "gradeId": "34667279480258563",
+      "gradeName": "五年级",
+      "state": "1",
+      "gradeType": "小学"
+    }, {"gradeId": "34667279480258564", "gradeName": "六年级", "state": "1", "gradeType": "小学"}]
   }, {
-    "gradeId": "34667279480258560",
-    "gradeName": "二年级",
-    "state": "1",
-    "gradeType": "小学"
+    "type": "初中",
+    "list": [{
+      "gradeId": "34667279480258565",
+      "gradeName": "七年级",
+      "state": "1",
+      "gradeType": "初中"
+    }, {
+      "gradeId": "34667279480258566",
+      "gradeName": "八年级",
+      "state": "1",
+      "gradeType": "初中"
+    }, {"gradeId": "34667279480258567", "gradeName": "九年级", "state": "1", "gradeType": "初中"}]
   }, {
-    "gradeId": "34667279480258561",
-    "gradeName": "三年级",
-    "state": "1",
-    "gradeType": "小学"
-  }, {
-    "gradeId": "34667279480258562",
-    "gradeName": "四年级",
-    "state": "1",
-    "gradeType": "小学"
-  }, {
-    "gradeId": "34667279480258563",
-    "gradeName": "五年级",
-    "state": "1",
-    "gradeType": "小学"
-  }, {"gradeId": "34667279480258564", "gradeName": "六年级", "state": "1", "gradeType": "小学"}]
-}, {
-  "type": "初中",
-  "list": [{
-    "gradeId": "34667279480258565",
-    "gradeName": "七年级",
-    "state": "1",
-    "gradeType": "初中"
-  }, {
-    "gradeId": "34667279480258566",
-    "gradeName": "八年级",
-    "state": "1",
-    "gradeType": "初中"
-  }, {"gradeId": "34667279480258567", "gradeName": "九年级", "state": "1", "gradeType": "初中"}]
-}, {
-  "type": "高中",
-  "list": [{
-    "gradeId": "34667279480258568",
-    "gradeName": "高一年",
-    "state": "1",
-    "gradeType": "高中"
-  }, {
-    "gradeId": "34667523509059584",
-    "gradeName": "高二年",
-    "state": "1",
-    "gradeType": "高中"
-  }, {"gradeId": "34667523509059585", "gradeName": "高三年", "state": "1", "gradeType": "高中"}]
-}];
+    "type": "高中",
+    "list": [{
+      "gradeId": "34667279480258568",
+      "gradeName": "高一年",
+      "state": "1",
+      "gradeType": "高中"
+    }, {
+      "gradeId": "34667523509059584",
+      "gradeName": "高二年",
+      "state": "1",
+      "gradeType": "高中"
+    }, {"gradeId": "34667523509059585", "gradeName": "高三年", "state": "1", "gradeType": "高中"}]
+  }]
+};
 const textbook = []
 const noticeInfo={
   "notifyId": "41187717379260416",

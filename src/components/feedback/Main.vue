@@ -59,7 +59,7 @@
     },
     methods: {
       submit(){
-        api.postAgreement({user_id: this.userId,agreement_title:this.value,agreement_content:this.agreement_content})
+        api.postAgreement({userId: this.userId,agreementTitle:this.value,agreementContent:this.agreement_content})
           .then(_.bind(function (res) {
             Toast({
               message: '提交成功',

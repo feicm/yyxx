@@ -8,7 +8,8 @@
             </a>
             <p class="name"><span>助学英语</span></p>
         </header>
-        <mt-field v-if="userInfo.isAuth" readonly disabled placeholder="输入真实姓名" type="text" v-model="userInfo.user_name">
+        <mt-field v-if="userInfo.isAuth" readonly disabled placeholder="输入真实姓名" type="text"
+                  v-model="userInfo.userName">
             <img src="../../assets/images/view/attestation_import_username.png">
         </mt-field>
         <mt-field v-else placeholder="输入真实姓名" type="text" :state="userNameState" v-model="user_name">
@@ -61,7 +62,7 @@
 <script type="text/ecmascript-6">
   import Vue from 'vue'
   import {mapGetters} from 'vuex'
-  import {Cell, Field, Toast, MessageBox,Indicator} from 'mint-ui';
+  import {Cell, Field, Toast, MessageBox, Indicator} from 'mint-ui';
   import Topbar from '../topbar/Main.vue';
   import _ from 'lodash';
   import Store from 'store';
@@ -74,13 +75,13 @@
 
   export default {
     beforeMount(){
-      if(!_.isEmpty(this.$store.getters.userInfo)){
+      if (!_.isEmpty(this.$store.getters.userInfo)) {
         return;
       }
       Indicator.open({spinnerType: 'fading-circle'});
       if (Store.get('__YYXXAPP_USERID__')) {
         const userId = Store.get('__YYXXAPP_USERID__');
-        this.$store.dispatch('getInfoByUserId', {userId: userId}).then(()=>{
+        this.$store.dispatch('getInfoByUserId', {userId: userId}).then(() => {
           Indicator.close()
         });
         return;
@@ -88,34 +89,35 @@
       this.$store.dispatch('getInfoByOpenId', {openid: Store.get('__YYXXAPP_OPENID__')}).then(_.bind(function () {
         const userId = this.$store.state.user.wx_user_info.userId;
         Store.set('__YYXXAPP_USERID__', userId);
-        this.$store.dispatch('getInfoByUserId', {userId: userId}).then(()=>{
+        this.$store.dispatch('getInfoByUserId', {userId: userId}).then(() => {
           Indicator.close()
         });
       }, this));
     },
     data () {
-      const {role_id} = this.$store.getters.userInfo;
+      const {roleId, userId,userName,phone} = this.$store.getters.userInfo;
       return {
-        user_name: '',
-        mobile: '',
-        role_id: null,
+        user_id:userId,
+        user_name: userName,
+        mobile: phone,
+        role_id: roleId,
         userNameState: '',
         mobileState: '',
         actived: false,
         role: {
           student: {
             text: '学生',
-            select: role_id-0 === 1,
-            id: 1,
+            select: roleId - 0 === 1,
+            id: 1
           },
           patriarch: {
             text: '家长',
-            select: role_id-0 === 2,
-            id: 2,
+            select: roleId - 0 === 2,
+            id: 2
           },
           teacher: {
             text: '老师',
-            select: role_id-0 === 3,
+            select: roleId - 0 === 3,
             id: 3,
           },
         }
@@ -169,7 +171,7 @@
         return this.userNameState === 'success' && this.mobileState === 'success';
       },
       selectRole(roleName){
-        if(this.userInfo.isAuth){
+        if (this.userInfo.isAuth) {
           return;
         }
         _.each(this.role, function (item) {
@@ -179,9 +181,10 @@
       },
       submit(){
         const param = {
-          user_name: this.user_name,
-          mobile: this.mobile,
-          role_id: this.role_id
+          userId: this.user_id,
+          userName: this.user_name,
+          phone: this.mobile,
+          roleId: this.role_id
         };
         MessageBox.confirm('认证信息不能修，确认提交?').then(_.bind(function () {
           api.userIdentity(param).then(_.bind(function () {

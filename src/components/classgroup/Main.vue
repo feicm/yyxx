@@ -40,7 +40,7 @@
 
   export default {
     beforeMount(){
-      if(!this.$store.getters.classGroupList.length){
+      if(!_.isEmpty(this.$store.getters.classGroupList)){
         Indicator.open({spinnerType: 'fading-circle'});
       }
       if (Store.get('__YYXXAPP_USERID__')) {

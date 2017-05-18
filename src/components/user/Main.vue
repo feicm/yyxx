@@ -12,9 +12,9 @@
         </header>
         <div class="info">
             <div class="left item">
-                <span v-if="userInfo.role_id==1">学生</span>
-                <span v-else-if="userInfo.role_id==2">家长</span>
-                <span v-else-if="userInfo.role_id==3">老师</span>
+                <span v-if="userInfo.roleId==1">学生</span>
+                <span v-else-if="userInfo.roleId==2">家长</span>
+                <span v-else-if="userInfo.roleId==3">老师</span>
                 <span v-else class="no">未认证</span><br>
                 <b>身份</b>
             </div>
@@ -94,7 +94,6 @@
 
   export default {
     beforeMount(){
-      if(this.$store)
       if (Store.get('__YYXXAPP_USERID__')) {
         const userId = Store.get('__YYXXAPP_USERID__');
         this.$store.dispatch('getInfoByUserId', {userId: userId});

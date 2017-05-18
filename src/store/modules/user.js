@@ -24,10 +24,10 @@ const actions = {
 const mutations = {
   [types.GET_INFO_BY_USERID](state, payload){
     console.log(payload)
-    state.user_info = payload.data;
+    state.user_info = payload.data.data;
   },
   [types.GET_INFO_BY_OPENID](state, payload){
-    state.wx_user_info = payload.data;
+    state.wx_user_info = payload.data.data;
   },
   [types.CHANGE_AUTH_STATE](state){
     state.user_info.isAuth = 1
