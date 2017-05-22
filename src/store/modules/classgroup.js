@@ -44,11 +44,11 @@ const actions = {
 
 const mutations = {
   [types.GET_CLASS_GROUP_LIST_BY_USERID](state, payload){
-    state.class_group_list = payload.data;
+    state.class_group_list = payload.data.data;
   },
   [types.GET_CLASS_GROUP_INFO_BY_ID](state, payload){
-    state.class_group_info = payload.data.classInfo;
-    state.class_group_students = payload.data.students;
+    state.class_group_info = payload.data.data.classInfo;
+    state.class_group_students = payload.data.data.students;
   },
   [types.EXIT_CLASS_GROUP_BY_ID](state, payload){
     state.class_group_info = {};
@@ -57,7 +57,7 @@ const mutations = {
     state.grade_info = payload.data.data;
   },
   [types.GET_TEXTBOOK](state, payload){
-    state.textbook = payload.data;
+    state.textbook = payload.data.data;
   },
   [types.GET_NOTICE](state, payload){
     state.notice_info = payload.data;

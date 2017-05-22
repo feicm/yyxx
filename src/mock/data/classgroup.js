@@ -1,21 +1,34 @@
 import Mock from 'mockjs';
-const classGroupList = [];
+const classGroupList = {
+  code:'',
+  msg:'success',
+  data:[]
+};
 const classGroupInfo = {
-  "classInfo": {
-    "class_id": "299290857268314112",
-    "school_name": "平潭一中",
-    "state": "1", //0解散 //1有效，解散的不用返回         
-    "class": "二班",
-    "grade": "高三年",
-    "create_user_name": Mock.Random.cname(), //创建者姓名
-    "create_user_id": "2", //创建者id        
-    "teacher_name": Mock.Random.cname(),
-    "teacher_id": "老师id",//可能为空        
-    "start_date": "2014.09",
-    "end_date": "2015.07",
-    "createTime": "2017-04-08T16:31:21.833+0800"
-  },
-  "students": []
+  code:'',
+  msg:'',
+  data:{
+    "classInfo": {
+      "bookId": Mock.Random.integer(1, 100000),
+      "bookName": '民教版',
+      "classId": Mock.Random.integer(1, 100000),
+      "className": '二班',
+      "serialId": Mock.Random.integer(1, 100000),
+      "serialName": '册名',
+      "schoolName": "平潭一中",
+      "gradeId": Mock.Random.integer(1, 100),
+      "gradeName": "高三年",
+      "state": "1", //0解散 //1有效，解散的不用返回        
+      "createUserName": Mock.Random.cname(), //创建者姓名
+      "createUserId": Mock.Random.integer(1, 100), //创建者id       
+      "teacherId": Mock.Random.integer(1, 100),
+      "teacherName": Mock.Random.cname(),
+      "startDate": "2014.09",
+      "endDate": "2015.07",
+      "createTime": "2017-04-08T16:31:21.833+0800",
+    },
+    "students": []
+  }
 }
 const gradeInfo = {
   code:'',
@@ -76,7 +89,11 @@ const gradeInfo = {
     }, {"gradeId": "34667523509059585", "gradeName": "高三年", "state": "1", "gradeType": "高中"}]
   }]
 };
-const textbook = []
+const textbook = {
+  code:'',
+  msg:'',
+  data:[]
+}
 const noticeInfo={
   "notifyId": "41187717379260416",
   "notifyTitle": "标题3",
@@ -94,14 +111,15 @@ const noticeInfo={
 }
 
 for (let i = 0; i < 10; i++) {
-  textbook.push(Mock.mock({
-    textbook_id: Mock.Random.integer(1, 100),
-    textbook_code: Mock.Random.integer(1, 100)+'',
-    textbook_name: "闽教版"+Mock.Random.integer(1, 100000)
+  textbook.data.push(Mock.mock({
+    bookId: Mock.Random.integer(1, 100),
+    serialId: Mock.Random.integer(1, 100),
+    bookName: '民教版',
+    serialName: '？册',
   }));
 }
 for (let i = 0; i < 10; i++) {
-  classGroupInfo.students.push(Mock.mock({
+  classGroupInfo.data.students.push(Mock.mock({
     "user_id": Mock.Random.integer(1, 100), //用户唯一编号
     "role_id": Mock.Random.integer(1, 3), //学生、家长or老师
     "student_name": Mock.Random.cname(), //学生姓名
@@ -111,19 +129,24 @@ for (let i = 0; i < 10; i++) {
   }));
 }
 for (let i = 0; i < 10; i++) {
-  classGroupList.push(Mock.mock({
-    "class_id": Mock.Random.integer(1, 100000),
-    "school_name": "平潭一中",
-    "grade": "高三年",
+  classGroupList.data.push(Mock.mock({
+    "bookId": Mock.Random.integer(1, 100000),
+    "bookName": '民教版',
+    "classId": Mock.Random.integer(1, 100000),
+    "className": '二班',
+    "serialId": Mock.Random.integer(1, 100000),
+    "serialName": '册名',
+    "schoolName": "平潭一中",
+    "gradeId": Mock.Random.integer(1, 100),
+    "gradeName": "高三年",
     "state": "1", //0解散 //1有效，解散的不用返回        
-    "class": "二班",
-    "create_user_name": Mock.Random.cname(), //创建者姓名
-    "create_user_id": Mock.Random.integer(1, 100), //创建者id       
-    "teacher_name": Mock.Random.cname(),
-    "start_date": "2014.09",
-    "end_date": "2015.07",
+    "createUserName": Mock.Random.cname(), //创建者姓名
+    "createUserId": Mock.Random.integer(1, 100), //创建者id       
+    "teacherId": Mock.Random.integer(1, 100),
+    "teacherName": Mock.Random.cname(),
+    "startDate": "2014.09",
+    "endDate": "2015.07",
     "createTime": "2017-04-08T16:31:21.833+0800",
-    "textbook": "教材版本"
   }));
 }
 export {

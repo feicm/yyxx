@@ -97,28 +97,28 @@
         this.radioGrade.options = this.gradeInfo;
         this.radioEdition.options = this.textBook;
       }
-      if(!this.radioGrade.value){
-        this.gradeSelected=false
+      if (!this.radioGrade.value) {
+        this.gradeSelected = false
       }
     },
     data () {
       const now = new Date();
       const nowShow = Moment().format("YYYY 年 MM 月");
-      const {user_id, role_id, user_name, isAuth}=this.$store.getters.userInfo;
+      const {userId, roleId, userName, isAuth}=this.$store.getters.userInfo;
       return {
-        user_id: user_id || Store.get('__YYXXAPP_USERID__'),
-        user_name: user_name,
+        user_id: userId || Store.get('__YYXXAPP_USERID__'),
+        user_name: userName,
         isAuth: isAuth || Store.get('__YYXXAPP_isAuth__'),
         actived: false,
         school_name: '',
         schoolNameState: '',
         class_name: '',
         classState: '',
-        teacher_name: (role_id || Store.get('__YYXXAPP_roleId__')) - 0 === 3 ? user_name : '',
+        teacher_name: (roleId || Store.get('__YYXXAPP_roleId__')) - 0 === 3 ? userName : '',
         teacherNameState: '',
         gradeSelected: false,
-        role_id: (role_id || Store.get('__YYXXAPP_roleId__')) - 0,
-        place_id: (role_id || Store.get('__YYXXAPP_roleId__')) - 0 === 3 ? 0 : '',
+        role_id: (roleId || Store.get('__YYXXAPP_roleId__')) - 0,
+        place_id: (roleId || Store.get('__YYXXAPP_roleId__')) - 0 === 3 ? 0 : '',
         placeIdState: '',
         showTime: {
           start: nowShow,
@@ -150,7 +150,7 @@
         this.radioGrade.selectedName = _.nth(this.radioGrade.options, _.findIndex(this.radioGrade.options, o => {
           return o.value === this.radioGrade.value
         }))['label']
-        this.gradeSelected=true;
+        this.gradeSelected = true;
       },
       'radioEdition.value'(){
         if (!this.radioEdition.value) {
@@ -197,10 +197,11 @@
         const options = [];
         _.map(this.$store.getters.textBook, function (v) {
           options.push({
-            value: v.textbook_code,
-            label: v.textbook_name
+            value: v.bookId + '_' + v.serialId,
+            label: v.bookName + v.serialName
           })
         });
+        console.log(options)
         return options
       },
       gradeInfo(){
@@ -258,36 +259,40 @@
         this.radioEdition.value = '';
         this.radioEdition.selectedName = '请选择教材版本';
         this.actived = false;
-        this.$store.dispatch('getTextbook',{
-          gradeId:this.radioGrade.value
+        this.$store.dispatch('getTextbook', {
+          gradeId: this.radioGrade.value
         })
       },
       changeEdition(){
         this.popupEdition = false;
       },
       submit(){
-          /*user_id：用户编号
-           role_id: 1
-           school_name：学校名称
-           grade：年级
-           class：班级名称
-           start_date：开始时间
-           end_date：结束时间
-           teacher_name：老师名称 (如果创建者是老师，此项不填，直接获取认证的姓名，前端不要展示这个填写)
-           place_id：座位号 (如果创建者是老师，默认给个座号0，前端不要展示这行填写)
-           textbook_version:教材版本*/
+          /*userId：用户编号
+           roleId: 1
+           schoolName：学校名称
+           gradeId：年级
+           serialId：册
+           className：班级名称
+           startDate：开始时间
+           endDate：结束时间
+           teacherName：老师名称 (如果创建者是老师，此项不填，直接获取认证的姓名，前端不要展示这个填写)
+           place：座位号 (如果创建者是老师，默认给个座号0，前端不要展示这行填写)
+           bookId:教材版本*/
+        const tId = this.radioEdition.value.split('_')
         const param = {
-          user_id: this.user_id,
-          role_id: this.role_id,
-          school_name: this.school_name,
-          grade: this.radioGrade.value,
-          class: this.class_name,
-          start_date: this.startTime,
-          end_date: this.endTime,
-          teacher_name: this.teacher_name,
-          place_id: this.place_id,
-          textbook_version: this.radioEdition.value
+          userId: this.user_id,
+          roleId: this.role_id,
+          schoolName: this.school_name,
+          gradeId: this.radioGrade.value,
+          serialId: tId[1],
+          className: this.class_name,
+          startDate: this.startTime,
+          endDate: this.endTime,
+          teacherName: this.teacher_name,
+          place: this.place_id,
+          bookId: tId[0]
         };
+        console.log(param)
         api.createClassGroup(param).then(() => {
           Toast({
             message: '班群创建成功！',
@@ -353,9 +358,9 @@
                 height: 100%;
                 overflow-y: auto;
                 -webkit-overflow-scrolling: touch;
-                .mint-radiolist{
-                    padding-top:px2em(95px);
-                    margin-bottom:px2em(95px);
+                .mint-radiolist {
+                    padding-top: px2em(95px);
+                    margin-bottom: px2em(95px);
                 }
             }
         }

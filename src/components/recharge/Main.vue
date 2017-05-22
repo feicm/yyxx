@@ -69,7 +69,7 @@
     },
     methods: {
       createOrder(good_code){
-        api.createOrder({"good_code":good_code,"user_id":this.userId})
+        api.createOrder({"goodCode":good_code,"userId":this.userId})
           .then(_.bind(function (res) {
             console.dir(res)
             function onBridgeReady(){

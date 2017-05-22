@@ -41,7 +41,7 @@
     </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
   import Vue from 'vue'
   import {mapGetters} from 'vuex'
   import {Field, Radio, Toast} from 'mint-ui';
@@ -59,14 +59,14 @@
 
     },
     data () {
-      const {role_id, user_id}=this.$store.getters.userInfo;
-      const {class_id}=this.$store.getters.classGroupInfo;
+      const {roleId, userId}=this.$store.getters.userInfo;
+      const {classId}=this.$store.getters.classGroupInfo;
       if (this.isNew) {
         return {
           notify_id: '',
-          class_id: class_id,
-          user_id: (user_id || Store.get('__YYXXAPP_USERID__')),
-          role_id: (role_id || Store.get('__YYXXAPP_roleId__')) - 0,
+          class_id: classId,
+          user_id: (userId || Store.get('__YYXXAPP_USERID__')),
+          role_id: (roleId || Store.get('__YYXXAPP_roleId__')) - 0,
           isPreview: false,
           isEdited: true,
           title: '',
@@ -78,9 +78,9 @@
         const {notifyId, notifyTitle, notifyContent, img1, img2, img3}=this.$store.getters.noticeInfo;
         return {
           notify_id: notifyId,
-          class_id: class_id,
-          user_id: (user_id || Store.get('__YYXXAPP_USERID__')),
-          role_id: (role_id || Store.get('__YYXXAPP_roleId__')) - 0,
+          class_id: classId,
+          user_id: (userId || Store.get('__YYXXAPP_USERID__')),
+          role_id: (roleId || Store.get('__YYXXAPP_roleId__')) - 0,
           isPreview: true,
           isEdited: false,
           title: notifyTitle,
@@ -107,10 +107,10 @@
     methods: {
       save(){
         const param = {
-          user_id: this.user_id,
-          class_id: this.class_id,
-          notify_content: this.content,
-          notify_title: this.title,
+          userId: this.user_id,
+          classId: this.class_id,
+          notifyContent: this.content,
+          notifyTitle: this.title,
         };
         api.saveNotice(param).then(() => {
           Toast({
@@ -125,11 +125,11 @@
       },
       update(){
         const param = {
-          user_id: this.user_id,
-          class_id: this.class_id,
-          notify_content: this.content,
-          notify_title: this.title,
-          notify_id:this.notify_id
+          userId: this.user_id,
+          classId: this.class_id,
+          notifyContent: this.content,
+          notifyTitle: this.title,
+          notifyId:this.notify_id
         };
         api.editNotice(param).then(() => {
           Toast({

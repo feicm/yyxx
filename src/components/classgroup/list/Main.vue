@@ -2,23 +2,23 @@
     <div id='cgList'>
         <ul>
             <li class="item" v-for="item in list">
-                <router-link :to="'/user/classgroup/detail/'+item.class_id">
+                <router-link :to="'/user/classgroup/detail/'+item.classId">
                     <h1 class="top">
-                        <p class="title">{{item.grade}}{{item.class}}</p>
-                        <p class="id">ID:{{item.class_id}}</p>
+                        <p class="title">{{item.gradeName}}{{item.className}}</p>
+                        <p class="id">ID:{{item.classId}}</p>
                     </h1>
                     <section>
                         <div class="row">
                             <img src="../../../assets/images/view/class_group_list_icon_school.png"/>
-                            <p>{{item.school_name}}</p>
+                            <p>{{item.schoolName}}</p>
                         </div>
                         <div class="row">
                             <img src="../../../assets/images/view/class_group_list_icon_teacher.png"/>
-                            <p>{{item.teacher_name}}</p>
+                            <p>{{item.teacherName}}</p>
                         </div>
                         <div class="row">
                             <img src="../../../assets/images/view/class_group_list_icon_school_year.png"/>
-                            <p>学年：{{item.start_date}}- {{item.end_date}}</p>
+                            <p>学年：{{item.startDate}}- {{item.endDate}}</p>
                         </div>
                     </section>
                 </router-link>

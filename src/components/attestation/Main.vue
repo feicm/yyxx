@@ -15,7 +15,7 @@
         <mt-field v-else placeholder="输入真实姓名" type="text" :state="userNameState" v-model="user_name">
             <img src="../../assets/images/view/attestation_import_username.png">
         </mt-field>
-        <mt-field v-if="userInfo.isAuth" readonly disabled placeholder="输入手机号码" type="tel" v-model="userInfo.mobile">
+        <mt-field v-if="userInfo.isAuth" readonly disabled placeholder="输入手机号码" type="tel" v-model="userInfo.phone">
             <img src="../../assets/images/view/attestation_import_tel_number.png">
         </mt-field>
         <mt-field v-else placeholder="输入手机号码" :state="mobileState" ref="mobile" type="tel"

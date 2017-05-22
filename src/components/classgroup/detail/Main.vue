@@ -1,28 +1,28 @@
 <template>
     <div id='cgDetail'>
-        <Topbar :isback="true" :title="classGroupInfo.grade+classGroupInfo.class+''"></Topbar>
+        <Topbar :isback="true" :title="classGroupInfo.gradeName+classGroupInfo.className+''"></Topbar>
         <ul class="card-list">
             <li class="card" v-if="classGroupInfo">
                 <h1 class="top">
-                    <p class="title">{{classGroupInfo.grade}}{{classGroupInfo.class}}</p>
-                    <p class="id">ID:{{classGroupInfo.class_id}}</p>
+                    <p class="title">{{classGroupInfo.gradeName}}{{classGroupInfo.className}}</p>
+                    <p class="id">ID:{{classGroupInfo.classId}}</p>
                 </h1>
                 <section>
                     <div class="row">
                         <img class="icon" src="../../../assets/images/view/class_group_list_icon_school.png"/>
-                        <p>{{classGroupInfo.school_name}}</p>
+                        <p>{{classGroupInfo.schoolName}}</p>
                     </div>
                     <div class="row">
                         <img class="icon" src="../../../assets/images/view/class_group_list_icon_teacher.png"/>
-                        <p>{{classGroupInfo.teacher_name}}</p>
+                        <p>{{classGroupInfo.teacherName}}</p>
                     </div>
                     <div class="row">
                         <img class="icon" src="../../../assets/images/view/class_group_list_icon_school_year.png"/>
-                        <p>学年：{{classGroupInfo.start_date}}- {{classGroupInfo.end_date}}</p>
+                        <p>学年：{{classGroupInfo.startDate}}- {{classGroupInfo.endDate}}</p>
                     </div>
                     <div class="row">
                         <img class="icon" src="../../../assets/images/view/class_group_list_icon_creator.png"/>
-                        <p>{{classGroupInfo.create_user_name}} <b class="s">创建</b></p>
+                        <p>{{classGroupInfo.createUserName}} <b class="s">创建</b></p>
                     </div>
                 </section>
                 <div class="bottom">
@@ -98,8 +98,8 @@
     beforeMount(){
       Indicator.open({spinnerType: 'fading-circle'});
       const param = {
-        class_id: this.class_id,
-        user_id: this.user_id
+        classId: this.class_id,
+        userId: this.user_id
       };
       this.$store.dispatch('getClassMsgByClassId', param).then(function () {
         Indicator.close()

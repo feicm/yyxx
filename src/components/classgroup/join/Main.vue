@@ -42,17 +42,17 @@
       }
     },
     data () {
-      const {user_id, role_id, user_name, isAuth}=this.$store.getters.userInfo;
+      const {userId, roleId, userName, isAuth}=this.$store.getters.userInfo;
       return {
-        user_id: user_id || Store.get('__YYXXAPP_USERID__'),
-        user_name: user_name,
+        user_id: userId || Store.get('__YYXXAPP_USERID__'),
+        user_name: userName,
         class_id: '',
         place_id: '',
-        userNameState: user_name ? 'success' : '',
+        userNameState: userName ? 'success' : '',
         classIdState: '',
         placeIdState: '',
         isAuth: isAuth || Store.get('__YYXXAPP_isAuth__'),
-        role_id: (role_id || Store.get('__YYXXAPP_roleId__')) - 0,
+        role_id: (roleId || Store.get('__YYXXAPP_roleId__')) - 0,
         actived: false
       }
     },
@@ -102,11 +102,11 @@
       },
       submit(){
         const param = {
-          user_id: this.user_id,
-          user_name: this.user_name,
-          class_id: this.class_id,
-          role_id: this.role_id,
-          place_id: this.place_id
+          userId: this.user_id,
+          userName: this.user_name,
+          classId: this.class_id,
+          roleId: this.role_id,
+          place: this.place_id
         };
         MessageBox.confirm('加入班群：' + this.class_id + '?').then(action => {
           api.joinClassGroup(param).then(() => {

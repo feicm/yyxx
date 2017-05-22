@@ -36,7 +36,7 @@
         return;
       }
       Indicator.open({spinnerType: 'fading-circle'});
-      this.$store.dispatch('getNotifyInfo', {class_id: this.$route.params.id}).then(()=>{
+      this.$store.dispatch('getNotifyInfo', {classId: this.$route.params.id}).then(()=>{
         Indicator.close();
       }).catch(()=>{
         this.isEmpty=true;
@@ -44,11 +44,11 @@
       })
     },
     data () {
-      const {user_id, role_id, user_name, isAuth}=this.$store.getters.userInfo;
+      const {userId, roleId, userName, isAuth}=this.$store.getters.userInfo;
       return {
-        user_id: user_id,
-        role_id: role_id,
-        user_name: user_name,
+        user_id: userId,
+        role_id: roleId,
+        user_name: userName,
         isAuth: isAuth,
         isLoading:true,
         isEmpty: false,
