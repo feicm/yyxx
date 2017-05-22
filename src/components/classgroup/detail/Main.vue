@@ -42,7 +42,7 @@
                             <img v-else
                                  src="../../../assets/images/default/general_user_head_portrait_student_default.png">
                         </a>
-                        <p class="username"><span>{{student.student_name}}</span></p>
+                        <p class="username"><span>{{student.studentName}}</span></p>
                         <p class="des"><span>学生姓名</span></p>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <router-link to="/user/classgroup/task/history/1">
+                        <router-link to="'/user/classgroup/task/history/'+user_id">
                             <img class="icon"
                                  src="../../../assets/images/view/class_group_list_icon_historical_task.png"/>
                             <p>历史记录</p>

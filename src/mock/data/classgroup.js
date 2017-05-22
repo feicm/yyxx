@@ -120,12 +120,12 @@ for (let i = 0; i < 10; i++) {
 }
 for (let i = 0; i < 10; i++) {
   classGroupInfo.data.students.push(Mock.mock({
-    "user_id": Mock.Random.integer(1, 100), //用户唯一编号
-    "role_id": Mock.Random.integer(1, 3), //学生、家长or老师
-    "student_name": Mock.Random.cname(), //学生姓名
+    "userId": Mock.Random.integer(1, 100), //用户唯一编号
+    "roleId": Mock.Random.integer(1, 3), //学生、家长or老师
+    "studentName": Mock.Random.cname(), //学生姓名
     "headimgurl": "", //头像
-    "parent_name": Mock.Random.cname(), //家长姓名，可能为空
-    "task_status": "", //最新任务完成情
+    "parentName": Mock.Random.cname(), //家长姓名，可能为空
+    "taskStatus": "", //最新任务完成情
   }));
 }
 for (let i = 0; i < 10; i++) {
