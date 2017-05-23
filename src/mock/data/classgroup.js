@@ -27,7 +27,7 @@ const classGroupInfo = {
       "endDate": "2015.07",
       "createTime": "2017-04-08T16:31:21.833+0800",
     },
-    "students": []
+    "members": []
   }
 }
 const gradeInfo = {
@@ -95,19 +95,23 @@ const textbook = {
   data:[]
 }
 const noticeInfo={
-  "notifyId": "41187717379260416",
-  "notifyTitle": "标题3",
-  "notifyContent": "内容3",
-  "userId": "37202589871243264",
-  "openid": null,
-  "createTime": "2017-04-24 15:45:17",
-  "startTime": null,
-  "endTime": null,
-  "classId": "39682245648187392",
-  "state": "1",
-  "img1": null,
-  "img2": null,
-  "img3": null
+  code:'',
+  msg:'',
+  data:{
+    "notifyId": "41187717379260416",
+    "notifyTitle": "标题3",
+    "notifyContent": "内容3",
+    "userId": "37202589871243264",
+    "openid": null,
+    "createTime": "2017-04-24 15:45:17",
+    "startTime": null,
+    "endTime": null,
+    "classId": "39682245648187392",
+    "state": "1",
+    "img1": null,
+    "img2": null,
+    "img3": null
+  }
 }
 
 for (let i = 0; i < 10; i++) {
@@ -119,10 +123,10 @@ for (let i = 0; i < 10; i++) {
   }));
 }
 for (let i = 0; i < 10; i++) {
-  classGroupInfo.data.students.push(Mock.mock({
+  classGroupInfo.data.members.push(Mock.mock({
     "userId": Mock.Random.integer(1, 100), //用户唯一编号
     "roleId": Mock.Random.integer(1, 3), //学生、家长or老师
-    "studentName": Mock.Random.cname(), //学生姓名
+    "userName": Mock.Random.cname(), //姓名
     "headimgurl": "", //头像
     "parentName": Mock.Random.cname(), //家长姓名，可能为空
     "taskStatus": "", //最新任务完成情

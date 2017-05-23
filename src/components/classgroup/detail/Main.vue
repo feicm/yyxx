@@ -34,16 +34,22 @@
                     </div>
                 </div>
             </li>
-            <li class="card" v-for="student in students">
+            <li class="card" v-for="member in members">
                 <div class="left">
                     <div class="w">
                         <a class="portrait">
-                            <img v-if="student.headimgurl" :src="student.headimgurl">
+                            <img v-if="member.headimgurl" :src="member.headimgurl">
                             <img v-else
                                  src="../../../assets/images/default/general_user_head_portrait_student_default.png">
                         </a>
-                        <p class="username"><span>{{student.studentName}}</span></p>
-                        <p class="des"><span>学生姓名</span></p>
+                        <p class="username">
+                            <span v-if="member.roleId === '2'" class="blue">{{member.userName}}</span>
+                            <span v-else>{{member.userName}}</span>
+                        </p>
+                        <p class="des">
+                            <span v-if="member.roleId === '3'">老师姓名</span>
+                            <span v-else>学生姓名</span>
+                        </p>
                     </div>
                 </div>
                 <section class="box">
@@ -120,7 +126,7 @@
     },
     computed: mapGetters({
       classGroupInfo: 'classGroupInfo',
-      students: 'students'
+      members: 'members'
     }),
     components: {
       Tabbar,
@@ -168,17 +174,27 @@
                         margin: px2em(12px) 0;
                         border-right: px2em(2px) dashed #ddd;
                         text-align: center;
+                        .portrait{
+                            display: inline-block;
+                            width: px2em(60px);
+                            height: px2em(60px);
+                            border-radius: 999px;
+                            overflow: hidden;
+                            img {
+                                max-width: 100%;
+                                max-height: 100%;
+                            }
+                        }
                         .username {
                             color: #333;
                             @include font-dpr(15px);
+                            .blue{
+                                color:$color-blue
+                            }
                         }
                         .des {
                             color: #ddd;
                             @include font-dpr(10px);
-                        }
-                        img {
-                            width: px2em(60px);
-                            height: px2em(60px);
                         }
                     }
                 }

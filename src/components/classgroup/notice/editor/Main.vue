@@ -172,7 +172,7 @@
           var fd = new FormData();
           var blob = this.dataURItoBlob(reader.result);
           fd.append('file', blob);
-          axios.post('/utils/uploadImg?userId=' + this.user_id, fd)
+          axios.post('http://www.yyxx100.com/yyxx/utils/uploadImg?userId=' + this.user_id, fd)
         }, this)
 
       },

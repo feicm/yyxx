@@ -19,7 +19,7 @@
     </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script type="text/ecmascript">
   import Vue from 'vue'
   import {mapGetters} from 'vuex'
   import Topbar from '../../topbar/Main.vue';
@@ -31,10 +31,6 @@
 
   export default {
     beforeMount(){
-      if(!_.isEmpty(this.$store.getters.noticeInfo)){
-        this.isLoading=false;
-        return;
-      }
       Indicator.open({spinnerType: 'fading-circle'});
       this.$store.dispatch('getNotifyInfo', {classId: this.$route.params.id}).then(()=>{
         Indicator.close();
@@ -47,7 +43,7 @@
       const {userId, roleId, userName, isAuth}=this.$store.getters.userInfo;
       return {
         user_id: userId,
-        role_id: roleId,
+        role_id: roleId-0,
         user_name: userName,
         isAuth: isAuth,
         isLoading:true,
