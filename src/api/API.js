@@ -24,7 +24,7 @@ class API {
   }
   createOrder(param){
     config.data = param;
-    return axios.post('/v0.1/order',{},config);
+    return axios.post('/orderInfo/saveOrderInfo',{},config);
   }
   createClassGroup(param){
     config.data= param;

@@ -113,7 +113,7 @@
       userInfo(val){
         Indicator.close();
         Store.set('__YYXXAPP_isAuth__', val.isAuth);
-        Store.set('__YYXXAPP_roleId__', val.role_id);
+        Store.set('__YYXXAPP_roleId__', val.roleId);
       }
     },
     computed: mapGetters({

@@ -72,10 +72,16 @@
         this.isEmpty=!val.length;
         this.isLoading=false
         Indicator.close()
+      },
+      wx_userInfo(val){
+        Indicator.close();
+        Store.set('__YYXXAPP_isAuth__', val.isAuth);
+        Store.set('__YYXXAPP_roleId__', val.roleId);
       }
     },
     computed: mapGetters({
-      classGroupList: 'classGroupList'
+      classGroupList: 'classGroupList',
+      wx_userInfo: 'wx_userInfo'
     }),
     components: {
       Topbar,

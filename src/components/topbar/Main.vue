@@ -17,9 +17,10 @@
 
 <script>
   import Vue from 'vue'
-  import {Header} from 'mint-ui';
+  import {Header,Button} from 'mint-ui';
 
   Vue.component(Header.name, Header);
+  Vue.component(Button.name, Button);
 
   export default {
     beforeMount(){

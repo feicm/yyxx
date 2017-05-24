@@ -86,7 +86,7 @@
     </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
 
   import Vue from 'vue'
   import {mapGetters} from 'vuex'
@@ -109,6 +109,8 @@
       };
       this.$store.dispatch('getClassMsgByClassId', param).then(function () {
         Indicator.close()
+      }).catch(msg=>{
+        console.log(msg)
       });
     },
     data () {

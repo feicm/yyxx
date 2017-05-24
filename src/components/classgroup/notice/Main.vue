@@ -27,12 +27,13 @@
   import Editor from './editor/Main.vue'
   import { Indicator} from 'mint-ui'
   import _ from 'lodash'
+  import Store from 'store'
 
 
   export default {
     beforeMount(){
       Indicator.open({spinnerType: 'fading-circle'});
-      this.$store.dispatch('getNotifyInfo', {classId: this.$route.params.id}).then(()=>{
+      this.$store.dispatch('getNotifyInfo', {userId:this.user_id,classId: this.$route.params.id}).then(()=>{
         Indicator.close();
       }).catch(()=>{
         this.isEmpty=true;
@@ -42,8 +43,8 @@
     data () {
       const {userId, roleId, userName, isAuth}=this.$store.getters.userInfo;
       return {
-        user_id: userId,
-        role_id: roleId-0,
+        user_id: userId||Store.get('__YYXXAPP_USERID__'),
+        role_id: roleId-0 || Store.get('__YYXXAPP_roleId__'),
         user_name: userName,
         isAuth: isAuth,
         isLoading:true,

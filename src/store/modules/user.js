@@ -23,7 +23,6 @@ const actions = {
 
 const mutations = {
   [types.GET_INFO_BY_USERID](state, payload){
-    console.log(payload)
     state.user_info = payload.data.data;
   },
   [types.GET_INFO_BY_OPENID](state, payload){

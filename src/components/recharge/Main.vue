@@ -32,7 +32,7 @@
     </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
   import Vue from 'vue'
   import Topbar from '../topbar/Main.vue';
   import API from '../../api/API'
@@ -73,6 +73,7 @@
         api.createOrder({"goodId":goodId,"userId":this.userId})
           .then(_.bind(function (res) {
             console.dir(res)
+            const that=this
             function onBridgeReady(){
               WeixinJSBridge.invoke(
                 'getBrandWCPayRequest', {
@@ -86,9 +87,12 @@
                 function(res){
                   if(res.err_msg == "get_brand_wcpay_request:ok" ) {
                     Toast({
-                      message: '提交成功',
+                      message: '充值成功',
                       iconClass: 'mintui mintui-success'
                     });
+                    setTimeout(function () {
+                      that.$router.replace('/user/info')
+                    },1200)
                   }     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
                 }
               );

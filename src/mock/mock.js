@@ -44,7 +44,7 @@ export default {
       });
     });
     //获取充值列表
-    mock.onPost('/v0.1/order').reply(config => {
+    mock.onPost('/orderInfo/saveOrderInfo').reply(config => {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve([200, order]);
