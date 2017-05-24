@@ -21,10 +21,10 @@
                 <img src="../../assets/images/view/recharge_icon_wechat.png">微信支付
             </div>
             <ul>
-                <li v-for="good in goods" class="item" @click="createOrder(good.good_code)">
+                <li v-for="good in goods" class="item" @click="createOrder(good.goodId)">
                     <a>
-                        <b class="value">{{good.good_desc}}</b>
-                        <b class="des">{{good.good_price*price_rate}}+{{good.good_give*price_rate}}金币</b>
+                        <b class="value">{{good.goodDesc}}</b>
+                        <b class="des">{{good.goodPrice*price_rate}}+{{good.goodGive*price_rate}}金币</b>
                     </a>
                 </li>
             </ul>
@@ -47,9 +47,10 @@
       this.userId=Store.get('__YYXXAPP_USERID__');
       api.getRechargeGoods({})
         .then(_.bind(function (res) {
-          this.price_rate = res.data.price_rate;
-          this.gold_unit = res.data.gold_unit;
-          this.goods = res.data.goods;
+          const data=res.data.data;
+          this.price_rate = data.priceRate;
+          this.gold_unit = data.goldUnit;
+          this.goods = data.goods;
         }, this))
         .catch(function (err) {
           console.log(err);
@@ -68,19 +69,19 @@
       Topbar
     },
     methods: {
-      createOrder(good_code){
-        api.createOrder({"goodCode":good_code,"userId":this.userId})
+      createOrder(goodId){
+        api.createOrder({"goodId":goodId,"userId":this.userId})
           .then(_.bind(function (res) {
             console.dir(res)
             function onBridgeReady(){
               WeixinJSBridge.invoke(
                 'getBrandWCPayRequest', {
-                  "appId":res.app_id,     //公众号名称，由商户传入
-                  "timeStamp":res.time_stamp,         //时间戳，自1970年以来的秒数
-                  "nonceStr":res.nonce_string, //随机串
-                  "package":res.package,
-                  "signType":res.sign_type,         //微信签名方式：
-                  "paySign":"res.pay_sign" //微信签名
+                  "appId":res.appId,     //公众号名称，由商户传入
+                  "timeStamp":res.timeStamp,         //时间戳，自1970年以来的秒数
+                  "nonceStr":res.nonceString, //随机串
+                  "package":res.packageString,
+                  "signType":res.signType,         //微信签名方式：
+                  "paySign":res.paySign //微信签名
                 },
                 function(res){
                   if(res.err_msg == "get_brand_wcpay_request:ok" ) {
