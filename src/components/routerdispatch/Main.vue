@@ -2,7 +2,7 @@
 
 </template>
 
-<script>
+<script type="text/ecmascript-6">
   import Vue from 'vue'
   import {mapGetters} from 'vuex'
   import {Button} from 'mint-ui';
@@ -53,6 +53,8 @@
           Store.set('__YYXXAPP_OPENID__', data.openid);
           alert(path)
           this.$router.replace(path)
+        }).catch(msg=>{
+          alert(msg)
         })
       }
     }
