@@ -42,7 +42,7 @@
         }
         const param = {
           appid: 'wxe8faf1adc08e0431',
-          secret: 'SECRET',
+          secret: '7399df76597cd54e068f9e3ae50c63bc',
           code: code,
           grant_type: 'authorization_code'
         };
