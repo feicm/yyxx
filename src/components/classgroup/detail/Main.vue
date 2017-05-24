@@ -136,8 +136,8 @@
     methods: {
       exitGroup(){
         const param = {
-          class_id: this.class_id,
-          user_id: this.user_id
+          classId: this.class_id,
+          userId: this.user_id
         };
         MessageBox.confirm('确定要退出班群?').then(_.bind(function () {
           this.$store.dispatch('exitClass', param).then(_.bind(function () {

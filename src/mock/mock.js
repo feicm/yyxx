@@ -36,7 +36,7 @@ export default {
       });
     });
     //获取充值列表
-    mock.onGet('/v0.1/goods').reply(config => {
+    mock.onGet('/goodInfo/getGoodInfos').reply(config => {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve([200, recharge]);

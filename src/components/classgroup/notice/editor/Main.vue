@@ -89,14 +89,14 @@
         };
       }
     },
-    props: ['info','isNew'],
-    watch:{
+    props: ['info', 'isNew'],
+    watch: {
       noticeInfo(val){
         const {notifyId, notifyTitle, notifyContent, img1, img2, img3}=val;
-        this.notify_id=notifyId;
-        this.title=notifyTitle;
-        this.content=notifyContent;
-        this.imgs=_.compact([img1, img2, img3]);
+        this.notify_id = notifyId;
+        this.title = notifyTitle;
+        this.content = notifyContent;
+        this.imgs = _.compact([img1, img2, img3]);
 
       }
     },
@@ -105,12 +105,20 @@
     }),
     components: {},
     methods: {
+      transformImg(){
+        const arr = [];
+        _.compact(this.imgs).map(item => {
+          arr.push({'imgPath': item})
+        })
+        return arr;
+      },
       save(){
         const param = {
           userId: this.user_id,
           classId: this.class_id,
           notifyContent: this.content,
           notifyTitle: this.title,
+          images: this.transformImg()
         };
         api.saveNotice(param).then(() => {
           Toast({
@@ -129,7 +137,8 @@
           classId: this.class_id,
           notifyContent: this.content,
           notifyTitle: this.title,
-          notifyId:this.notify_id
+          notifyId: this.notify_id,
+          images: this.transformImg()
         };
         api.editNotice(param).then(() => {
           Toast({
@@ -168,11 +177,15 @@
         reader.readAsDataURL(img1);
         var that = this;
         reader.onloadend = _.bind(function () {
-          that.imgs.push(reader.result)
+          //that.imgs.push(reader.result)
           var fd = new FormData();
           var blob = this.dataURItoBlob(reader.result);
           fd.append('file', blob);
-          axios.post('http://www.yyxx100.com/yyxx/utils/uploadImg?userId=' + this.user_id, fd)
+          axios.post('http://www.yyxx100.com/yyxx/utils/uploadImg?userId=' + this.user_id, fd).then(resp => {
+            const imgPath = resp.data.data.imgPath;
+            console.log(imgPath)
+            this.imgs.push(imgPath)
+          })
         }, this)
 
       },
@@ -279,7 +292,7 @@
         }
         .submit {
             background-color: #fff;
-            padding-bottom:px2em(40px);
+            padding-bottom: px2em(40px);
             .mint-button {
                 margin-bottom: px2em(20px);
             }

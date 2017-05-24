@@ -45,7 +45,7 @@
       }
       if (Store.get('__YYXXAPP_USERID__')) {
         const userId = Store.get('__YYXXAPP_USERID__');
-        this.$store.dispatch('getClassesByUserId', {user_id: userId}).then(() => {
+        this.$store.dispatch('getClassesByUserId', {userId: userId}).then(() => {
           Indicator.close()
           this.isLoading=false
         });

@@ -16,7 +16,7 @@ class API {
   }
   getRechargeGoods(param){
     config.params = Object.assign(config.params,param);
-    return axios.get('/v0.1/goods',config);
+    return axios.get('/goodInfo/getGoodInfos',config);
   }
   getOrderInfo(param){
     config.params = Object.assign(config.params,param);
