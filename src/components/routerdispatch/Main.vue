@@ -47,11 +47,14 @@
           code: code,
           grant_type: 'authorization_code'
         };
-        axios.get('https://api.weixin.qq.com/sns/oauth2/access_token', {params:param}).then((resp) => {
+        axios.get('https://api.weixin.qq.com/sns/oauth2/access_token', {
+          params:param,
+          headers:{
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json'}
+        }).then((resp) => {
           const data = resp.data ? resp.data : resp;
-          alert(data)
           Store.set('__YYXXAPP_OPENID__', data.openid);
-          alert(path)
           this.$router.replace(path)
         }).catch(msg=>{
           alert(msg)
