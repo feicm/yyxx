@@ -36,6 +36,7 @@
     methods: {
       getOpenId(){
         const {code, path}=this.$store.getters.wxAuthInfo;
+        console.log(path)
         if(Store.get('__YYXXAPP_OPENID__')){
           this.$router.replace(path)
           return
@@ -48,7 +49,9 @@
         };
         axios.get('https://api.weixin.qq.com/sns/oauth2/access_token', {params:param}).then((resp) => {
           const data = resp.data ? resp.data : resp;
+          alert(data)
           Store.set('__YYXXAPP_OPENID__', data.openid);
+          alert(path)
           this.$router.replace(path)
         })
       }
