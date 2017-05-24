@@ -78,6 +78,12 @@
                     is-link>
                 <img slot="icon" src="../../assets/images/view/user_center_icon_list_assist.png">
             </mt-cell>
+            <mt-cell
+                    title="清除openId"
+                    @click.native="clear"
+                    is-link>
+                <img slot="icon" src="../../assets/images/view/user_center_icon_list_assist.png">
+            </mt-cell>
         </div>
     </div>
 </template>
@@ -124,6 +130,10 @@
       Topbar
     },
     methods: {
+      clear(){
+        Store.remove('__YYXXAPP_USERID__')
+        Store.remove('__YYXXAPP_OPENID__')
+      },
       showTips(){
         Toast({
           position: 'bottom',
