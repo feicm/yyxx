@@ -79,7 +79,7 @@
                 'getBrandWCPayRequest', {
                   "appId":data.appId,     //公众号名称，由商户传入
                   "timeStamp":data.timeStamp,         //时间戳，自1970年以来的秒数
-                  "nonceStr":data.nonceString, //随机串
+                  "nonceStr":data.nonceStr, //随机串
                   "package":data.packageString,
                   "signType":data.signType,         //微信签名方式：
                   "paySign":data.paySign //微信签名
