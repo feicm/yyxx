@@ -1,4 +1,5 @@
-export const GET_OPEN_ID = 'GET_OPEN_ID';
+export const GET_CODE = 'GET_CODE';
+export const GET_USER_OPENID = 'GET_USER_OPENID';
 export const GET_INFO_BY_USERID = 'GET_INFO_BY_USERID';
 export const GET_INFO_BY_OPENID = 'GET_INFO_BY_OPENID';
 export const CHANGE_AUTH_STATE = 'CHANGE_AUTH_STATE';

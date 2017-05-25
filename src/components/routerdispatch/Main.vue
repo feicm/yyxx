@@ -16,7 +16,7 @@
 
   export default {
     beforeMount(){
-      this.$store.commit(types.GET_OPEN_ID)
+      this.$store.commit(types.GET_CODE)
       this.getOpenId()
     },
     data () {
@@ -25,10 +25,16 @@
     watch: {
       wxAuthInfo(){
         this.getOpenId()
+      },
+      tokenInfo(val){
+        console.log(val)
+        const {openid}=val
+        openid && Store.set('__YYXXAPP_OPENID__',openid)
       }
     },
     computed: mapGetters({
-      wxAuthInfo: 'wxAuthInfo'
+      wxAuthInfo: 'wxAuthInfo',
+      tokenInfo: 'tokenInfo'
     }),
     components: {
       User
@@ -36,25 +42,11 @@
     methods: {
       getOpenId(){
         const {code, path}=this.$store.getters.wxAuthInfo;
-        console.log(path)
         if(Store.get('__YYXXAPP_OPENID__')){
           this.$router.replace(path)
           return
         }
-        const param = {
-          appid: 'wxe8faf1adc08e0431',
-          secret: '7399df76597cd54e068f9e3ae50c63bc',
-          code: code,
-          grant_type: 'authorization_code'
-        };
-        axios.get('https://api.weixin.qq.com/sns/oauth2/access_token', {
-          params:param,
-          headers:{
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'}
-        }).then((resp) => {
-          const data = resp.data ? resp.data : resp;
-          Store.set('__YYXXAPP_OPENID__', data.openid);
+        this.$store.dispatch('getUserOpenId',{code:code}).then(() => {
           this.$router.replace(path)
         }).catch(msg=>{
           alert(msg)

@@ -2,6 +2,10 @@ import axios from 'axios'
 import config from './config'
 
 class API {
+  getUserOpenId(param){
+    config.params = Object.assign(config.params,param);
+    return axios.get('/utils/authAccessToken',config);
+  }
 	getUserInfoByOpenid(param){
     config.params = Object.assign(config.params,param);
     return axios.get('/userInfo/getUserByOpenid',config);

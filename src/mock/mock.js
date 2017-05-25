@@ -27,6 +27,14 @@ export default {
         }, 1000);
       });
     });
+    //获取用户openid
+    mock.onGet('/utils/authAccessToken').reply(config => {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, wxAuthInfo]);
+        }, 1000);
+      });
+    });
     //身份认证
     mock.onPost('/userInfo/authUserInfo').reply(config => {
       return new Promise((resolve, reject) => {
