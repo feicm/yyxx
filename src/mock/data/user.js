@@ -21,7 +21,7 @@ const userInfo = {
     "balance": null,
     "roleId": null,
     "roleName": null,
-    "isAuth": 0,
+    "isAuth": 1,
     "parentName": null
   }
 };

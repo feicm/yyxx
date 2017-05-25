@@ -66,9 +66,11 @@
       }, this));
     },
     data () {
+      const {isAuth}=this.$store.getters.userInfo;
       return {
         isLoading: true,
         selected: false,
+        isAuth: isAuth || Store.get('__YYXXAPP_isAuth__'),
         isEmpty: !this.$store.getters.classGroupList.length
       }
     },

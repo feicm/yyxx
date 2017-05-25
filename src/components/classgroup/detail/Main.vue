@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <router-link to="'/user/classgroup/task/history/'+user_id">
+                        <router-link :to="'/user/classgroup/task/history/'+user_id">
                             <img class="icon"
                                  src="../../../assets/images/view/class_group_list_icon_historical_task.png"/>
                             <p>历史记录</p>
