@@ -26,7 +26,7 @@ const userInfo = {
   }
 };
 const user_wx = {
-  code:'',
+  code:'YYXX/REQUIRE_SUCCESS',
   msg:'',
   data:{
     "userId": "37202589871243264",

@@ -4,7 +4,7 @@ const authInfo = {
   "identity_key": "ssdfdsfgfdg" //用于标识用户已认证
 };
 const wxAuthInfo={
-  code:'',
+  code:'YYXX/REQUIRE_SUCCESS',
   msg:'',
   data:{
     "access_token":"ACCESS_TOKEN",

@@ -3,6 +3,7 @@ require('../../utils/arg')
 const Url = window.Arg;
 import API from '../../api/API';
 const api = new API();
+import * as Msg from '../../utils/msg'
 
 const state = {
   wx_auth_info: {},
@@ -30,6 +31,9 @@ const mutations = {
     state.wx_auth_info = info;
   },
   [types.GET_USER_OPENID](state, payload){
+    if (Msg.isError(payload.data)) {
+      return
+    }
     state.token_info = payload.data.data;
   },
 };

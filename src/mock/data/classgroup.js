@@ -1,11 +1,11 @@
 import Mock from 'mockjs';
 const classGroupList = {
-  code:'',
+  code:'YYXX/REQUIRE_SUCCESS',
   msg:'success',
   data:[]
 };
 const classGroupInfo = {
-  code:'',
+  code:'YYXX/REQUIRE_SUCCESS',
   msg:'',
   data:{
     "classInfo": {
@@ -31,7 +31,7 @@ const classGroupInfo = {
   }
 }
 const gradeInfo = {
-  code:'',
+  code:'YYXX/REQUIRE_SUCCESS',
   msg:'success',
   data:[{
     "type": "小学",
@@ -90,12 +90,12 @@ const gradeInfo = {
   }]
 };
 const textbook = {
-  code:'',
+  code:'YYXX/REQUIRE_SUCCESS',
   msg:'',
   data:[]
 }
 const noticeInfo={
-  code:'',
+  code:'YYXX/REQUIRE_SUCCESS',
   msg:'',
   data:{
     "notifyId": "41187717379260416",

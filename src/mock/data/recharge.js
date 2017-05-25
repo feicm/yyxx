@@ -1,6 +1,6 @@
 import Mock from 'mockjs';
 const recharge = {
-  code:'',
+  code:'YYXX/REQUIRE_SUCCESS',
   msg:'',
   data:{
     "priceRate": "100", //1元 = 100金币
@@ -9,7 +9,7 @@ const recharge = {
   }
 }
 const order = {
-  code:'',
+  code:'YYXX/REQUIRE_SUCCESS',
   data:{
     "orderId": Mock.Random.integer(1, 100),//唯一订单编号
     "appId": "wx43435",

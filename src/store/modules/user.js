@@ -1,10 +1,11 @@
 import * as types from '../types'
 import API from '../../api/API';
 const api = new API();
+import * as Msg from '../../utils/msg'
 
 const state = {
   user_info: {},
-  wx_user_info:{}
+  wx_user_info: {}
 }
 
 const getters = {
@@ -13,19 +14,25 @@ const getters = {
 };
 
 const actions = {
-  async getInfoByUserId({commit},param) {
+  async getInfoByUserId({commit}, param) {
     commit(types.GET_INFO_BY_USERID, await api.getUserInfoByUserid(param));
   },
-  async getInfoByOpenId({commit},param) {
+  async getInfoByOpenId({commit}, param) {
     commit(types.GET_INFO_BY_OPENID, await api.getUserInfoByOpenid(param));
   }
 };
 
 const mutations = {
   [types.GET_INFO_BY_USERID](state, payload){
+    if (Msg.isError(payload.data)) {
+      return
+    }
     state.user_info = payload.data.data;
   },
   [types.GET_INFO_BY_OPENID](state, payload){
+    if (Msg.isError(payload.data)) {
+      return
+    }
     state.wx_user_info = payload.data.data;
   },
   [types.CHANGE_AUTH_STATE](state){

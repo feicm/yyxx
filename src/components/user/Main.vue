@@ -1,26 +1,28 @@
 <template>
     <div id='user'>
-        <Topbar></Topbar>
-        <header class="header">
-            <a class="portrait">
-                <img v-if="userInfo.headimgurl" :src="userInfo.headimgurl">
-                <img v-else
-                     src="../../assets/images/default/general_user_head_portrait_student_default.png">
-            </a>
-            <p class="username"><span>{{userInfo.nickname}}</span></p>
-            <p class="userid"><span>账号：{{userInfo.userId}}</span></p>
-        </header>
-        <div class="info">
-            <div class="left item">
-                <span v-if="userInfo.roleId==1">学生</span>
-                <span v-else-if="userInfo.roleId==2">家长</span>
-                <span v-else-if="userInfo.roleId==3">老师</span>
-                <span v-else class="no">未认证</span><br>
-                <b>身份</b>
-            </div>
-            <div class="right item">
-                <p class="top"><b>{{userInfo.balance}}</b>&nbsp;金币</p>
-                <p class="bottom"><img src="../../assets/images/view/user_center_icon_gold.png"><b>余额</b></p>
+        <div class="t">
+            <Topbar></Topbar>
+            <header class="header">
+                <a class="portrait">
+                    <img v-if="userInfo.headimgurl" :src="userInfo.headimgurl">
+                    <img v-else
+                         src="../../assets/images/default/general_user_head_portrait_student_default.png">
+                </a>
+                <p class="username"><span>{{userInfo.nickname}}</span></p>
+                <p class="userid"><span>账号：{{userInfo.userId}}</span></p>
+            </header>
+            <div class="info">
+                <div class="left item">
+                    <span v-if="userInfo.roleId==1">学生</span>
+                    <span v-else-if="userInfo.roleId==2">家长</span>
+                    <span v-else-if="userInfo.roleId==3">老师</span>
+                    <span v-else class="no">未认证</span><br>
+                    <b>身份</b>
+                </div>
+                <div class="right item">
+                    <p class="top"><b>{{userInfo.balance}}</b>&nbsp;金币</p>
+                    <p class="bottom"><img src="../../assets/images/view/user_center_icon_gold.png"><b>余额</b></p>
+                </div>
             </div>
         </div>
         <div class="setting-list">
@@ -78,12 +80,6 @@
                     is-link>
                 <img slot="icon" src="../../assets/images/view/user_center_icon_list_assist.png">
             </mt-cell>
-            <mt-cell
-                    title="清除openId"
-                    @click.native="clear"
-                    is-link>
-                <img slot="icon" src="../../assets/images/view/user_center_icon_list_assist.png">
-            </mt-cell>
         </div>
     </div>
 </template>
@@ -130,10 +126,6 @@
       Topbar
     },
     methods: {
-      clear(){
-        Store.remove('__YYXXAPP_USERID__')
-        Store.remove('__YYXXAPP_OPENID__')
-      },
       showTips(){
         Toast({
           position: 'bottom',
@@ -151,8 +143,11 @@
     @import '../../assets/css/function.scss';
 
     #user {
-        padding-top: px2em(95px);
         background-color: $color-default-background;
+        .t{
+            padding-top: px2em(95px);
+            background-color: $color-blue;
+        }
         .header {
             text-align: center;
             height: px2em(300px);

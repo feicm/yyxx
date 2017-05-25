@@ -24,10 +24,10 @@
     </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script type="text/ecmascript">
   import Vue from 'vue'
   import {mapGetters} from 'vuex'
-  import {Tabbar, TabItem, Indicator} from 'mint-ui'
+  import {Tabbar, TabItem, Indicator,MessageBox} from 'mint-ui'
   import Topbar from '../topbar/Main.vue'
   import List from './list/Main.vue'
   import Empty from '../empty/Main.vue'
@@ -40,14 +40,19 @@
 
   export default {
     beforeMount(){
-      if(!_.isEmpty(this.$store.getters.classGroupList)){
+      if (!this.isAuth) {
+        MessageBox.alert('请先完成身份认证!').then(action => {
+          this.$router.push('/user/attestation')
+        });
+      }
+      if (!_.isEmpty(this.$store.getters.classGroupList)) {
         Indicator.open({spinnerType: 'fading-circle'});
       }
       if (Store.get('__YYXXAPP_USERID__')) {
         const userId = Store.get('__YYXXAPP_USERID__');
         this.$store.dispatch('getClassesByUserId', {userId: userId}).then(() => {
           Indicator.close()
-          this.isLoading=false
+          this.isLoading = false
         });
         return;
       }
@@ -56,21 +61,21 @@
         Store.set('__YYXXAPP_USERID__', userId);
         this.$store.dispatch('getClassesByUserId', {userId: userId}).then(() => {
           Indicator.close()
-          this.isLoading=false
+          this.isLoading = false
         });
       }, this));
     },
     data () {
       return {
-        isLoading:true,
+        isLoading: true,
         selected: false,
         isEmpty: !this.$store.getters.classGroupList.length
       }
     },
     watch: {
       classGroupList(val){
-        this.isEmpty=!val.length;
-        this.isLoading=false
+        this.isEmpty = !val.length;
+        this.isLoading = false
         Indicator.close()
       },
       wx_userInfo(val){

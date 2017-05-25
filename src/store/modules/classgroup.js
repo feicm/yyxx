@@ -2,6 +2,7 @@ import * as types from '../types'
 import API from '../../api/API';
 import _ from 'lodash'
 const api = new API();
+import * as Msg from '../../utils/msg'
 
 const state = {
   class_group_list: [],
@@ -44,22 +45,40 @@ const actions = {
 
 const mutations = {
   [types.GET_CLASS_GROUP_LIST_BY_USERID](state, payload){
+    if (Msg.isError(payload.data)) {
+      return
+    }
     state.class_group_list = payload.data.data;
   },
   [types.GET_CLASS_GROUP_INFO_BY_ID](state, payload){
+    if (Msg.isError(payload.data)) {
+      return
+    }
     state.class_group_info = payload.data.data.classInfo;
     state.class_group_members = payload.data.data.members;
   },
   [types.EXIT_CLASS_GROUP_BY_ID](state, payload){
+    if (Msg.isError(payload.data)) {
+      return
+    }
     state.class_group_info = {};
   },
   [types.GET_GRADE_INFOS](state, payload){
+    if (Msg.isError(payload.data)) {
+      return
+    }
     state.grade_info = payload.data.data;
   },
   [types.GET_TEXTBOOK](state, payload){
+    if (Msg.isError(payload.data)) {
+      return
+    }
     state.textbook = payload.data.data;
   },
   [types.GET_NOTICE](state, payload){
+    if (Msg.isError(payload.data)) {
+      return
+    }
     state.notice_info = payload.data.data;
   }
 };

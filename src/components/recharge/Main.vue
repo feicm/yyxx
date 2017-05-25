@@ -1,21 +1,23 @@
 <template>
     <div id='recharge'>
-        <Topbar></Topbar>
-        <header class="header">
-            <a class="portrait">
-                <img src="../../assets/images/view/recharge_icon_wallet.png">
-            </a>
-            <div class="tips">
-                <a>
-                    <img src="../../assets/images/view/recharge_icon_love.png">温馨提示
+        <div class="t">
+            <Topbar></Topbar>
+            <header class="header">
+                <a class="portrait">
+                    <img src="../../assets/images/view/recharge_icon_wallet.png">
                 </a>
-            </div>
-            <p class="des">
-                1、尊敬的用户您好，无"免"字标签的章节需付费才能阅读。<br>
-                2、金币与人民币的比率是：1元 = {{price_rate}}{{gold_unit}}。<br>
-                3、连载作品会每天持续更新，您的支持是作者最大的动力，衷心感谢您对正版的支持。
-            </p>
-        </header>
+                <div class="tips">
+                    <a>
+                        <img src="../../assets/images/view/recharge_icon_love.png">温馨提示
+                    </a>
+                </div>
+                <p class="des">
+                    1、尊敬的用户您好，无"免"字标签的章节需付费才能阅读。<br>
+                    2、金币与人民币的比率是：1元 tig= {{price_rate}}{{gold_unit}}。<br>
+                    3、连载作品会每天持续更新，您的支持是作者最大的动力，衷心感谢您对正版的支持。
+                </p>
+            </header>
+        </div>
         <div class="select-list">
             <div class="vx-driver">
                 <img src="../../assets/images/view/recharge_icon_wechat.png">微信支付
@@ -123,8 +125,11 @@
     @import '../../assets/css/function.scss';
 
     #recharge {
-        padding-top: px2em(95px);
         background-color: $color-default-background;
+        .t{
+            padding-top: px2em(95px);
+            background-color: $color-blue;
+        }
         .header {
             text-align: center;
             height: px2em(600px);
