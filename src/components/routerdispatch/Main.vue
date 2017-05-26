@@ -47,6 +47,8 @@
           return
         }
         this.$store.dispatch('getUserOpenId',{code:code}).then(() => {
+          Store.set('__YYXXAPP_OPENID__',this.$store.getters.tokenInfo.openid)
+          console.log(Store.get('__YYXXAPP_OPENID__'))
           this.$router.replace(path)
         }).catch(msg=>{
           alert(msg)

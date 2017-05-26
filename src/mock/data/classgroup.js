@@ -97,21 +97,7 @@ const textbook = {
 const noticeInfo={
   code:'YYXX/REQUIRE_SUCCESS',
   msg:'',
-  data:{
-    "notifyId": "41187717379260416",
-    "notifyTitle": "标题3",
-    "notifyContent": "内容3",
-    "userId": "37202589871243264",
-    "openid": null,
-    "createTime": "2017-04-24 15:45:17",
-    "startTime": null,
-    "endTime": null,
-    "classId": "39682245648187392",
-    "state": "1",
-    "img1": null,
-    "img2": null,
-    "img3": null
-  }
+  data:null
 }
 
 for (let i = 0; i < 10; i++) {

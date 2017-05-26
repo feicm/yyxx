@@ -13,7 +13,7 @@
                 </div>
                 <p class="des">
                     1、尊敬的用户您好，无"免"字标签的章节需付费才能阅读。<br>
-                    2、金币与人民币的比率是：1元 tig= {{price_rate}}{{gold_unit}}。<br>
+                    2、金币与人民币的比率是：1元 = {{price_rate}}{{gold_unit}}。<br>
                     3、连载作品会每天持续更新，您的支持是作者最大的动力，衷心感谢您对正版的支持。
                 </p>
             </header>
@@ -41,7 +41,7 @@
   import Store from 'store'
   import _ from 'lodash'
   const api = new API();
-  import { Toast } from 'mint-ui';
+  import { Toast,Indicator } from 'mint-ui';
 
 
   export default {
@@ -72,10 +72,12 @@
     },
     methods: {
       createOrder(goodId){
+        Indicator.open({spinnerType: 'fading-circle'});
         api.createOrder({"goodId":goodId,"userId":this.userId})
           .then(_.bind(function (res) {
             const data=res.data.data
             const that=this
+            Indicator.close()
             function onBridgeReady(){
               WeixinJSBridge.invoke(
                 'getBrandWCPayRequest', {

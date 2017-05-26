@@ -48,7 +48,7 @@
         user_name: userName,
         isAuth: isAuth,
         isLoading:true,
-        isEmpty: false,
+        isEmpty: true,
         isNew: false,
       }
     },

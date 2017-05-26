@@ -22,12 +22,6 @@ export default{
 
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
-    eid: 8484662,
-    openid: Store.get('__YYXXAPP_OPENID__') || '',
-    pubacckey: '',
-    timestamp: '',
-    nonce: '',
-    pubaccid: '',
   },
 
 
