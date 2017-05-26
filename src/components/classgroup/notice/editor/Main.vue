@@ -44,7 +44,7 @@
 <script type="text/ecmascript-6">
   import Vue from 'vue'
   import {mapGetters} from 'vuex'
-  import {Field, Radio, Toast} from 'mint-ui';
+  import {Field, Radio, Toast, MessageBox} from 'mint-ui';
   import Store from 'store'
   import _ from 'lodash'
   import axios from 'axios'
@@ -120,15 +120,19 @@
           notifyTitle: this.title,
           images: this.transformImg()
         };
-        api.saveNotice(param).then(() => {
-          Toast({
-            message: '提交成功',
-            iconClass: 'mintui mintui-success',
-            duration: 1000
-          });
-          setTimeout(_.bind(function () {
-            this.$router.go(-1)
-          }, this), 1200)
+        api.saveNotice(param).then((resp) => {
+          if (resp.data.code === 'YYXX/REQUIRE_SUCCESS') {
+            Toast({
+              message: '提交成功',
+              iconClass: 'mintui mintui-success',
+              duration: 1000
+            });
+            setTimeout(_.bind(function () {
+              this.$router.go(-1)
+            }, this), 1200)
+          } else {
+            MessageBox.alert(resp.data.msg)
+          }
         })
       },
       update(){
@@ -140,15 +144,19 @@
           notifyId: this.notify_id,
           images: this.transformImg()
         };
-        api.editNotice(param).then(() => {
-          Toast({
-            message: '提交成功',
-            iconClass: 'mintui mintui-success',
-            duration: 1000
-          });
-          setTimeout(_.bind(function () {
-            this.$router.go(-1)
-          }, this), 1200)
+        api.editNotice(param).then((resp) => {
+          if (resp.data.code === 'YYXX/REQUIRE_SUCCESS') {
+            Toast({
+              message: '提交成功',
+              iconClass: 'mintui mintui-success',
+              duration: 1000
+            });
+            setTimeout(_.bind(function () {
+              this.$router.go(-1)
+            }, this), 1200)
+          } else {
+            MessageBox.alert(resp.data.msg)
+          }
         })
       },
       edit(){
@@ -182,9 +190,12 @@
           var blob = this.dataURItoBlob(reader.result);
           fd.append('file', blob);
           axios.post('http://www.yyxx100.com/yyxx/utils/uploadImg?userId=' + this.user_id, fd).then(resp => {
-            const imgPath = resp.data.data.imgPath;
-            console.log(imgPath)
-            this.imgs.push(imgPath)
+            if (resp.data.code === 'YYXX/REQUIRE_SUCCESS') {
+              const imgPath = resp.data.data.imgPath;
+              this.imgs.push(imgPath)
+            } else {
+              MessageBox.alert(resp.data.msg)
+            }
           })
         }, this)
 

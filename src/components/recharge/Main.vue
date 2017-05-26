@@ -12,9 +12,9 @@
                     </a>
                 </div>
                 <p class="des">
-                    1、尊敬的用户您好，无"免"字标签的章节需付费才能阅读。<br>
-                    2、金币与人民币的比率是：1元 = {{price_rate}}{{gold_unit}}。<br>
-                    3、连载作品会每天持续更新，您的支持是作者最大的动力，衷心感谢您对正版的支持。
+                    1、尊敬的用户您好，无"免""任务"标签的资料需要付费使用。<br>
+                    2、金币与人民币的比率是1元=100金币，充值适当有返利。<br>
+                    3、资料会持续更新，您的支持是我们最大的动力，衷心感谢您的支持。
                 </p>
             </header>
         </div>
@@ -41,15 +41,15 @@
   import Store from 'store'
   import _ from 'lodash'
   const api = new API();
-  import { Toast,Indicator } from 'mint-ui';
+  import {Toast, Indicator, MessageBox} from 'mint-ui';
 
 
   export default {
     beforeMount(){
-      this.userId=Store.get('__YYXXAPP_USERID__');
+      this.userId = Store.get('__YYXXAPP_USERID__');
       api.getRechargeGoods({})
         .then(_.bind(function (res) {
-          const data=res.data.data;
+          const data = res.data.data;
           this.price_rate = data.priceRate;
           this.gold_unit = data.goldUnit;
           this.goods = data.goods;
@@ -73,43 +73,48 @@
     methods: {
       createOrder(goodId){
         Indicator.open({spinnerType: 'fading-circle'});
-        api.createOrder({"goodId":goodId,"userId":this.userId})
-          .then(_.bind(function (res) {
-            const data=res.data.data
-            const that=this
-            Indicator.close()
-            function onBridgeReady(){
-              WeixinJSBridge.invoke(
-                'getBrandWCPayRequest', {
-                  "appId":data.appId,     //公众号名称，由商户传入
-                  "timeStamp":data.timeStamp,         //时间戳，自1970年以来的秒数
-                  "nonceStr":data.nonceStr, //随机串
-                  "package":data.packageString,
-                  "signType":data.signType,         //微信签名方式：
-                  "paySign":data.paySign //微信签名
-                },
-                function(res){
-                  if(res.err_msg == "get_brand_wcpay_request:ok" ) {
-                    Toast({
-                      message: '充值成功',
-                      iconClass: 'mintui mintui-success'
-                    });
-                    setTimeout(function () {
-                      that.$router.replace('/user/info')
-                    },1200)
-                  }     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
-                }
-              );
-            }
-            if (typeof WeixinJSBridge == "undefined"){
-              if( document.addEventListener ){
-                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-              }else if (document.attachEvent){
-                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
-                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+        api.createOrder({"goodId": goodId, "userId": this.userId})
+          .then(_.bind(function (resp) {
+            if (resp.data.code === 'YYXX/REQUIRE_SUCCESS') {
+              const data = resp.data.data
+              const that = this
+              Indicator.close()
+              function onBridgeReady() {
+                WeixinJSBridge.invoke(
+                  'getBrandWCPayRequest', {
+                    "appId": data.appId,     //公众号名称，由商户传入
+                    "timeStamp": data.timeStamp,         //时间戳，自1970年以来的秒数
+                    "nonceStr": data.nonceStr, //随机串
+                    "package": data.packageString,
+                    "signType": data.signType,         //微信签名方式：
+                    "paySign": data.paySign //微信签名
+                  },
+                  function (res) {
+                    if (res.err_msg == "get_brand_wcpay_request:ok") {
+                      Toast({
+                        message: '充值成功',
+                        iconClass: 'mintui mintui-success'
+                      });
+                      setTimeout(function () {
+                        that.$router.replace('/user/info')
+                      }, 1200)
+                    }     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
+                  }
+                );
               }
-            }else{
-              onBridgeReady();
+
+              if (typeof WeixinJSBridge == "undefined") {
+                if (document.addEventListener) {
+                  document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+                } else if (document.attachEvent) {
+                  document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                  document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+                }
+              } else {
+                onBridgeReady();
+              }
+            } else {
+              MessageBox.alert(resp.data.msg)
             }
           }, this))
           .catch(function (err) {
@@ -128,7 +133,7 @@
 
     #recharge {
         background-color: $color-default-background;
-        .t{
+        .t {
             padding-top: px2em(95px);
             background-color: $color-blue;
         }

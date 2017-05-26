@@ -13,15 +13,19 @@
             </header>
             <div class="info">
                 <div class="left item">
-                    <span v-if="userInfo.roleId==1">学生</span>
-                    <span v-else-if="userInfo.roleId==2">家长</span>
-                    <span v-else-if="userInfo.roleId==3">老师</span>
-                    <span v-else class="no">未认证</span><br>
-                    <b>身份</b>
+                    <router-link to="/user/attestation">
+                        <span v-if="userInfo.roleId==1">学生</span>
+                        <span v-else-if="userInfo.roleId==2">家长</span>
+                        <span v-else-if="userInfo.roleId==3">老师</span>
+                        <span v-else class="no">未认证</span><br>
+                        <b>身份</b>
+                    </router-link>
                 </div>
                 <div class="right item">
-                    <p class="top"><b>{{userInfo.balance}}</b>&nbsp;金币</p>
-                    <p class="bottom"><img src="../../assets/images/view/user_center_icon_gold.png"><b>余额</b></p>
+                    <router-link to="/user/recharge">
+                        <p class="top"><b>{{userInfo.balance}}</b>&nbsp;金币</p>
+                        <p class="bottom"><img src="../../assets/images/view/user_center_icon_gold.png"><b>余额</b></p>
+                    </router-link>
                 </div>
             </div>
         </div>
@@ -76,7 +80,7 @@
             </mt-cell>
             <mt-cell
                     title="使用帮助"
-                    to="／"
+                    to="/default"
                     is-link>
                 <img slot="icon" src="../../assets/images/view/user_center_icon_list_assist.png">
             </mt-cell>
@@ -144,7 +148,7 @@
 
     #user {
         background-color: $color-default-background;
-        .t{
+        .t {
             padding-top: px2em(95px);
             background-color: $color-blue;
         }
@@ -199,7 +203,7 @@
             align-items: center;
             -webkit-align-items: center;
             .item {
-                width:45%;
+                width: 45%;
                 height: px2em(52px);
                 flex: 1;
                 -webkit-flex: 1;
@@ -216,7 +220,7 @@
                     top: -(px2em(10px));
                     font-weight: normal;
                 }
-                .no{
+                .no {
                     background-color: $color-default;
                 }
                 b {
@@ -240,8 +244,8 @@
                 }
                 .bottom {
                     top: -(px2em(22px));
-                    b{
-                        font-weight:normal;
+                    b {
+                        font-weight: normal;
                         @include font-dpr(14px);
                     }
                     color: #999;
@@ -251,7 +255,7 @@
                         height: px2em(30px);
                         margin-left: 32%;
                         margin-right: -36%;
-                        margin-top:px2em(3px);
+                        margin-top: px2em(3px);
                     }
                 }
             }

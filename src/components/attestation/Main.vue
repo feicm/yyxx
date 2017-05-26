@@ -95,9 +95,9 @@
       }, this));
     },
     data () {
-      const {roleId, userId,userName,phone} = this.$store.getters.userInfo;
+      const {roleId, userId, userName, phone} = this.$store.getters.userInfo;
       return {
-        user_id:userId,
+        user_id: userId,
         user_name: userName,
         mobile: phone,
         role_id: roleId,
@@ -187,18 +187,22 @@
           roleId: this.role_id
         };
         MessageBox.confirm('认证信息不能修，确认提交?').then(_.bind(function () {
-          api.userIdentity(param).then(_.bind(function () {
-            Toast({
-              message: '认证成功！',
-              duration: 1000
-            });
-            Store.set('__YYXXAPP_isAuth__', 1);
-            Store.set('__YYXXAPP_roleId__', this.role_id);
-            this.$store.commit(types.CHANGE_AUTH_STATE);
-            this.readonly = true;
-            setTimeout(_.bind(function () {
-              this.$router.go(-1)
-            }, this), 1200)
+          api.userIdentity(param).then(_.bind(function (resp) {
+            if (resp.data.code === 'YYXX/REQUIRE_SUCCESS') {
+              Toast({
+                message: '认证成功！',
+                duration: 1000
+              });
+              Store.set('__YYXXAPP_isAuth__', 1);
+              Store.set('__YYXXAPP_roleId__', this.role_id);
+              this.$store.commit(types.CHANGE_AUTH_STATE);
+              this.readonly = true;
+              setTimeout(_.bind(function () {
+                this.$router.go(-1)
+              }, this), 1200)
+            } else {
+              MessageBox.alert(resp.data.msg)
+            }
           }, this))
         }, this));
       }

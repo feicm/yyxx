@@ -27,7 +27,7 @@
 <script type="text/ecmascript">
   import Vue from 'vue'
   import {mapGetters} from 'vuex'
-  import {Tabbar, TabItem, Indicator,MessageBox} from 'mint-ui'
+  import {Tabbar, TabItem, Indicator, MessageBox} from 'mint-ui'
   import Topbar from '../topbar/Main.vue'
   import List from './list/Main.vue'
   import Empty from '../empty/Main.vue'
@@ -44,26 +44,14 @@
         MessageBox.alert('请先完成身份认证!').then(action => {
           this.$router.push('/user/attestation')
         });
+        return
       }
-      if (!_.isEmpty(this.$store.getters.classGroupList)) {
-        Indicator.open({spinnerType: 'fading-circle'});
-      }
-      if (Store.get('__YYXXAPP_USERID__')) {
-        const userId = Store.get('__YYXXAPP_USERID__');
-        this.$store.dispatch('getClassesByUserId', {userId: userId}).then(() => {
-          Indicator.close()
-          this.isLoading = false
-        });
-        return;
-      }
-      this.$store.dispatch('getInfoByOpenId', {openid: Store.get('__YYXXAPP_OPENID__')}).then(_.bind(function () {
-        const userId = this.$store.state.user.wx_user_info.userId;
-        Store.set('__YYXXAPP_USERID__', userId);
-        this.$store.dispatch('getClassesByUserId', {userId: userId}).then(() => {
-          Indicator.close()
-          this.isLoading = false
-        });
-      }, this));
+      Indicator.open({spinnerType: 'fading-circle'});
+      const userId = Store.get('__YYXXAPP_USERID__');
+      this.$store.dispatch('getClassesByUserId', {userId: userId}).then(() => {
+        Indicator.close()
+        this.isLoading = false
+      });
     },
     data () {
       const {isAuth}=this.$store.getters.userInfo;

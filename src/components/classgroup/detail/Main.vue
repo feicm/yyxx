@@ -43,7 +43,8 @@
                                  src="../../../assets/images/default/general_user_head_portrait_student_default.png">
                         </a>
                         <p class="username">
-                            <span v-if="member.roleId === '2'" class="blue">{{member.userName}}</span>
+                            <span v-if="member.roleId === '1'">{{member.studentName}}</span>
+                            <span v-if="member.roleId === '2'" class="blue">{{member.studentName}}</span>
                             <span v-else>{{member.userName}}</span>
                         </p>
                         <p class="des">

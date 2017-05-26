@@ -4,10 +4,8 @@
         <div class="img">
             <img src="../../../assets/images/view/class_group_top_icon_establish.png">
         </div>
-        <mt-field v-if="role_id===1 || role_id===2" label="学生姓名" placeholder="请输入学生姓名" :state="userNameState"
-                  type="text" v-model="user_name">
-        </mt-field>
-        <mt-field v-else label="姓名" placeholder="请输入您的姓名" :state="userNameState" type="text" v-model="user_name">
+        <mt-field v-if="role_id===2" label="学生姓名" placeholder="请输入学生姓名" :state="userNameState"
+                  type="text" v-model="student_name">
         </mt-field>
         <mt-field label="班群ID" placeholder="请输入班群ID" :state="classIdState" type="text" v-model="class_id">
         </mt-field>
@@ -21,7 +19,7 @@
     </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script type="text/ecmascript">
   import Vue from 'vue'
   import Topbar from '../../topbar/Main.vue';
   import {Cell, Field, MessageBox, Toast} from 'mint-ui';
@@ -45,7 +43,7 @@
       const {userId, roleId, userName, isAuth}=this.$store.getters.userInfo;
       return {
         user_id: userId || Store.get('__YYXXAPP_USERID__'),
-        user_name: userName,
+        student_name: '',
         class_id: '',
         place_id: '',
         userNameState: userName ? 'success' : '',
@@ -103,22 +101,28 @@
       submit(){
         const param = {
           userId: this.user_id,
-          userName: this.user_name,
+          studentName: this.student_name,
           classId: this.class_id,
           roleId: this.role_id,
           place: this.place_id
         };
         MessageBox.confirm('加入班群：' + this.class_id + '?').then(action => {
-          api.joinClassGroup(param).then(() => {
-            MessageBox.confirm('加入成功，继续添加？')
-              .then(action => {
-                this.class_id = ''
-              })
-              .catch(action => {
-                setTimeout(_.bind(function () {
-                  this.$router.replace('/user/classgroup/detail/' + this.class_id)
-                }, this), 1200)
-              });
+          api.joinClassGroup(param).then((resp) => {
+            if (resp.data.code === 'YYXX/REQUIRE_SUCCESS') {
+              MessageBox.confirm('加入成功，继续添加？')
+                .then(action => {
+                  this.class_id = ''
+                })
+                .catch(action => {
+                  setTimeout(_.bind(function () {
+                    this.$router.replace('/user/classgroup/detail/' + this.class_id)
+                  }, this), 1200)
+                });
+            } else {
+              MessageBox.alert(resp.data.msg)
+            }
+          }).catch(msg => {
+            alert(msg)
           })
         });
       }

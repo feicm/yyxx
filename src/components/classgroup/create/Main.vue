@@ -73,10 +73,10 @@
     </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script type="text/ecmascript">
   import Vue from 'vue'
   import {mapGetters} from 'vuex'
-  import {Field, Radio, DatetimePicker, Popup, Toast} from 'mint-ui';
+  import {Field, Radio, DatetimePicker, Popup, Toast, MessageBox} from 'mint-ui';
   import Topbar from '../../topbar/Main.vue';
   import Moment from 'moment'
   import Store from 'store'
@@ -91,6 +91,11 @@
 
   export default {
     beforeMount(){
+      if (Store.get('__YYXXAPP_roleId__') - 0 === 2) {
+        MessageBox.alert('家长不能创建班群哦！').then(action => {
+          this.$router.go(-1)
+        });
+      }
       if (_.isEmpty(this.gradeInfo)) {
         this.$store.dispatch('getGradeInfos');
       } else {
@@ -292,16 +297,19 @@
           place: this.place_id,
           bookId: tId[0]
         };
-        console.log(param)
-        api.createClassGroup(param).then(() => {
-          Toast({
-            message: '班群创建成功！',
-            iconClass: 'mintui mintui-success',
-            duration: 1000
-          });
-          setTimeout(() => {
-            this.$router.go(-1)
-          }, 1200)
+        api.createClassGroup(param).then((resp) => {
+          if (resp.data.code === 'YYXX/REQUIRE_SUCCESS') {
+            Toast({
+              message: '班群创建成功！',
+              iconClass: 'mintui mintui-success',
+              duration: 1000
+            });
+            setTimeout(() => {
+              this.$router.go(-1)
+            }, 1200)
+          } else {
+            MessageBox.alert(resp.data.msg)
+          }
         })
       }
     }

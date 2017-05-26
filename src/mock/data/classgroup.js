@@ -113,6 +113,7 @@ for (let i = 0; i < 10; i++) {
     "userId": Mock.Random.integer(1, 100), //用户唯一编号
     "roleId": Mock.Random.integer(1, 3), //学生、家长or老师
     "userName": Mock.Random.cname(), //姓名
+    "studentName": Mock.Random.cname(), //姓名
     "headimgurl": "", //头像
     "parentName": Mock.Random.cname(), //家长姓名，可能为空
     "taskStatus": "", //最新任务完成情

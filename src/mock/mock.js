@@ -100,7 +100,7 @@ export default {
     mock.onPost('/classInfo/saveClassInfo').reply(config => {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
-          resolve([200, null]);
+          resolve([200, noticeInfo]);
         }, 1000);
       });
     });

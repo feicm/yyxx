@@ -5,9 +5,10 @@
                 class="page-part"
                 title="吐槽一下"
                 v-model="value"
-                :options="options" />
+                :options="options"/>
         <div class="title">问题反馈</div>
-        <mt-field placeholder="感谢您使用助学英语，使用过程中有任何意见或者建议，请反馈给我们。（字数300字以内）" v-model="agreement_content" type="textarea" rows="8"></mt-field>
+        <mt-field placeholder="感谢您使用助学英语，使用过程中有任何意见或者建议，请反馈给我们。（字数300字以内）" v-model="agreement_content" type="textarea"
+                  rows="8"></mt-field>
         <div class="submit">
             <mt-button @click.native="submit" size="large" type="primary">提交</mt-button>
         </div>
@@ -17,7 +18,7 @@
 <script>
   import Vue from 'vue'
   import Topbar from '../topbar/Main.vue';
-  import { Field , Radio , Toast } from 'mint-ui';
+  import {Field, Radio, Toast, MessageBox} from 'mint-ui';
   import API from '../../api/API'
   import Store from 'store'
   const api = new API();
@@ -26,12 +27,12 @@
 
   export default {
     beforeMount(){
-        this.userId=this.$store.getters.userInfo.user_id;
+      this.userId = this.$store.getters.userInfo.user_id;
     },
     data () {
       return {
         value: '内容太少，找不到想要的',
-        agreement_content:''
+        agreement_content: ''
       };
     },
     created(){
@@ -45,8 +46,8 @@
           value: '功能有bug'
         },
         {
-          label: '单词错误',
-          value: '单词错误'
+          label: '充值未到账',
+          value: '充值未到账'
         },
         {
           label: '其他',
@@ -59,17 +60,21 @@
     },
     methods: {
       submit(){
-        api.postAgreement({userId: this.userId,agreementTitle:this.value,agreementContent:this.agreement_content})
-          .then(_.bind(function (res) {
-            Toast({
-              message: '提交成功',
-              iconClass: 'mintui mintui-success',
-              duration: 1000
-            });
-            setTimeout(_.bind(function () {
-              this.$router.go(-1)
-            },this), 1200)
-          },this))
+        api.postAgreement({userId: this.userId, agreementTitle: this.value, agreementContent: this.agreement_content})
+          .then(_.bind(function (resp) {
+            if (resp.data.code === 'YYXX/REQUIRE_SUCCESS') {
+              Toast({
+                message: '提交成功',
+                iconClass: 'mintui mintui-success',
+                duration: 1000
+              });
+              setTimeout(_.bind(function () {
+                this.$router.go(-1)
+              }, this), 1200)
+            } else {
+              MessageBox.alert(resp.data.msg)
+            }
+          }, this))
           .catch(function (err) {
             console.log(err);
           });
@@ -87,12 +92,12 @@
     #feedback {
         padding-top: px2em(95px);
         background-color: $color-default-background;
-        .title{
+        .title {
             margin: 8px;
-            color:#888;
+            color: #888;
         }
-        .submit{
-            margin:px2em(40px) px2em(35px);
+        .submit {
+            margin: px2em(40px) px2em(35px);
         }
     }
 
