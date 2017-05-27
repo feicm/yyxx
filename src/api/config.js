@@ -45,7 +45,7 @@ export default{
   },
 
 
-  timeout: 1000,
+  timeout: 30000,
 
 
   withCredentials: false, // default
