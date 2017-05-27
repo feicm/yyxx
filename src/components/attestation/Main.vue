@@ -1,6 +1,6 @@
 <template>
     <div id='attestation'>
-        <Topbar v-if="userInfo.isAuth" :isback="true" :title="'认证信息'"></Topbar>
+        <Topbar v-if="isAuth" :isback="true" :title="'认证信息'"></Topbar>
         <Topbar v-else :isback="true" :title="'身份认证'"></Topbar>
         <header class="header">
             <a class="portrait">
@@ -8,14 +8,14 @@
             </a>
             <p class="name"><span>助学英语</span></p>
         </header>
-        <mt-field v-if="userInfo.isAuth" readonly disabled placeholder="输入真实姓名" type="text"
+        <mt-field v-if="isAuth" readonly disabled placeholder="输入真实姓名" type="text"
                   v-model="userInfo.userName">
             <img src="../../assets/images/view/attestation_import_username.png">
         </mt-field>
         <mt-field v-else placeholder="输入真实姓名" type="text" :state="userNameState" v-model="user_name">
             <img src="../../assets/images/view/attestation_import_username.png">
         </mt-field>
-        <mt-field v-if="userInfo.isAuth" readonly disabled placeholder="输入手机号码" type="tel" v-model="userInfo.phone">
+        <mt-field v-if="isAuth" readonly disabled placeholder="输入手机号码" type="tel" v-model="userInfo.phone">
             <img src="../../assets/images/view/attestation_import_tel_number.png">
         </mt-field>
         <mt-field v-else placeholder="输入手机号码" :state="mobileState" ref="mobile" type="tel"
@@ -53,7 +53,7 @@
         <div class="submit">
             <p class="tips">注意：认证信息不能修改</p>
             <mt-button v-if='actived' @click.native="submit" size="large" type="primary">提交</mt-button>
-            <mt-button v-else-if="userInfo.isAuth" size="large" type="primary" disabled>已认证</mt-button>
+            <mt-button v-else-if="isAuth" size="large" type="primary" disabled>已认证</mt-button>
             <mt-button v-else size="large" type="primary" disabled>提交</mt-button>
         </div>
     </div>
@@ -95,7 +95,7 @@
       }, this));
     },
     data () {
-      const {roleId, userId, userName, phone} = this.$store.getters.userInfo;
+      const {roleId, userId, userName, phone,isAuth} = this.$store.getters.userInfo;
       return {
         user_id: userId,
         user_name: userName,
@@ -104,6 +104,7 @@
         userNameState: '',
         mobileState: '',
         actived: false,
+        isAuth:isAuth || Store.get('__YYXXAPP_isAuth__'),
         role: {
           student: {
             text: '学生',
@@ -171,7 +172,7 @@
         return this.userNameState === 'success' && this.mobileState === 'success';
       },
       selectRole(roleName){
-        if (this.userInfo.isAuth) {
+        if (this.isAuth) {
           return;
         }
         _.each(this.role, function (item) {

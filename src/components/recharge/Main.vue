@@ -12,8 +12,8 @@
                     </a>
                 </div>
                 <p class="des">
-                    1、尊敬的用户您好，无"免""任务"标签的资料需要付费使用。<br>
-                    2、金币与人民币的比率是1元=100金币，充值适当有返利。<br>
+                    1、尊敬的用户您好，无"免""任务"标签的资料需要付费。<br>
+                    2、金币与人民币的比率是1元=100金币，充值有返利。<br>
                     3、资料会持续更新，您的支持是我们最大的动力，衷心感谢您的支持。
                 </p>
             </header>
@@ -75,6 +75,7 @@
         Indicator.open({spinnerType: 'fading-circle'});
         api.createOrder({"goodId": goodId, "userId": this.userId})
           .then(_.bind(function (resp) {
+            alert("创建订单成功：" + resp.data.code === 'YYXX/REQUIRE_SUCCESS')
             if (resp.data.code === 'YYXX/REQUIRE_SUCCESS') {
               const data = resp.data.data
               const that = this
@@ -114,10 +115,12 @@
                 onBridgeReady();
               }
             } else {
+              Indicator.close()
               MessageBox.alert(resp.data.msg)
             }
           }, this))
           .catch(function (err) {
+            Indicator.close()
             console.log(err);
           });
       }

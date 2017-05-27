@@ -22,20 +22,21 @@
                     </router-link>
                 </div>
                 <div class="right item">
-                    <router-link to="/user/recharge">
+                    <a href="/user/recharge/#/user/recharge">
                         <p class="top"><b>{{userInfo.balance}}</b>&nbsp;金币</p>
                         <p class="bottom"><img src="../../assets/images/view/user_center_icon_gold.png"><b>余额</b></p>
-                    </router-link>
+                    </a>
                 </div>
             </div>
         </div>
         <div class="setting-list">
-            <mt-cell
-                    title="点击充值"
-                    to="/user/recharge"
-                    is-link>
-                <img slot="icon" src="../../assets/images/view/user_center_icon_list_recharge.png">
-            </mt-cell>
+            <a class="href" href="/user/recharge/#/user/recharge">
+                <mt-cell
+                        title="点击充值"
+                        is-link>
+                    <img slot="icon" src="../../assets/images/view/user_center_icon_list_recharge.png">
+                </mt-cell>
+            </a>
             <mt-cell
                     title="意见反馈"
                     to="/user/feedback"
@@ -262,6 +263,9 @@
         }
         .setting-list {
             margin: px2em(44px) 0;
+            .href{
+                color:#000;
+            }
             .mint-cell {
                 height: px2em(88px);
                 img {
