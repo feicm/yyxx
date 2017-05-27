@@ -213,8 +213,8 @@
                 flex-direction: row;
                 -webkit-flex-wrap: wrap;
                 flex-wrap: wrap;
-                -webkit-justify-content: center;
-                justify-content: center;
+                -webkit-justify-content: flex-start;
+                justify-content: flex-start;
                 -webkit-align-items: center;
                 align-items: center;
                 -webkit-align-content: center;
@@ -224,7 +224,7 @@
                 li {
                     display: inline-block;
                     text-align: center;
-                    width: 33%;
+                    width: 33.3333%;
                     a {
                         display: inline-block;
                         width: 90%;

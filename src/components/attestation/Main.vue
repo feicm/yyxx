@@ -96,6 +96,7 @@
     },
     data () {
       const {roleId, userId, userName, phone,isAuth} = this.$store.getters.userInfo;
+      const isNew=!roleId;
       return {
         user_id: userId,
         user_name: userName,
@@ -108,7 +109,7 @@
         role: {
           student: {
             text: '学生',
-            select: roleId - 0 === 1,
+            select: isNew || roleId - 0 === 1,
             id: 1
           },
           patriarch: {
