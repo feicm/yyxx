@@ -19,7 +19,7 @@ const userInfo = {
     "loginName": null,
     "passWord": null,
     "balance": null,
-    "roleId": '3',
+    "roleId": '2',
     "roleName": null,
     "isAuth": 1,
     "parentName": null

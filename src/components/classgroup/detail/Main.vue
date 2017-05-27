@@ -44,7 +44,7 @@
                         </a>
                         <p class="username">
                             <span v-if="member.roleId === '1'">{{member.studentName}}</span>
-                            <span v-if="member.roleId === '2'" class="blue">{{member.studentName}}</span>
+                            <span v-else-if="member.roleId === '2'" class="blue">{{member.studentName}}</span>
                             <span v-else>{{member.userName}}</span>
                         </p>
                         <p class="des">

@@ -55,7 +55,7 @@
       }
     },
     watch: {
-      user_name(val){
+      student_name(val){
         if (_.trim(val)) {
           this.studentNameState = 'success'
         } else {
