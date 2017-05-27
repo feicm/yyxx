@@ -74,7 +74,7 @@
         <mt-tabbar v-model="selected" fixed>
 
             <mt-tab-item id="create">
-                <router-link :to="'/user/classgroup/notice/'+class_id">
+                <router-link :to="'/user/classgroup/notice/'+class_id +'?createrId='+classGroupInfo.userId">
                     公告栏
                 </router-link>
             </mt-tab-item>

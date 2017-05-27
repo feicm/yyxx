@@ -10,12 +10,12 @@
                    h1="本群暂无公告"
                    h2="">
             </Empty>
-            <div v-if="role_id === 3" class="submit">
+            <div v-if="role_id === 3 || isCreater" class="submit">
                 <mt-button @click="add" size="large" type="primary">编辑公告</mt-button>
             </div>
         </div>
 
-        <Editor v-else :info="noticeInfo" :isNew="isNew"></Editor>
+        <Editor v-else :info="noticeInfo" :isNew="isNew" :isCreater="isCreater"></Editor>
     </div>
 </template>
 
@@ -25,7 +25,7 @@
   import Topbar from '../../topbar/Main.vue';
   import Empty from '../../empty/Main.vue'
   import Editor from './editor/Main.vue'
-  import { Indicator} from 'mint-ui'
+  import {Indicator} from 'mint-ui'
   import _ from 'lodash'
   import Store from 'store'
 
@@ -33,33 +33,34 @@
   export default {
     beforeMount(){
       Indicator.open({spinnerType: 'fading-circle'});
-      this.$store.dispatch('getNotifyInfo', {userId:this.user_id,classId: this.$route.params.id}).then(()=>{
+      this.$store.dispatch('getNotifyInfo', {userId: this.user_id, classId: this.$route.params.id}).then(() => {
         Indicator.close();
-      }).catch(()=>{
-        this.isEmpty=true;
-        this.isLoading=false;
+      }).catch(() => {
+        this.isEmpty = true;
+        this.isLoading = false;
       })
     },
     data () {
       const {userId, roleId, userName, isAuth}=this.$store.getters.userInfo;
       return {
-        user_id: userId||Store.get('__YYXXAPP_USERID__'),
-        role_id: roleId-0 || Store.get('__YYXXAPP_roleId__'),
+        user_id: userId || Store.get('__YYXXAPP_USERID__'),
+        role_id: roleId - 0 || Store.get('__YYXXAPP_roleId__'),
         user_name: userName,
         isAuth: isAuth,
-        isLoading:true,
+        isLoading: true,
         isEmpty: true,
         isNew: false,
+        isCreater: (userId || Store.get('__YYXXAPP_USERID__')) === this.$route.query.createrId
       }
     },
     watch: {
       noticeInfo(val){
-        if(!_.isEmpty(val)){
-          this.isEmpty=false;
-        }else {
-          this.isEmpty=true
+        if (!_.isEmpty(val)) {
+          this.isEmpty = false;
+        } else {
+          this.isEmpty = true
         }
-        this.isLoading=false;
+        this.isLoading = false;
       }
     },
     computed: mapGetters({

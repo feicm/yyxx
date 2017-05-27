@@ -29,7 +29,7 @@
                 </ul>
             </div>
         </div>
-        <div class="submit" v-if="role_id===3">
+        <div class="submit" v-if="role_id===3 || isCreater">
             <mt-button v-if="isPreview && isEdited" @click.native="back" size="large" type="primary" plain>返回修改
             </mt-button>
             <mt-button v-if="isEdited && !isPreview" @click.native="preview" size="large" type="primary" plain>预览公告
@@ -89,7 +89,7 @@
         };
       }
     },
-    props: ['info', 'isNew'],
+    props: ['info', 'isNew','isCreater'],
     watch: {
       noticeInfo(val){
         const {notifyId, notifyTitle, notifyContent, img1, img2, img3}=val;
