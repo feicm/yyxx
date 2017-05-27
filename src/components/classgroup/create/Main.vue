@@ -73,7 +73,7 @@
     </div>
 </template>
 
-<script type="text/ecmascript">
+<script type="text/ecmascript-6">
   import Vue from 'vue'
   import {mapGetters} from 'vuex'
   import {Field, Radio, DatetimePicker, Popup, Toast, MessageBox} from 'mint-ui';
@@ -82,6 +82,8 @@
   import Store from 'store'
   import API from '../../../api/API'
   const api = new API()
+  import * as types from '../../../store/types'
+
   //import Radio from '../../radio/Main.vue'
   import _ from 'lodash'
   Vue.component(Radio.name, Radio);
@@ -206,7 +208,6 @@
             label: v.bookName + v.serialName
           })
         });
-        console.log(options)
         return options
       },
       gradeInfo(){
@@ -263,9 +264,18 @@
         this.popupGrade = false;
         this.radioEdition.value = '';
         this.radioEdition.selectedName = '请选择教材版本';
+        this.$store.commit(types.REMOVE_TEXTBOOK);
         this.actived = false;
         this.$store.dispatch('getTextbook', {
           gradeId: this.radioGrade.value
+        }).then(()=>{
+          if(_.isEmpty(this.$store.getters.textBook)){
+            MessageBox.alert('暂时没有「'+this.radioGrade.selectedName+'」的教材版本，请重新选择其他年级！')
+            this.radioGrade.value = '';
+            this.radioGrade.selectedName = '请选择教材版本';
+          }
+        }).catch(()=>{
+          MessageBox.alert('获取「'+this.radioGrade.selectedName+'」教材版本失败，请检查您的网络连接或联系管理员！')
         })
       },
       changeEdition(){

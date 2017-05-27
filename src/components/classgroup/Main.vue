@@ -40,7 +40,7 @@
 
   export default {
     beforeMount(){
-      if (!this.isAuth) {
+      if (!Store.get('__YYXXAPP_isAuth__')) {
         MessageBox.alert('请先完成身份认证!').then(action => {
           this.$router.push('/user/attestation')
         });

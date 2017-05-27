@@ -75,6 +75,9 @@ const mutations = {
     }
     state.textbook = payload.data.data;
   },
+  [types.REMOVE_TEXTBOOK](state, payload){
+    state.textbook = {};
+  },
   [types.GET_NOTICE](state, payload){
     if (Msg.isError(payload.data)) {
       return
