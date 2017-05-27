@@ -44,7 +44,7 @@
 <script type="text/ecmascript-6">
   import Vue from 'vue'
   import {mapGetters} from 'vuex'
-  import {Field, Radio, Toast, MessageBox} from 'mint-ui';
+  import {Field, Radio, Toast, MessageBox,Indicator} from 'mint-ui';
   import Store from 'store'
   import _ from 'lodash'
   import axios from 'axios'
@@ -183,16 +183,16 @@
           return;
         }
         reader.readAsDataURL(img1);
-        var that = this;
         reader.onloadend = _.bind(function () {
-          //that.imgs.push(reader.result)
           var fd = new FormData();
           var blob = this.dataURItoBlob(reader.result);
           fd.append('file', blob);
+          Indicator.open({spinnerType: 'fading-circle'});
           axios.post('http://www.yyxx100.com/yyxx/utils/uploadImg?userId=' + this.user_id, fd).then(resp => {
             if (resp.data.code === 'YYXX/REQUIRE_SUCCESS') {
               const imgPath = resp.data.data.imgPath;
               this.imgs.push(imgPath)
+              Indicator.close()
             } else {
               MessageBox.alert(resp.data.msg)
             }
