@@ -4,7 +4,7 @@
         <div class="img">
             <img src="../../../assets/images/view/class_group_top_icon_establish.png">
         </div>
-        <mt-field v-if="role_id===2" label="学生姓名" placeholder="请输入学生姓名" :state="userNameState"
+        <mt-field v-if="role_id===2" label="学生姓名" placeholder="请输入学生姓名" :state="studentNameState"
                   type="text" v-model="student_name">
         </mt-field>
         <mt-field label="班群ID" placeholder="请输入班群ID" :state="classIdState" type="text" v-model="class_id">
@@ -46,7 +46,7 @@
         student_name: '',
         class_id: '',
         place_id: '',
-        userNameState: userName ? 'success' : '',
+        studentNameState: '',
         classIdState: '',
         placeIdState: '',
         isAuth: isAuth || Store.get('__YYXXAPP_isAuth__'),
@@ -57,9 +57,9 @@
     watch: {
       user_name(val){
         if (_.trim(val)) {
-          this.userNameState = 'success'
+          this.studentNameState = 'success'
         } else {
-          this.userNameState = 'error'
+          this.studentNameState = 'error'
         }
       },
       class_id(val){
@@ -76,7 +76,7 @@
           this.placeIdState = 'error'
         }
       },
-      userNameState(){
+      studentNameState(){
         this.actived = this.checkInput()
       },
       classIdState(){
@@ -92,8 +92,11 @@
     },
     methods: {
       checkInput(){
-        let result = this.userNameState === 'success' && this.classIdState === 'success';
-        if (this.role_id !== 3) {
+        let result = this.classIdState === 'success';
+        if (this.role_id === 2) {
+          result = result && this.studentNameState === 'success' && this.placeIdState === 'success';
+        }
+        if (this.role_id === 1) {
           result = result && this.placeIdState === 'success';
         }
         return result;

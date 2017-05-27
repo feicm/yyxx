@@ -48,14 +48,20 @@
     beforeMount(){
       this.userId = Store.get('__YYXXAPP_USERID__');
       api.getRechargeGoods({})
-        .then(_.bind(function (res) {
-          const data = res.data.data;
-          this.price_rate = data.priceRate;
-          this.gold_unit = data.goldUnit;
-          this.goods = data.goods;
+        .then(_.bind(function (resp) {
+          if (resp.data.code === 'YYXX/REQUIRE_SUCCESS') {
+            const data = resp.data.data;
+            this.price_rate = data.priceRate;
+            this.gold_unit = data.goldUnit;
+            this.goods = data.goods;
+          } else {
+            Indicator.close()
+            MessageBox.alert(resp.data.msg)
+          }
         }, this))
         .catch(function (err) {
-          console.log(err);
+          Indicator.close()
+          alert(err);
         });
     },
     data () {
@@ -75,7 +81,6 @@
         Indicator.open({spinnerType: 'fading-circle'});
         api.createOrder({"goodId": goodId, "userId": this.userId})
           .then(_.bind(function (resp) {
-            alert("创建订单成功：" + resp.data.code === 'YYXX/REQUIRE_SUCCESS')
             if (resp.data.code === 'YYXX/REQUIRE_SUCCESS') {
               const data = resp.data.data
               const that = this
@@ -121,7 +126,7 @@
           }, this))
           .catch(function (err) {
             Indicator.close()
-            console.log(err);
+            alert(err);
           });
       }
     }
@@ -142,7 +147,7 @@
         }
         .header {
             text-align: center;
-            height: px2em(600px);
+            min-height: px2em(600px);
             background-image: url('../../assets/images/view/recharge_background.png');
             background-size: cover;
             .portrait {
