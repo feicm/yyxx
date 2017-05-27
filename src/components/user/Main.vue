@@ -118,6 +118,7 @@
     watch: {
       userInfo(val){
         Indicator.close();
+        Store.set('__YYXXAPP_userInfo__', val);
         Store.set('__YYXXAPP_isAuth__', val.isAuth);
         Store.set('__YYXXAPP_roleId__', val.roleId);
       }
