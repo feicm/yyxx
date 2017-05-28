@@ -59,12 +59,12 @@
         isLoading: true,
         selected: false,
         isAuth: isAuth || Store.get('__YYXXAPP_isAuth__'),
-        isEmpty: !this.$store.getters.classGroupList.length
+        isEmpty: !this.$store.getters.classGroupList
       }
     },
     watch: {
       classGroupList(val){
-        this.isEmpty = !val.length;
+        this.isEmpty = !val;
         this.isLoading = false
         Indicator.close()
       },
