@@ -226,7 +226,7 @@
             padding-left: 115px;
             margin-top: -30px;
             position: relative;
-            z-index: 11;
+            z-index: 0;
             ul.box {
                 overflow: hidden;
                 li {
