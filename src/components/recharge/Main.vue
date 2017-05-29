@@ -55,9 +55,9 @@
             this.gold_unit = data.goldUnit;
             this.goods = data.goods;
           } else {
-            Indicator.close()
             MessageBox.alert(resp.data.msg)
           }
+          Indicator.close()
         }, this))
         .catch(function (err) {
           Indicator.close()
