@@ -78,17 +78,17 @@
 
     },
     data () {
-      const {roleId, userId, userName, phone,isAuth} = this.$store.getters.wx_userInfo;
-      const isNew=!roleId;
+      const {roleId, userId, userName, phone, isAuth} = this.$store.getters.wx_userInfo;
+      const isNew = !roleId;
       return {
         user_id: userId,
         user_name: userName,
         mobile: phone,
-        role_id: roleId,
+        role_id: isNew ? 1 : roleId,
         userNameState: '',
         mobileState: '',
         actived: false,
-        isAuth:isAuth || Store.get('__YYXXAPP_isAuth__'),
+        isAuth: isAuth || Store.get('__YYXXAPP_isAuth__'),
         role: {
           student: {
             text: '学生',
