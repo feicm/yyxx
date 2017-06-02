@@ -111,7 +111,7 @@ export default {
         }, 1000);
       });
     });
-    mock.onGet('/gradeInfo/getTextbook').reply(config => {
+    mock.onGet('/textbookInfo/getTextbooks').reply(config => {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve([200, textbook]);

@@ -111,7 +111,7 @@
     data () {
       const now = new Date();
       const nowShow = Moment().format("YYYY 年 MM 月");
-      const {userId, roleId, userName, isAuth}=this.$store.getters.userInfo;
+      const {userId, roleId, userName, isAuth}=this.$store.getters.wx_userInfo;
       return {
         user_id: userId || Store.get('__YYXXAPP_USERID__'),
         user_name: userName,
@@ -272,10 +272,12 @@
           if(_.isEmpty(this.$store.getters.textBook)){
             MessageBox.alert('暂时没有「'+this.radioGrade.selectedName+'」的教材版本，请重新选择其他年级！')
             this.radioGrade.value = '';
-            this.radioGrade.selectedName = '请选择教材版本';
+            this.radioGrade.selectedName = '请选择年级';
           }
         }).catch(()=>{
           MessageBox.alert('获取「'+this.radioGrade.selectedName+'」教材版本失败，请检查您的网络连接或联系管理员！')
+          this.radioGrade.value = '';
+          this.radioGrade.selectedName = '请选择年级';
         })
       },
       changeEdition(){

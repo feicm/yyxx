@@ -59,7 +59,7 @@
 
     },
     data () {
-      const {roleId, userId}=this.$store.getters.userInfo;
+      const {roleId, userId}=this.$store.getters.wx_userInfo;
       const {classId}=this.$store.getters.classGroupInfo;
       if (this.isNew) {
         return {

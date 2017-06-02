@@ -26,7 +26,7 @@
             <ul>
                 <li class="item">
                     <a @click.stop="selectRole('student')">
-                        <img v-if="role.student.select || userInfo.role_id-0===1"
+                        <img v-if="role.student.select || userInfo.roleId-0===1"
                              src="../../assets/images/view/attestation_import_identity_student_pressed.png">
                         <img v-else src="../../assets/images/view/attestation_import_identity_student_normal.png">
                         <b class="name">学生</b>
@@ -34,7 +34,7 @@
                 </li>
                 <li class="item">
                     <a @click.stop="selectRole('patriarch')">
-                        <img v-if="role.patriarch.select || userInfo.role_id-0===2"
+                        <img v-if="role.patriarch.select || userInfo.roleId-0===2"
                              src="../../assets/images/view/attestation_import_identity_patriarch_pressed.png">
                         <img v-else src="../../assets/images/view/attestation_import_identity_patriarch_normal.png">
                         <b class="name">家长</b>
@@ -42,7 +42,7 @@
                 </li>
                 <li class="item">
                     <a @click.stop="selectRole('teacher')">
-                        <img v-if="role.teacher.select || userInfo.role_id-0===3"
+                        <img v-if="role.teacher.select || userInfo.roleId-0===3"
                              src="../../assets/images/view/attestation_import_identity_teacher_pressed.png">
                         <img v-else src="../../assets/images/view/attestation_import_identity_teacher_normal.png">
                         <b class="name">老师</b>
@@ -75,27 +75,10 @@
 
   export default {
     beforeMount(){
-      if (!_.isEmpty(this.$store.getters.userInfo)) {
-        return;
-      }
-      Indicator.open({spinnerType: 'fading-circle'});
-      if (Store.get('__YYXXAPP_USERID__')) {
-        const userId = Store.get('__YYXXAPP_USERID__');
-        this.$store.dispatch('getInfoByUserId', {userId: userId}).then(() => {
-          Indicator.close()
-        });
-        return;
-      }
-      this.$store.dispatch('getInfoByOpenId', {openid: Store.get('__YYXXAPP_OPENID__')}).then(_.bind(function () {
-        const userId = this.$store.state.user.wx_user_info.userId;
-        Store.set('__YYXXAPP_USERID__', userId);
-        this.$store.dispatch('getInfoByUserId', {userId: userId}).then(() => {
-          Indicator.close()
-        });
-      }, this));
+
     },
     data () {
-      const {roleId, userId, userName, phone,isAuth} = this.$store.getters.userInfo;
+      const {roleId, userId, userName, phone,isAuth} = this.$store.getters.wx_userInfo;
       const isNew=!roleId;
       return {
         user_id: userId,
@@ -163,7 +146,7 @@
       }
     },
     computed: mapGetters({
-      userInfo: 'userInfo'
+      userInfo: 'wx_userInfo'
     }),
     components: {
       Topbar

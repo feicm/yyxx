@@ -27,7 +27,7 @@
 
   export default {
     beforeMount(){
-      this.userId = this.$store.getters.userInfo.user_id;
+      this.userId = this.$store.getters.wx_userInfo.user_id;
     },
     data () {
       return {

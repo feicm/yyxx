@@ -54,7 +54,7 @@
       });
     },
     data () {
-      const {isAuth}=this.$store.getters.userInfo;
+      const {isAuth}=this.$store.getters.wx_userInfo;
       return {
         isLoading: true,
         selected: false,
@@ -68,7 +68,7 @@
         this.isLoading = false
         Indicator.close()
       },
-      wx_userInfo(val){
+      userInfo(val){
         Indicator.close();
         Store.set('__YYXXAPP_isAuth__', val.isAuth);
         Store.set('__YYXXAPP_roleId__', val.roleId);
@@ -76,7 +76,7 @@
     },
     computed: mapGetters({
       classGroupList: 'classGroupList',
-      wx_userInfo: 'wx_userInfo'
+      userInfo: 'wx_userInfo'
     }),
     components: {
       Topbar,

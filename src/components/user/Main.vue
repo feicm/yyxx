@@ -14,9 +14,9 @@
             <div class="info">
                 <div class="left item">
                     <router-link to="/user/attestation">
-                        <span v-if="userInfo.roleId==1">学生</span>
-                        <span v-else-if="userInfo.roleId==2">家长</span>
-                        <span v-else-if="userInfo.roleId==3">老师</span>
+                        <span v-if="userInfo.roleId-0===1">学生</span>
+                        <span v-else-if="userInfo.roleId-0===2">家长</span>
+                        <span v-else-if="userInfo.roleId-0===3">老师</span>
                         <span v-else class="no">未认证</span><br>
                         <b>身份</b>
                     </router-link>
@@ -100,16 +100,9 @@
 
   export default {
     beforeMount(){
-      if (Store.get('__YYXXAPP_USERID__')) {
-        const userId = Store.get('__YYXXAPP_USERID__');
-        this.$store.dispatch('getInfoByUserId', {userId: userId});
-        return;
-      }
-      Indicator.open({spinnerType: 'fading-circle'});
       this.$store.dispatch('getInfoByOpenId', {openid: Store.get('__YYXXAPP_OPENID__')}).then(_.bind(function () {
         const userId = this.$store.state.user.wx_user_info.userId;
         Store.set('__YYXXAPP_USERID__', userId);
-        this.$store.dispatch('getInfoByUserId', {userId: userId});
       }, this));
     },
     data () {
@@ -124,7 +117,7 @@
       }
     },
     computed: mapGetters({
-      userInfo: 'userInfo'
+      userInfo: 'wx_userInfo'
     }),
     components: {
       Cell,
@@ -138,7 +131,7 @@
         });
       },
       goRecharge(){
-        location.href='/user/recharge/?#/user/recharge'
+        location.href = '/user/recharge/?#/user/recharge'
       }
     }
   }

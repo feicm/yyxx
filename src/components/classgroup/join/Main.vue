@@ -40,7 +40,7 @@
       }
     },
     data () {
-      const {userId, roleId, userName, isAuth}=this.$store.getters.userInfo;
+      const {userId, roleId, userName, isAuth}=this.$store.getters.wx_userInfo;
       return {
         user_id: userId || Store.get('__YYXXAPP_USERID__'),
         student_name: '',
