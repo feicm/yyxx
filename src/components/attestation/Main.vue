@@ -188,7 +188,9 @@
             } else {
               MessageBox.alert(resp.data.msg)
             }
-          }, this))
+          }, this)).catch(msg=>{
+            alert(msg)
+          })
         }, this));
       }
     }
