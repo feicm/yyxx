@@ -109,14 +109,14 @@
       }
     },
     watch: {
-      'role.student.select'(){
-        this.role_id = 1;
+      'role.student.select'(val){
+        val && (this.role_id = 1);
       },
-      'role.patriarch.select'(){
-        this.role_id = 2;
+      'role.patriarch.select'(val){
+        val && (this.role_id = 2);
       },
-      'role.teacher.select'(){
-        this.role_id = 3;
+      'role.teacher.select'(val){
+        val && (this.role_id = 3);
       },
       user_name(val){
         if (_.trim(val)) {
