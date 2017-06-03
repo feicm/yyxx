@@ -81,7 +81,7 @@
       const {roleId, userId, userName, phone, isAuth} = this.$store.getters.wx_userInfo;
       const isNew = !roleId;
       return {
-        user_id: userId,
+        user_id: userId || Store.get('__YYXXAPP_USERID__'),
         user_name: userName,
         mobile: phone,
         role_id: isNew ? 1 : roleId,
