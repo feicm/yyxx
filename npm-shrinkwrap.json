@@ -582,6 +582,33 @@
       "from": "graceful-readlink@>=1.0.0",
       "resolved": "https://registry.npmjs.org/graceful-readlink/-/graceful-readlink-1.0.1.tgz"
     },
+    "gulp-insert": {
+      "version": "0.5.0",
+      "from": "gulp-insert@>=0.5.0 <0.6.0",
+      "resolved": "https://registry.npmjs.org/gulp-insert/-/gulp-insert-0.5.0.tgz",
+      "dependencies": {
+        "isarray": {
+          "version": "0.0.1",
+          "from": "isarray@0.0.1",
+          "resolved": "https://registry.npmjs.org/isarray/-/isarray-0.0.1.tgz"
+        },
+        "readable-stream": {
+          "version": "1.1.14",
+          "from": "readable-stream@>=1.0.26-4 <2.0.0",
+          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-1.1.14.tgz"
+        },
+        "string_decoder": {
+          "version": "0.10.31",
+          "from": "string_decoder@>=0.10.0 <0.11.0",
+          "resolved": "https://registry.npmjs.org/string_decoder/-/string_decoder-0.10.31.tgz"
+        }
+      }
+    },
+    "gulp-rename": {
+      "version": "1.2.2",
+      "from": "gulp-rename@>=1.2.2 <2.0.0",
+      "resolved": "https://registry.npmjs.org/gulp-rename/-/gulp-rename-1.2.2.tgz"
+    },
     "har-schema": {
       "version": "1.0.5",
       "from": "har-schema@>=1.0.5 <2.0.0",
@@ -870,6 +897,11 @@
       "version": "4.0.2",
       "from": "lru-cache@>=4.0.1 <5.0.0",
       "resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-4.0.2.tgz"
+    },
+    "lrz": {
+      "version": "4.9.40",
+      "from": "lrz@latest",
+      "resolved": "https://registry.npmjs.org/lrz/-/lrz-4.9.40.tgz"
     },
     "map-obj": {
       "version": "1.0.1",
@@ -1260,6 +1292,28 @@
       "version": "2.0.4",
       "from": "store@>=2.0.4 <3.0.0",
       "resolved": "https://registry.npmjs.org/store/-/store-2.0.4.tgz"
+    },
+    "streamqueue": {
+      "version": "0.0.6",
+      "from": "streamqueue@0.0.6",
+      "resolved": "https://registry.npmjs.org/streamqueue/-/streamqueue-0.0.6.tgz",
+      "dependencies": {
+        "isarray": {
+          "version": "0.0.1",
+          "from": "isarray@0.0.1",
+          "resolved": "https://registry.npmjs.org/isarray/-/isarray-0.0.1.tgz"
+        },
+        "readable-stream": {
+          "version": "1.1.14",
+          "from": "readable-stream@^1.0.26-2",
+          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-1.1.14.tgz"
+        },
+        "string_decoder": {
+          "version": "0.10.31",
+          "from": "string_decoder@~0.10.x",
+          "resolved": "https://registry.npmjs.org/string_decoder/-/string_decoder-0.10.31.tgz"
+        }
+      }
     },
     "string_decoder": {
       "version": "1.0.0",

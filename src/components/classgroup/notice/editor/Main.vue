@@ -44,10 +44,11 @@
 <script type="text/ecmascript-6">
   import Vue from 'vue'
   import {mapGetters} from 'vuex'
-  import {Field, Radio, Toast, MessageBox,Indicator} from 'mint-ui';
+  import {Field, Radio, Toast, MessageBox, Indicator} from 'mint-ui';
   import Store from 'store'
   import _ from 'lodash'
   import axios from 'axios'
+  import lrz from 'lrz'
   import API from '../../../../api/API'
   const api = new API()
 
@@ -89,7 +90,7 @@
         };
       }
     },
-    props: ['info', 'isNew','isCreater'],
+    props: ['info', 'isNew', 'isCreater'],
     watch: {
       noticeInfo(val){
         const {notifyId, notifyTitle, notifyContent, img1, img2, img3}=val;
@@ -174,7 +175,7 @@
       },
       add_img(event){
         var reader = new FileReader();
-        var img1 = event.target.files[0];
+        var img = event.target.files[0];
         if (this.imgs.length === 3) {
           Toast({
             position: 'bottom',
@@ -182,33 +183,24 @@
           });
           return;
         }
-        reader.readAsDataURL(img1);
-        reader.onloadend = _.bind(function () {
-          var fd = new FormData();
-          var blob = this.dataURItoBlob(reader.result);
-          fd.append('file', blob);
-          Indicator.open({spinnerType: 'fading-circle'});
-          axios.post('http://www.yyxx100.com/yyxx/utils/uploadImg?userId=' + this.user_id, fd).then(resp => {
-            if (resp.data.code === 'YYXX/REQUIRE_SUCCESS') {
-              const imgPath = resp.data.data.imgPath;
-              this.imgs.push(imgPath)
-              Indicator.close()
-            } else {
-              MessageBox.alert(resp.data.msg)
-            }
+        lrz(img)
+          .then((rst) => {
+            var fd = new FormData();
+            fd.append('file', rst.file);
+            Indicator.open({spinnerType: 'fading-circle'});
+            axios.post('http://www.yyxx100.com/yyxx/utils/uploadImg?userId=' + this.user_id, fd).then(resp => {
+              if (resp.data.code === 'YYXX/REQUIRE_SUCCESS') {
+                const imgPath = resp.data.data.imgPath;
+                this.imgs.push(imgPath)
+                Indicator.close()
+              } else {
+                MessageBox.alert(resp.data.msg)
+              }
+            })
           })
-        }, this)
-
-      },
-      dataURItoBlob(dataURI) {
-        var byteString = atob(dataURI.split(',')[1]);
-        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-        var ab = new ArrayBuffer(byteString.length);
-        var ia = new Uint8Array(ab);
-        for (var i = 0; i < byteString.length; i++) {
-          ia[i] = byteString.charCodeAt(i);
-        }
-        return new Blob([ab], {type: mimeString});
+          .catch(function (err) {
+            alert(err)
+          })
       }
     }
   }
