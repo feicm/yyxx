@@ -174,7 +174,6 @@
         this.imgs.splice(item, 1);
       },
       add_img(event){
-        var reader = new FileReader();
         var img = event.target.files[0];
         if (this.imgs.length === 3) {
           Toast({
@@ -192,14 +191,15 @@
               if (resp.data.code === 'YYXX/REQUIRE_SUCCESS') {
                 const imgPath = resp.data.data.imgPath;
                 this.imgs.push(imgPath)
-                Indicator.close()
               } else {
                 MessageBox.alert(resp.data.msg)
               }
+              Indicator.close()
             })
           })
           .catch(function (err) {
             alert(err)
+            Indicator.close()
           })
       }
     }
