@@ -64,7 +64,7 @@
         Indicator.open({spinnerType: 'fading-circle'});
         this.$store.dispatch('getInfoByOpenId', {openid: Store.get('__YYXXAPP_OPENID__')}).then(() => {
           Indicator.close();
-          const userId = this.$store.state.user.wx_user_info.userId;
+          const userId = this.$store.getters.wx_userInfo.userId;
           Store.set('__YYXXAPP_USERID__', userId);
           Store.set(code, {
             'openId': Store.get('__YYXXAPP_OPENID__'),
@@ -73,6 +73,7 @@
           this.$router.replace(path)
         }).catch(msg => {
           alert(msg)
+          Indicator.close();
         });
       }
     }
