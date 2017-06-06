@@ -32,6 +32,8 @@
         <div class="setting-list">
             <mt-cell
                     title="点击充值"
+                    @touchstart.native="changeBackgroundColor"
+                    @touchend.native="removeBackgroundColor"
                     @click.native="goRecharge"
                     is-link>
                 <img slot="icon" src="../../assets/images/view/user_center_icon_list_recharge.png">
@@ -39,48 +41,64 @@
             <mt-cell
                     title="意见反馈"
                     to="/user/feedback"
+                    @touchstart.native="changeBackgroundColor"
+                    @touchend.native="removeBackgroundColor"
                     is-link>
                 <img slot="icon" src="../../assets/images/view/user_center_icon_list_opinion.png">
             </mt-cell>
             <mt-cell v-if="userInfo.isAuth"
                      title="我的班群"
                      to="/user/classgroup"
+                     @touchstart.native="changeBackgroundColor"
+                     @touchend.native="removeBackgroundColor"
                      is-link>
                 <img slot="icon" src="../../assets/images/view/user_center_icon_list_class_group.png">
             </mt-cell>
             <mt-cell v-else
                      title="我的班群"
                      @click.native="showTips"
+                     @touchstart.native="changeBackgroundColor"
+                     @touchend.native="removeBackgroundColor"
                      is-link>
                 <img slot="icon" src="../../assets/images/view/user_center_icon_list_class_group.png">
             </mt-cell>
             <mt-cell v-if="userInfo.isAuth"
                      title="认证信息"
                      to="/user/attestation"
+                     @touchstart.native="changeBackgroundColor"
+                     @touchend.native="removeBackgroundColor"
                      is-link>
                 <img slot="icon" src="../../assets/images/view/user_center_icon_list_approve.png">
             </mt-cell>
             <mt-cell v-else
                      title="身份认证"
                      to="/user/attestation"
+                     @touchstart.native="changeBackgroundColor"
+                     @touchend.native="removeBackgroundColor"
                      is-link>
                 <img slot="icon" src="../../assets/images/view/user_center_icon_list_approve.png">
             </mt-cell>
             <mt-cell v-if="userInfo.isAuth"
                      title="创建班群"
                      to="/user/classgroup/create"
+                     @touchstart.native="changeBackgroundColor"
+                     @touchend.native="removeBackgroundColor"
                      is-link>
                 <img slot="icon" src="../../assets/images/view/user_center_icon_list_class_group_establish.png">
             </mt-cell>
             <mt-cell v-else
                      title="创建班群"
                      @click.native="showTips"
+                     @touchstart.native="changeBackgroundColor"
+                     @touchend.native="removeBackgroundColor"
                      is-link>
                 <img slot="icon" src="../../assets/images/view/user_center_icon_list_class_group_establish.png">
             </mt-cell>
             <mt-cell
                     title="使用帮助"
                     to="/default"
+                    @touchstart.native="changeBackgroundColor"
+                    @touchend.native="removeBackgroundColor"
                     is-link>
                 <img slot="icon" src="../../assets/images/view/user_center_icon_list_assist.png">
             </mt-cell>
@@ -132,6 +150,12 @@
       },
       goRecharge(){
         location.href = '/user/recharge/?#/user/recharge'
+      },
+      changeBackgroundColor(e){
+        e.target.parentElement.style.backgroundColor="fefefe";
+      },
+      removeBackgroundColor(e){
+        e.target.parentElement.style.backgroundColor="#fff";
       }
     }
   }
