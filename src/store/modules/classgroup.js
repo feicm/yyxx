@@ -74,7 +74,6 @@ const mutations = {
       return
     }
     state.textbook = payload.data.data;
-    console.log(state.textbook)
   },
   [types.REMOVE_TEXTBOOK](state, payload){
     state.textbook = {};
