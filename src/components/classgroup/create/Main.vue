@@ -204,8 +204,8 @@
         const options = [];
         _.map(this.$store.getters.textBook, function (v) {
           options.push({
-            value: v.bookId + '_' + v.serialId,
-            label: v.bookName + v.serialName
+            value: v.bookId,
+            label: v.bookName
           })
         });
         return options
@@ -295,19 +295,17 @@
            teacherName：老师名称 (如果创建者是老师，此项不填，直接获取认证的姓名，前端不要展示这个填写)
            place：座位号 (如果创建者是老师，默认给个座号0，前端不要展示这行填写)
            bookId:教材版本*/
-        const tId = this.radioEdition.value.split('_')
         const param = {
           userId: this.user_id,
           roleId: this.role_id,
           schoolName: this.school_name,
           gradeId: this.radioGrade.value,
-          serialId: tId[1],
           className: this.class_name,
           startDate: this.startTime,
           endDate: this.endTime,
           teacherName: this.teacher_name,
           place: this.place_id,
-          bookId: tId[0]
+          bookId: this.radioEdition.value
         };
         api.createClassGroup(param).then((resp) => {
           if (resp.data.code === 'YYXX/REQUIRE_SUCCESS') {

@@ -103,9 +103,8 @@ const noticeInfo={
 for (let i = 0; i < 10; i++) {
   textbook.data.push(Mock.mock({
     bookId: Mock.Random.integer(1, 100),
-    serialId: Mock.Random.integer(1, 100),
     bookName: '民教版',
-    serialName: '？册',
+    state:'1'
   }));
 }
 for (let i = 0; i < 10; i++) {
