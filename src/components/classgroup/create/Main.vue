@@ -261,15 +261,15 @@
         this.popupGrade = false;
         this.popupEdition = false;
       },
-      changeGrade(){
+      changeGrade(currentValue){
         this.popupGrade = false;
         this.radioEdition.value = '';
         this.radioEdition.selectedName = '请选择教材版本';
         this.$store.commit(types.REMOVE_TEXTBOOK);
         this.actived = false;
-        alert('请求前gradeId:'+this.radioGrade.value)
+        alert('请求前gradeId:'+currentValue)
         this.$store.dispatch('getTextbook', {
-          gradeId: this.radioGrade.value
+          gradeId: currentValue
         }).then(()=>{
           if(_.isEmpty(this.$store.getters.textBook)){
             MessageBox.alert('暂时没有「'+this.radioGrade.selectedName+'」的教材版本，请重新选择其他年级！')
