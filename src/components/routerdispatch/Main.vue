@@ -45,6 +45,9 @@
     methods: {
       getOpenId(){
         const {code, path}=this.$store.getters.wxAuthInfo;
+        /*Store.set('__YYXXAPP_OPENID__', 'okOB6w9oW_sytNIG3l2lY6iZ1Vf0')
+        this.getUserInfo(path, code)
+        return;*/
         if (Store.get(code)) {
           this.$router.replace(path)
           return
