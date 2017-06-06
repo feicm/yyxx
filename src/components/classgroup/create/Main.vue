@@ -151,7 +151,6 @@
     },
     watch: {
       'radioGrade.value'(){
-        alert('切换gradeId:'+this.radioGrade.value)
         if (!this.radioGrade.value) {
           return
         }
@@ -267,7 +266,6 @@
         this.radioEdition.selectedName = '请选择教材版本';
         this.$store.commit(types.REMOVE_TEXTBOOK);
         this.actived = false;
-        alert('请求前gradeId:'+currentValue)
         this.$store.dispatch('getTextbook', {
           gradeId: currentValue
         }).then(()=>{

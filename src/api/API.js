@@ -55,9 +55,7 @@ class API {
     return axios.get('/gradeInfo/getGradeInfos',config);
   }
   getTextbookVersion(param){
-    alert('合并前'+JSON.stringify(param))
     config.params = Object.assign(config.params,param);
-    alert('合并后'+JSON.stringify(config.params))
     return axios.get('/textbookInfo/getTextbooks',config);
   }
   getTaskList(param){
