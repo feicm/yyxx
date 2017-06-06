@@ -17,7 +17,6 @@
   export default {
     beforeMount(){
       this.$store.commit(types.GET_CODE)
-      this.getOpenId()
     },
     data () {
       return {}
