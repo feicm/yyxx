@@ -22,7 +22,7 @@
 <script type="text/ecmascript">
   import Vue from 'vue'
   import Topbar from '../../topbar/Main.vue';
-  import {Cell, Field, MessageBox, Toast} from 'mint-ui';
+  import {Cell, Field, MessageBox, Toast,Indicator} from 'mint-ui';
   import Store from 'store';
   import _ from 'lodash';
   import API from '../../../api/API'
@@ -32,6 +32,7 @@
 
   export default {
     beforeMount(){
+      Indicator.close()
       //未认证，提示并跳转到认证页面，已认证，身份：学生or家长——default view ，老师——用户名，无座位号
       if (!Store.get('__YYXXAPP_isAuth__')) {
         MessageBox.alert('请先完成身份认证!').then(action => {

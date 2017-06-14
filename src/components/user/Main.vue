@@ -118,6 +118,7 @@
 
   export default {
     beforeMount(){
+      Indicator.close();
       this.$store.dispatch('getInfoByOpenId', {openid: Store.get('__YYXXAPP_OPENID__')}).then(_.bind(function () {
         const userId = this.$store.state.user.wx_user_info.userId;
         Store.set('__YYXXAPP_USERID__', userId);

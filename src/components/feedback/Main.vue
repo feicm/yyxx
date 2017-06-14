@@ -18,7 +18,7 @@
 <script>
   import Vue from 'vue'
   import Topbar from '../topbar/Main.vue';
-  import {Field, Radio, Toast, MessageBox} from 'mint-ui';
+  import {Field, Radio, Toast, MessageBox,Indicator} from 'mint-ui';
   import API from '../../api/API'
   import Store from 'store'
   const api = new API();
@@ -27,6 +27,7 @@
 
   export default {
     beforeMount(){
+      Indicator.close();
       this.userId = this.$store.getters.wx_userInfo.user_id;
     },
     data () {

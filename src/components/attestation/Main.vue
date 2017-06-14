@@ -75,7 +75,7 @@
 
   export default {
     beforeMount(){
-
+      Indicator.close();
     },
     data () {
       const {roleId, userId, userName, phone, isAuth} = this.$store.getters.wx_userInfo;

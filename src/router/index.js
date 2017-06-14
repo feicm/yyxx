@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import {Indicator} from 'mint-ui';
 
 const RouterDispatch = r => require.ensure([], () => r(require('../components/routerdispatch/Main.vue')), 'dispatch')
 const Home = r => require.ensure([], () => r(require('../components/home/Main.vue')), 'home')
@@ -18,7 +19,7 @@ const Default = r => require.ensure([], () => r(require('../components/default/M
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   routes: [
     {path: '/', component: RouterDispatch},
     {path: '/home', component: Home},
@@ -36,3 +37,9 @@ export default new Router({
     {path: '/default', component: Default}
   ]
 });
+router.beforeEach((to, from, next) => {
+  Indicator.open({spinnerType: 'fading-circle'});
+  next()
+})
+
+export default router

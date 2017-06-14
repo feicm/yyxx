@@ -76,7 +76,7 @@
 <script type="text/ecmascript-6">
   import Vue from 'vue'
   import {mapGetters} from 'vuex'
-  import {Field, Radio, DatetimePicker, Popup, Toast, MessageBox} from 'mint-ui';
+  import {Field, Radio, DatetimePicker, Popup, Toast, MessageBox,Cell,Indicator} from 'mint-ui';
   import Topbar from '../../topbar/Main.vue';
   import Moment from 'moment'
   import Store from 'store'
@@ -90,9 +90,11 @@
   Vue.component(Field.name, Field)
   Vue.component(DatetimePicker.name, DatetimePicker);
   Vue.component(Popup.name, Popup);
+  Vue.component(Cell.name, Cell);
 
   export default {
     beforeMount(){
+      Indicator.close()
       if (Store.get('__YYXXAPP_roleId__') - 0 === 2) {
         MessageBox.alert('家长不能创建班群哦！').then(action => {
           this.$router.go(-1)
