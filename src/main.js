@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 import Mock from './mock'
 
-//Mock.open();
+Mock.open();
 
 const app = new Vue({
 	store,

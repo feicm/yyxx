@@ -1,5 +1,6 @@
 <template>
     <div id='main'>
+        <Topbar></Topbar>
         <div class="group">
             <router-link :to="'/user/info'">
                 <mt-button size="large" plain>用户中心</mt-button>
@@ -13,7 +14,7 @@
             <a href="/user/recharge/?#/user/recharge">
                 <mt-button size="large" plain>快速充值</mt-button>
             </a>
-            <router-link :to="'/default'">
+            <router-link :to="'/play/letter'">
                 <mt-button size="large" plain>字母音标</mt-button>
             </router-link>
             <router-link :to="'/default'">
@@ -33,6 +34,23 @@
 </template>
 
 <script>
+  import Vue from 'vue'
+  import {Indicator} from 'mint-ui';
+  import Topbar from '../topbar/Main.vue';
+
+  export default {
+    beforeMount(){
+      Indicator.close();
+    },
+    data () {
+      return {}
+    },
+
+    components: {
+      Topbar
+    }
+  }
+
 
 </script>
 
@@ -41,7 +59,7 @@
     @import '../../assets/css/function.scss';
 
     #main {
-        padding: px2em(10px)
+        padding: px2em(105px) px2em(10px)
     }
 
     .group > a {

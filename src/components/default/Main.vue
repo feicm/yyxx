@@ -12,12 +12,14 @@
 
 <script>
   import Vue from 'vue'
+  import {Indicator} from 'mint-ui';
+
   import Topbar from '../topbar/Main.vue'
   import Empty from '../empty/Main.vue'
 
   export default {
     beforeMount(){
-
+      Indicator.close()
     },
     data () {
       return {}

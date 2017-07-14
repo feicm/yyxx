@@ -15,6 +15,8 @@ const ClassGroupDetail = r => require.ensure([], () => r(require('../components/
 const ClassGroupNotice = r => require.ensure([], () => r(require('../components/classgroup/notice/Main.vue')), 'class-group-notice')
 const ClassGroupTaskList = r => require.ensure([], () => r(require('../components/classgroup/task/Main.vue')), 'class-group-task')
 const ClassGroupTaskListHistory = r => require.ensure([], () => r(require('../components/classgroup/task/history/Main.vue')), 'class-group-history')
+const Letter = r => require.ensure([], () => r(require('../components/letter/Main.vue')), 'letter')
+
 const Default = r => require.ensure([], () => r(require('../components/default/Main.vue')), 'default')
 
 Vue.use(Router);
@@ -34,6 +36,7 @@ const router = new Router({
     {path: '/user/classgroup/task/:id', component: ClassGroupTaskList},
     {path: '/user/classgroup/task/history/:id', component: ClassGroupTaskListHistory},
     {path: '/user/classgroup/detail/:id', component: ClassGroupDetail},
+    {path: '/play/letter', component: Letter},
     {path: '/default', component: Default}
   ]
 });
