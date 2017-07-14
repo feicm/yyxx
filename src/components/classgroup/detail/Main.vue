@@ -34,7 +34,7 @@
                     </div>
                 </div>
             </li>
-            <li class="card" v-for="member in members">
+            <li class="card" v-for="member in members" :key="member">
                 <div class="left">
                     <div class="w">
                         <a class="portrait">

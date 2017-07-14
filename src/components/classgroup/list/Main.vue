@@ -1,7 +1,7 @@
 <template>
     <div id='cgList'>
         <ul>
-            <li class="item" v-for="item in list">
+            <li class="item" v-for="item in list" :key="item">
                 <router-link :to="'/user/classgroup/detail/'+item.classId">
                     <h1 class="top">
                         <p class="title">{{item.gradeName}}{{item.className}}</p>

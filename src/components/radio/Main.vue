@@ -1,6 +1,6 @@
 <template>
     <div class="mint-radiolist">
-        <mt-cell v-for="option in options">
+        <mt-cell v-for="option in options" :key="option">
             <label class="mint-radiolist-label" slot="title">
             <span class="mint-radio is-right">
             <input

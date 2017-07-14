@@ -11,7 +11,7 @@
             <mt-tab-container v-model="selected">
                 <mt-tab-container-item id="1">
                     <ul>
-                        <li v-for="letter in letters">
+                        <li v-for="letter in letters" :key="letter">
                             <a><b>{{letter}}</b></a>
                         </li>
                     </ul>
@@ -41,7 +41,7 @@
                     </div>
                 </mt-tab-container-item>
                 <mt-tab-container-item id="2">
-                    <mt-cell v-for="n in 4" :title="'测试 ' + n"/>
+                    <mt-cell v-for="n in 4" :title="'测试 ' + n" :key="n"/>
                 </mt-tab-container-item>
             </mt-tab-container>
             <div class="button ">

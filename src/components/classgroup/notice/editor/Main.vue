@@ -4,7 +4,7 @@
             <h1 class="title">{{title}}</h1>
             <p class="content">{{content}}</p>
             <ul class="imgs">
-                <li v-for='(item ,index ) in imgs'>
+                <li v-for='(item ,index ) in imgs' :key="item">
                     <img :src="item">
                 </li>
             </ul>
@@ -16,7 +16,7 @@
             <mt-field label="图片上传" disabled></mt-field>
             <div class="upload">
                 <ul class="box">
-                    <li v-for='(item ,index ) in imgs'>
+                    <li v-for='(item ,index ) in imgs' :key="item">
                         <div class="w">
                             <img :src="item">
                             <span @click='delete_img(index)' class="delete">x</span>

@@ -23,7 +23,7 @@
                 <img src="../../assets/images/view/recharge_icon_wechat.png">微信支付
             </div>
             <ul>
-                <li v-for="good in goods" class="item" @click="createOrder(good.goodId)">
+                <li v-for="good in goods" :key="good" class="item" @click="createOrder(good.goodId)">
                     <a>
                         <b class="value">{{good.goodDesc}}</b>
                         <b class="des">{{good.goodPrice*price_rate}}+{{good.goodGive*price_rate}}金币</b>
